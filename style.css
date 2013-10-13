@@ -20,7 +20,7 @@ article{
 }
 h2{
   font-size:36px;
-  font-weight:bold;
+  font-weight:lighter;
   color:white;
   padding: 8px 0 7px 0;
   border-bottom:1px solid white;
@@ -37,7 +37,7 @@ h2{
 }
 body{
   background-color:#eee;
-  background-image:image-url(grid.png);
+  background-image:url(grid.png);
   font-family:sans-serif;
 }
 table{

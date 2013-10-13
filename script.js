@@ -370,7 +370,13 @@
       this.ui = new UI(this);
       this.screens = new Screens(this);
       this.game = new Game(this);
-      $('body').trigger('show', 'start');
+      $('body').trigger('getName', function(name) {
+        if (name) {
+          return $('body').trigger('show', 'start');
+        } else {
+          return $('body').trigger('show', 'name');
+        }
+      });
     }
 
     return App;

@@ -224,4 +224,9 @@ class App
     @ui = new UI(@)
     @screens = new Screens(@)
     @game = new Game(@)
-    $('body').trigger('show', 'start')
+    $('body').trigger 'getName', (name)->
+      if name
+        $('body').trigger('show', 'start')
+      else
+        $('body').trigger('show', 'name')
+
