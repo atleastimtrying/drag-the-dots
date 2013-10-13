@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Drag the Dots</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">    
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes"> 
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="timer"></div>
+  <article>
+    <div id="start">
+      <h2>Drag the Dots</h2>
+      <h3 class="name"></h3>
+      <a href="#" class="not-name">Change name?</a>
+      <a href="#" class="btn startRandom">random</a>
+      <a href="#" class="btn startGrid">grid</a>
+      <a href="#" class="btn showScores">Scores</a>
+    </div>
+    <div id="container">
+    </div>
+    <div id="score">
+      <h2 id="scoreMessage"></h2>
+      <h3 class="name"></h3>
+      <a href="#" class="not-name">Change name?</a>
+      <a href="#" class="btn again">Again?</a>
+      <a href="#" class="btn showStart">Menu</a>
+      <a href="#" class="btn showScores">Scores</a>
+    </div>
+    <div id="scores">
+      <h2>Your scores!</h2>
+      <h3>Random</h3>
+      <table class="table10">
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>score</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <h3>Grid</h3>
+      <table class="table8">
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>score</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <a href="#" class="btn showStart">Menu</a>
+      <a href="#" class="btn clearScores">Clear Scores</a>
+    </div>
+    <div id="enterName">
+      <h2>We need your name!</h2>
+      <input type="text" placeholder="your name">
+      <button>Submit</button>
+    </div>
+  </article>
+  <script src="jquery.js"></script>
+  <script src="jquery-ui.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
