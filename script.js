@@ -6,6 +6,7 @@
   Storage = (function() {
     function Storage(app) {
       this.app = app;
+      this.addScore = __bind(this.addScore, this);
       $('body').bind('addScore', this.addScore);
       $('body').bind('getScores', this.getScores);
       $('body').bind('clearScores', this.clearScores);
@@ -26,17 +27,25 @@
     };
 
     Storage.prototype.addScore = function(event, data) {
-      var scores;
+      var group, grouped, level, scores;
       scores = JSON.parse(window.localStorage.getItem('scores'));
       if (!scores) {
         scores = [];
       }
       scores.push(data);
-      scores.sort(this.sortByScore);
-      if (scores.length > 10) {
-        scores.length = 10;
+      grouped = _.groupBy(scores, function(obj) {
+        return obj.level;
+      });
+      scores = [];
+      for (level in grouped) {
+        group = grouped[level];
+        group.sort(this.sortByScore);
+        if (group.length > 10) {
+          group.length = 10;
+        }
+        scores = scores.concat(group);
       }
-      return window.localStorage.setItem('scores', JSON.stringify(scores));
+      return localStorage.setItem('scores', JSON.stringify(scores));
     };
 
     Storage.prototype.getScores = function(event, fn) {
@@ -44,16 +53,16 @@
     };
 
     Storage.prototype.clearScores = function(event) {
-      window.localStorage.setItem('scores', JSON.stringify([]));
+      localStorage.setItem('scores', JSON.stringify([]));
       return $('body').trigger('show', 'scores');
     };
 
     Storage.prototype.getName = function(event, fn) {
-      return fn(window.localStorage.getItem('name'));
+      return fn(localStorage.getItem('name'));
     };
 
     Storage.prototype.setName = function(event, name) {
-      return window.localStorage.setItem('name', name);
+      return localStorage.setItem('name', name);
     };
 
     return Storage;
@@ -113,14 +122,14 @@
       });
     },
     grid: function() {
-      var center, count, edge, i, layouts, x, y, _i,
+      var center, count, edge, i, layouts, x, y, _i, _ref,
         _this = this;
       count = $('.dot').length;
       layouts = [];
       edge = Math.floor(Math.sqrt(count)) - 1;
       x = 0;
       y = 0;
-      for (i = _i = 0; 0 <= count ? _i <= count : _i >= count; i = 0 <= count ? ++_i : --_i) {
+      for (i = _i = 0, _ref = count - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
         layouts.push({
           x: x,
           y: y

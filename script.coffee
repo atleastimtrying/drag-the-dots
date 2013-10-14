@@ -7,30 +7,36 @@ class Storage
     $('body').bind 'clearScores', @clearScores
     $('body').bind 'getName', @getName
     $('body').bind 'setName', @setName
+  
   sortByScore: (a,b)->
     response = 0
     response = -1 if a.score < b.score
     response = 1 if a.score > b.score
     response
-  addScore: (event, data)->
+  
+  addScore: (event, data)=>
     scores = JSON.parse window.localStorage.getItem 'scores'
     scores = [] unless scores
     scores.push data
-    scores.sort @sortByScore
-    scores.length = 10 if scores.length > 10
-    window.localStorage.setItem 'scores', JSON.stringify scores
+    grouped = _.groupBy scores, (obj)-> obj.level
+    scores = []  
+    for level, group of grouped
+      group.sort @sortByScore
+      group.length = 10 if group.length > 10
+      scores = scores.concat group
+    localStorage.setItem 'scores', JSON.stringify scores
   getScores: (event, fn)->
     fn JSON.parse window.localStorage.getItem 'scores'
   
   clearScores: (event)->
-    window.localStorage.setItem 'scores', JSON.stringify []
+    localStorage.setItem 'scores', JSON.stringify []
     $('body').trigger('show', 'scores')
 
   getName: (event, fn)->
-    fn window.localStorage.getItem 'name'
+    fn localStorage.getItem 'name'
 
   setName: (event, name)->
-    window.localStorage.setItem 'name', name
+    localStorage.setItem 'name', name
 
 class Timer
   constructor: (@app)->
@@ -67,7 +73,7 @@ Layouts =
     edge = Math.floor(Math.sqrt(count)) - 1
     x = 0
     y = 0
-    for i in [0..count]
+    for i in [0..(count - 1)]
       layouts.push { x:x, y:y }
       if x < edge 
         x += 1
