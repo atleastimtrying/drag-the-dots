@@ -112,13 +112,16 @@
         $(dot).css({
           top: Math.ceil(Math.random() * ($('#container').height() - (range * 2))),
           left: Math.ceil(Math.random() * ($('#container').width() - (range * 2))),
-          background: "hsl(" + (index * 50) + ",50%, 50%)"
+          background: "hsl(" + (index * 30) + ",60%, 60%)"
         });
         if (index === 0) {
-          return $(dot).css({
-            background: "hsl(50,50%, 50%)"
+          $(dot).css({
+            background: "hsl(30,60%, 60%)"
           });
         }
+        return $('body').css({
+          'background-color': "hsl(30, 50%, 35%)"
+        });
       });
     },
     grid: function() {
@@ -155,13 +158,16 @@
         $(dot).css({
           left: center.x - coords.x * 70,
           top: center.y - coords.y * 70,
-          background: "hsl(" + (index * 50) + ",50%, 50%)"
+          background: "hsl(" + (index * 30) + ",60%, 60%)"
         });
         if (index === 0) {
-          return $(dot).css({
-            background: "hsl(50,50%, 50%)"
+          $(dot).css({
+            background: "hsl(30,60%, 60%)"
           });
         }
+        return $('body').css({
+          'background-color': "hsl(30, 50%, 35%)"
+        });
       });
     }
   };
@@ -212,9 +218,12 @@
       if (target[0] && this.collide(dot.offset(), target.offset())) {
         newValue = parseInt(dot_value) + 1;
         target.attr('data-value', newValue).html(newValue).css({
-          background: "hsl(" + (newValue * 50) + ",50%, 50%)"
+          background: "hsl(" + (newValue * 30) + ",60%, 60%)"
         });
         dot.remove();
+        $('body').css({
+          'background-color': "hsl(" + (newValue * 30) + ",50%, 35%)"
+        });
         if (dot_value === ("" + this.count)) {
           return this.timer.stop();
         }

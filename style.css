@@ -1,3 +1,22 @@
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  src: url(light.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: url(normal.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: url(bold.ttf) format('truetype');
+}
+
 *{
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -20,43 +39,49 @@ article{
 }
 h2{
   font-size:36px;
-  font-weight:lighter;
+  font-weight:400;
   color:white;
   padding: 8px 0 7px 0;
-  border-bottom:1px solid white;
-  text-shadow: 1px 1px 2px black;
-  background: #222;
+  background: rgba(0,0,0,0.3);
   margin: -16px -16px 16px -16px;
 }
+h3{
+  color:white;
+  font-size:32px;
+}
+p{
+  color:white;
+  font-size:16px;
+}
+
 .not-name{
   text-decoration: none;
-  color:#333;
+  color:white;
   display:block;
   font-size:12px;
   margin: -12px auto 24px auto;
 }
 body{
-  background-color:#eee;
-  background-image:url(grid.png);
-  font-family:sans-serif;
+  background-color:hsl(140, 50%,35%);
+  font-family:'Lato', sans-serif;
+  transition: background-color 0.25s ease-out;
 }
 table{
   margin: 0 auto 20px;
   width:100%;
   max-width:400px;
   border-collapse: collapse;
-  box-shadow: 2px 2px 4px black;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 td, th{
   padding:4px 8px;
   text-align: left;
 }
 tr:nth-child(even){
-  background:#ddd;
+  background:rgba(255,255,255,0.5);
 }
 thead{
-  background:#333;
+  background:rgba(0,0,0,0.3);
   color:white;
 }
 thead th:first-child{
@@ -66,7 +91,7 @@ thead th:last-child{
   border-top-right-radius: 4px;
 }
 tbody{
-  background:white;
+  background:rgba(255,255,255,0.3);
   color:#333;
 }
 tbody tr:last-child td:first-child{
@@ -79,30 +104,30 @@ button,
 a.btn{
   text-decoration:none;
   font-weight:bold;
-  color:#333;
-  box-shadow:1px 1px 2px black;
-  text-shadow: 1px 1px 1px white;
+  color:rgba(0,0,0,0.6);
   padding: 10px;
   border-radius:2px;
   line-height:16px;
-  background:#ccc;
+  margin-bottom: 16px;
+  background:rgba(255,255,255,0.4);
   border:0;
   font-size: 16px;
+  cursor:pointer;
   display:inline-block;
-  transition:background 0.5s ease-out, box-shadow 0.5s ease-out;
+  transition:background 0.5s ease-out;
 }
 a.btn:hover{
-  background:#bbb;
+  background:rgba(255,255,255,0.5);
 }
 a.btn:active{
-  background:#aaa;
-  box-shadow:0px 0px 0px black;
+  background:rgba(255,255,255,0.6);
 }
 input[type="text"] {
   padding: 8px;
   border: 0;
   border-radius: 4px;
-  box-shadow: inset 1px 1px 2px;
+  background:rgba(255,255,255,0.8);
+  color:rgba(0,0,0,0.6);
   font-size: 16px;
 }
 .timer{
@@ -110,16 +135,12 @@ input[type="text"] {
   z-index:2000;
   top:0;
   left:0;
-  padding:16px;
+  padding:8px 0;
   background:rgba(0,0,0,0.3);
-  border-bottom-right-radius: 4px;
-  text-align: left;
-  font-size:32px;
-  line-height:32px;
+  text-align: center;
+  font-size:36px;
   color:white;
-  width:60px;
-  height:32px;
-  text-shadow: 0 0 2px black;
+  width:100%;
   pointer-events: none;
 }
 .dot{
@@ -131,12 +152,10 @@ input[type="text"] {
   line-height:0;
   vertical-align: middle;
   padding: 30px 0;
-  box-shadow:1px 1px 2px black;
-  text-shadow: 1px 1px 1px black;
   cursor:pointer;
   color: white;
   font-size:24px;
-  font-weight:bold;
+  font-weight:700;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
