@@ -92,6 +92,22 @@ Layouts =
         background: "hsl(#{index * 30},60%, 60%)"
       $(dot).css({background: "hsl(30,60%, 60%)"}) if index is 0
       $('body').css 'background-color' : "hsl(30, 50%, 35%)"
+  moving: ->
+    change = ->
+      range = $('.dot').width()/2
+      $('.dot').each (index, dot) ->
+        $(dot).css
+          top: Math.ceil(Math.random()* ($('#container').height() - (range * 2)))
+          left: Math.ceil(Math.random()* ($('#container').width() - (range * 2)))
+    
+    unbindbody = (event, label)->
+      if label is 'score'
+        $('body').off('collide', change) 
+        $('body').off('show', unbindbody) 
+    $('.dot').css('transition', 'top 0.1s ease-out, left 0.3s ease-out')
+    $('body').on 'collide', change
+    $('body').on 'show', unbindbody
+    Layouts.random()
 
 class Game 
   constructor: (@app)->
@@ -123,6 +139,8 @@ class Game
     dot_value = dot.attr('data-value')
     target = $("[data-value=#{dot_value}]").not("[data-id=#{dotid}]")
     if target[0] and @collide(dot.offset(), target.offset())
+
+      $('body').trigger 'collide'
       newValue = parseInt(dot_value) + 1
       target.attr('data-value', newValue).html(newValue).css
         background: "hsl(#{newValue * 30},60%, 60%)"
@@ -149,6 +167,8 @@ class Game
       Layouts.random()
     if @layout is 'grid'
       Layouts.grid()
+    if @layout is 'moving'
+      Layouts.moving()
 
 $ ->
   window.app = new App()
@@ -172,6 +192,9 @@ class UI
       false
     $('.startGrid').click -> 
       $('body').trigger('startGame', {count: 8, layout: 'grid'})
+      false
+    $('.startMoving').click -> 
+      $('body').trigger('startGame', {count: 12, layout: 'moving'})
       false
     $('.again').click -> 
       $('body').trigger('startGame')
@@ -220,11 +243,13 @@ class Screens
       html = 
         'score10': ''
         'score8': ''
+        'score12': ''
 
       $(scores).each (index, score)->
         html["score#{score.level}"] += "<tr><td>#{score.name}</td><td>#{score.score}</td></tr>"
       $('#scores table.table10 tbody').html(html['score10'])
       $('#scores table.table8 tbody').html(html['score8'])
+      $('#scores table.table12 tbody').html(html['score12'])
 
 class App
   constructor: ->

@@ -169,6 +169,29 @@
           'background-color': "hsl(30, 50%, 35%)"
         });
       });
+    },
+    moving: function() {
+      var change, unbindbody;
+      change = function() {
+        var range;
+        range = $('.dot').width() / 2;
+        return $('.dot').each(function(index, dot) {
+          return $(dot).css({
+            top: Math.ceil(Math.random() * ($('#container').height() - (range * 2))),
+            left: Math.ceil(Math.random() * ($('#container').width() - (range * 2)))
+          });
+        });
+      };
+      unbindbody = function(event, label) {
+        if (label === 'score') {
+          $('body').off('collide', change);
+          return $('body').off('show', unbindbody);
+        }
+      };
+      $('.dot').css('transition', 'top 0.1s ease-out, left 0.3s ease-out');
+      $('body').on('collide', change);
+      $('body').on('show', unbindbody);
+      return Layouts.random();
     }
   };
 
@@ -216,6 +239,7 @@
       dot_value = dot.attr('data-value');
       target = $("[data-value=" + dot_value + "]").not("[data-id=" + dotid + "]");
       if (target[0] && this.collide(dot.offset(), target.offset())) {
+        $('body').trigger('collide');
         newValue = parseInt(dot_value) + 1;
         target.attr('data-value', newValue).html(newValue).css({
           background: "hsl(" + (newValue * 30) + ",60%, 60%)"
@@ -255,7 +279,10 @@
         Layouts.random();
       }
       if (this.layout === 'grid') {
-        return Layouts.grid();
+        Layouts.grid();
+      }
+      if (this.layout === 'moving') {
+        return Layouts.moving();
       }
     };
 
@@ -297,6 +324,13 @@
         $('body').trigger('startGame', {
           count: 8,
           layout: 'grid'
+        });
+        return false;
+      });
+      $('.startMoving').click(function() {
+        $('body').trigger('startGame', {
+          count: 12,
+          layout: 'moving'
         });
         return false;
       });
@@ -367,13 +401,15 @@
         var html;
         html = {
           'score10': '',
-          'score8': ''
+          'score8': '',
+          'score12': ''
         };
         $(scores).each(function(index, score) {
           return html["score" + score.level] += "<tr><td>" + score.name + "</td><td>" + score.score + "</td></tr>";
         });
         $('#scores table.table10 tbody').html(html['score10']);
-        return $('#scores table.table8 tbody').html(html['score8']);
+        $('#scores table.table8 tbody').html(html['score8']);
+        return $('#scores table.table12 tbody').html(html['score12']);
       });
     };
 
