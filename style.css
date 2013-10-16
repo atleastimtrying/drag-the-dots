@@ -167,3 +167,9 @@ input[type="text"] {
 .dot.ui-draggable-dragging{
   z-index:10;
 }
+.dot.moving{
+  transition: top 0.3s ease-out, left 0.3s ease-out;
+}
+.dot.moving.ui-draggable-dragging{
+  transition: none;
+}

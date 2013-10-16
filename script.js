@@ -188,9 +188,9 @@
           return $('body').off('show', unbindbody);
         }
       };
-      $('.dot').css('transition', 'top 0.1s ease-out, left 0.3s ease-out');
       $('body').on('collide', change);
       $('body').on('show', unbindbody);
+      $('.dot').addClass('moving');
       return Layouts.random();
     }
   };

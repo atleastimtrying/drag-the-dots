@@ -99,14 +99,13 @@ Layouts =
         $(dot).css
           top: Math.ceil(Math.random()* ($('#container').height() - (range * 2)))
           left: Math.ceil(Math.random()* ($('#container').width() - (range * 2)))
-    
     unbindbody = (event, label)->
       if label is 'score'
         $('body').off('collide', change) 
         $('body').off('show', unbindbody) 
-    $('.dot').css('transition', 'top 0.1s ease-out, left 0.3s ease-out')
     $('body').on 'collide', change
     $('body').on 'show', unbindbody
+    $('.dot').addClass('moving');
     Layouts.random()
 
 class Game 
