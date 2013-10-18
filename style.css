@@ -37,6 +37,9 @@ article{
   left:0;
   display: none;
 }
+#container{
+  transform: translate3d(0,0,0);
+}
 h2{
   font-size:36px;
   font-weight:400;
