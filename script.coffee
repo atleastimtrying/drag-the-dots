@@ -1,5 +1,29 @@
 # things to do
 # - find slow bits speed them up
+
+class Scores 
+  constructor: (@app)->
+    $('body').bind 'getHighScores', @getHighScores
+    $('body').bind 'postHighScore', @postHighScore
+  getHighScores: (event, fn)->
+    path = 'http://localhost:3000/scores.js'
+    $.ajax path,
+      dataType: 'jsonp',
+      success: (data)->
+        fn(data)
+  postHighScore: (event, scoreObject)=>
+    path = 'http://localhost:3000/scores/new'
+    $.extend scoreObject.score, { 'dfgget5th767': @generateCode() }
+    $.ajax path,
+      dataType: 'jsonp'
+      data: scoreObject.score
+      success: scoreObject.fn
+  generateCode: ->
+    d = new Date 
+    lead_character = String.fromCharCode Math.floor d.getDate() * 3.2453
+    int = (d.getMonth() + 1) * 456
+    "#{lead_character}.?!#{int}"
+
 class Storage
   constructor: (@app)->
     $('body').bind 'addScore', @addScore
@@ -85,7 +109,6 @@ Layouts =
     center = { x: ($('#container').width() /2) + 105, y: ($('#container').height() /2) + 105 }
     $('.dot').each (index, dot)=>
       coords = layouts[index]
-      console.log(coords)
       $(dot).css
         left: center.x - coords.x * 70 
         top: center.y - coords.y * 70
@@ -201,6 +224,9 @@ class UI
     $('.showScores').click -> 
       $('body').trigger('show', 'scores')
       false
+    $('.showHighScores').click -> 
+      $('body').trigger('show', 'highScores')
+      false
     $('.showStart').click -> 
       $('body').trigger('show', 'start')
       false
@@ -212,17 +238,34 @@ class UI
       $('.name').html $('#enterName input').val()
       $('body').trigger('show', 'start')
       false
-
+    $('.postHighScore').on 'click', ->
+      $('body').trigger 'getName', (name)->
+        $('body').trigger 'postHighScore',
+          score:
+            level: @app.game.count 
+            score: @app.score
+            name: name
+          fn: (data)->
+            if data is 'FAILURE'
+              alert('Oops! something went wrong!')
+            else
+              $('body').trigger('show', 'highScores') 
+            
 class Screens
   constructor: (@app)->
     $('body').on 'show', (event, label)=> @[label]()
+    $('body').on 'show', ()=>
+      if navigator.onLine
+        $('.btn.online').show()
+      else
+        $('.btn.online').hide()
 
   name: ->
-    $('#score, #scores, #start, .timer, #container').hide()
+    $('#score, #scores, #start, .timer, #container, #highScores').hide()
     $('#enterName').show()
   
   score: ->
-    $('#container, #scores, #start, .timer, #enterName').hide()
+    $('#container, #scores, #start, .timer, #enterName, #highScores').hide()
     $('#score').show()
     $('#scoreMessage').html("#{@app.score} seconds!")
     $('body').trigger 'getName', (name)->
@@ -232,11 +275,11 @@ class Screens
         name: name 
       
   start: ->
-    $('#container, #scores, #score, .timer, #enterName').hide()
+    $('#container, #scores, #score, .timer, #enterName, #highScores').hide()
     $('#start').show()
 
   scores: ->
-    $('#container, #start, #score, .timer, #enterName').hide()
+    $('#container, #start, #score, .timer, #enterName, #highScores').hide()
     $('#scores').show()
     $('body').trigger 'getScores', (scores)->
       html = 
@@ -249,10 +292,25 @@ class Screens
       $('#scores table.table10 tbody').html(html['score10'])
       $('#scores table.table8 tbody').html(html['score8'])
       $('#scores table.table12 tbody').html(html['score12'])
-
+  highScores: ->
+    $('#container, #start, #score, .timer, #enterName, #scores').hide()
+    $('#highScores').show()
+    $('body').trigger 'getHighScores', (data)->
+      html = 
+        'score10': ''
+        'score8': ''
+        'score12': ''
+      for level,scores of data
+        for score in scores
+          html["score#{score.level}"] += "<tr><td>#{score.name}</td><td>#{score.score}</td></tr>"
+      $('#highScores table.table8 tbody').html(html['score8'])
+      $('#highScores table.table10 tbody').html(html['score10'])
+      $('#highScores table.table12 tbody').html(html['score12'])
+      
 class App
   constructor: ->
     @score = 0
+    @scores = new Scores(@)
     @storage = new Storage(@)
     @ui = new UI(@)
     @screens = new Screens(@)
