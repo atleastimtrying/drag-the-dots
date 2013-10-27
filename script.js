@@ -13,7 +13,7 @@
 
     Scores.prototype.getHighScores = function(event, fn) {
       var path;
-      path = 'http://localhost:3000/scores.js';
+      path = 'http://dragthedots.herokuapp.com/scores.js';
       return $.ajax(path, {
         dataType: 'jsonp',
         success: function(data) {
@@ -24,7 +24,7 @@
 
     Scores.prototype.postHighScore = function(event, scoreObject) {
       var path;
-      path = 'http://localhost:3000/scores/new';
+      path = 'http://dragthedots.herokuapp.com/scores/new';
       $.extend(scoreObject.score, {
         'dfgget5th767': this.generateCode()
       });
