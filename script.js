@@ -558,6 +558,9 @@
           return $('body').trigger('show', 'name');
         }
       });
+      $(document).on("menubutton", function() {
+        return $('body').trigger('show', 'start');
+      });
     }
 
     return App;

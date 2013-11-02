@@ -335,4 +335,5 @@ class App
         $('body').trigger('show', 'start')
       else
         $('body').trigger('show', 'name')
-
+    $(document).on "menubutton", ->
+      $('body').trigger('show', 'start')
