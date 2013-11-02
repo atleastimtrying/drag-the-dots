@@ -558,13 +558,16 @@
           return $('body').trigger('show', 'name');
         }
       });
-      $(document).on("menubutton", function() {
-        return $('body').trigger('show', 'start');
-      });
     }
 
     return App;
 
   })();
+
+  document.addEventListener("deviceready", function() {
+    return document.addEventListener("menubutton", function() {
+      return alert('MENU');
+    }, false);
+  }, false);
 
 }).call(this);
