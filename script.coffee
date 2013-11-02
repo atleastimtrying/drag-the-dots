@@ -282,7 +282,11 @@ class Screens
     $('#options').show()
       
   start: ->
-    $('#start').show()
+    $('body').trigger 'getName', (name)->
+      if name
+        $('#start').show()
+      else
+        $('body').trigger('show', 'name')
 
   score: ->
     $('#score').show()
@@ -330,11 +334,7 @@ class App
     @intro = new Intro(@)
     @screens = new Screens(@)
     @game = new Game(@)
-    $('body').trigger 'getName', (name)->
-      if name
-        $('body').trigger('show', 'start')
-      else
-        $('body').trigger('show', 'name')
+    $('body').trigger 'show', 'start'
 document.addEventListener "deviceready", ->
   document.addEventListener "menubutton", ->
     $('body').trigger('show', 'start')

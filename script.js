@@ -482,7 +482,13 @@
     };
 
     Screens.prototype.start = function() {
-      return $('#start').show();
+      return $('body').trigger('getName', function(name) {
+        if (name) {
+          return $('#start').show();
+        } else {
+          return $('body').trigger('show', 'name');
+        }
+      });
     };
 
     Screens.prototype.score = function() {
@@ -551,13 +557,7 @@
       this.intro = new Intro(this);
       this.screens = new Screens(this);
       this.game = new Game(this);
-      $('body').trigger('getName', function(name) {
-        if (name) {
-          return $('body').trigger('show', 'start');
-        } else {
-          return $('body').trigger('show', 'name');
-        }
-      });
+      $('body').trigger('show', 'start');
     }
 
     return App;
