@@ -1,10 +1,33 @@
 # things to do
 # - find slow bits speed them up
 
+class Intro
+  constructor: (@app)->
+    $('body').on 'startIntro', @start
+    $('#intro .next').click @nextSlide
+  start: =>
+    $('#intro section').hide()
+    $('#intro section#slide1').show()
+    $('#intro .dot').css 'top': '65%'
+    $('#intro .dot1').css 
+      'left': '50%'
+    $('#intro .dot2, #intro .dot4').css 
+      'left': '30%'
+    $('#intro .dot3, #intro .dot5').css 
+      'left': '70%'
+    $('#intro .dot').css('background-color', "hsl(#{Math.random() * 360},60%, 60%)").draggable
+      stop: -> $(@).fadeOut()
+
+  nextSlide: (event)=>
+    $('#intro section').slideUp()
+    $("#intro section#{$(event.currentTarget).attr('href')}").slideDown()
+    false
+
 class Scores 
   constructor: (@app)->
-    $('body').bind 'getHighScores', @getHighScores
-    $('body').bind 'postHighScore', @postHighScore
+    $('body').on 
+      'getHighScores': @getHighScores
+      'postHighScore': @postHighScore
   getHighScores: (event, fn)->
     path = 'http://dragthedots.herokuapp.com/scores.js'
     $.ajax path,
@@ -26,11 +49,12 @@ class Scores
 
 class Storage
   constructor: (@app)->
-    $('body').bind 'addScore', @addScore
-    $('body').bind 'getScores', @getScores
-    $('body').bind 'clearScores', @clearScores
-    $('body').bind 'getName', @getName
-    $('body').bind 'setName', @setName
+    $('body').on 
+      'addScore': @addScore 
+      'getScores': @getScores
+      'clearScores': @clearScores
+      'getName': @getName
+      'setName': @setName
   
   sortByScore: (a,b)->
     response = 0
@@ -84,8 +108,8 @@ class Timer
 
 Layouts =
   random: ()->
-    range = $('.dot').width()/2
-    $('.dot').each (index, dot)=>
+    range = $('#container .dot').width()/2
+    $('#container .dot').each (index, dot)=>
       $(dot).css
         top: Math.ceil(Math.random()* ($('#container').height() - (range * 2)))
         left: Math.ceil(Math.random()* ($('#container').width() - (range * 2)))
@@ -93,7 +117,7 @@ Layouts =
       $(dot).css({background: "hsl(30,60%, 60%)"}) if index is 0
       $('body').css 'background-color' : "hsl(30, 50%, 35%)"
   grid: ->
-    count = $('.dot').length
+    count = $('#container .dot').length
     layouts = []
     edge = Math.floor(Math.sqrt(count)) - 1
     x = 0
@@ -106,8 +130,8 @@ Layouts =
         x = 0
         y += 1
     layouts = layouts.sort -> 0.5 - Math.random()
-    center = { x: ($('#container').width() /2) + 105, y: ($('#container').height() /2) + 105 }
-    $('.dot').each (index, dot)=>
+    center = { x: ($('#container').width() /2) + 85, y: ($('#container').height() /2) + 85 }
+    $('#container .dot').each (index, dot)=>
       coords = layouts[index]
       $(dot).css
         left: center.x - coords.x * 70 
@@ -123,12 +147,12 @@ Layouts =
           top: Math.ceil(Math.random()* ($('#container').height() - (range * 2)))
           left: Math.ceil(Math.random()* ($('#container').width() - (range * 2)))
     unbindbody = (event, label)->
-      if label is 'score'
-        $('body').off('collide', change) 
-        $('body').off('show', unbindbody) 
-    $('body').on 'collide', change
-    $('body').on 'show', unbindbody
-    $('.dot').addClass('moving');
+      $('body').off('collide', change) 
+      $('body').off('show', unbindbody) 
+    $('body').on 
+      'collide': change
+      'show': unbindbody
+    $('#container .dot').addClass('moving');
     Layouts.random()
 
 class Game 
@@ -140,9 +164,8 @@ class Game
 
   startGame: (event, options = {count: @count, layout: @layout})=>
     @count = options.count if options.count
-    @layout = options.layout if options.layout    
-    $('#score, #scores, #start, #enterName').hide()
-    $('#container, .timer').show()
+    @layout = options.layout if options.layout
+    $('body').trigger 'show', 'game'
     $('#container .dot').remove()
     @addDots()
     @makeDotsDraggable()
@@ -185,12 +208,9 @@ class Game
       containment: "#container" 
       scroll: false
   layoutDots : ->
-    if @layout is 'random'
-      Layouts.random()
-    if @layout is 'grid'
-      Layouts.grid()
-    if @layout is 'moving'
-      Layouts.moving()
+    Layouts.random() if @layout is 'random'
+    Layouts.grid() if @layout is 'grid'
+    Layouts.moving() if @layout is 'moving'
 
 $ ->
   window.app = new App()
@@ -209,29 +229,14 @@ class UI
       $('body').trigger 'setName', ''
       $('body').trigger 'show', 'name'
       false
-    $('.startRandom').click -> 
-      $('body').trigger('startGame', {count: 10, layout: 'random'})
+    $('.startGame').click -> 
+      $('body').trigger('startGame', {count: $(@).data('count'), layout: $(@).data('layout')})
       false
-    $('.startGrid').click -> 
-      $('body').trigger('startGame', {count: 8, layout: 'grid'})
+    $('.show').click -> 
+      $('body').trigger('show', $(@).data('show'))
       false
-    $('.startMoving').click -> 
-      $('body').trigger('startGame', {count: 12, layout: 'moving'})
-      false
-    $('.again').click -> 
-      $('body').trigger('startGame')
-      false
-    $('.showScores').click -> 
-      $('body').trigger('show', 'scores')
-      false
-    $('.showHighScores').click -> 
-      $('body').trigger('show', 'highScores')
-      false
-    $('.showStart').click -> 
-      $('body').trigger('show', 'start')
-      false
-    $('.clearScores').click ->
-      $('body').trigger('clearScores')
+    $('.action').click ->
+      $('body').trigger($(@).data 'action')
       false
     $('#enterName button').on 'click', ->
       $('body').trigger 'setName', $('#enterName input').val()
@@ -239,6 +244,7 @@ class UI
       $('body').trigger('show', 'start')
       false
     $('.postHighScore').on 'click', ->
+      $('body').trigger('show', 'highScores') 
       $('body').trigger 'getName', (name)->
         $('body').trigger 'postHighScore',
           score:
@@ -249,11 +255,13 @@ class UI
             if data is 'FAILURE'
               alert('Oops! something went wrong!')
             else
-              $('body').trigger('show', 'highScores') 
-            
+              $('body').trigger('show', 'highScores')
+      false
 class Screens
   constructor: (@app)->
-    $('body').on 'show', (event, label)=> @[label]()
+    $('body').on 'show', (event, label)=>
+      $('.screen').hide()
+      @[label]()
     $('body').on 'show', ()=>
       if navigator.onLine
         $('.btn.online').show()
@@ -261,11 +269,22 @@ class Screens
         $('.btn.online').hide()
 
   name: ->
-    $('#score, #scores, #start, .timer, #container, #highScores').hide()
     $('#enterName').show()
   
+  game: ->
+    $('#container').show()
+
+  intro: ->
+    $('#intro').show()
+    $('body').trigger 'startIntro'
+
+  options: ->
+    $('#options').show()
+      
+  start: ->
+    $('#start').show()
+
   score: ->
-    $('#container, #scores, #start, .timer, #enterName, #highScores').hide()
     $('#score').show()
     $('#scoreMessage').html("#{@app.score} seconds!")
     $('body').trigger 'getName', (name)->
@@ -273,13 +292,8 @@ class Screens
         level: @app.game.count 
         score: @app.score
         name: name 
-      
-  start: ->
-    $('#container, #scores, #score, .timer, #enterName, #highScores').hide()
-    $('#start').show()
 
   scores: ->
-    $('#container, #start, #score, .timer, #enterName, #highScores').hide()
     $('#scores').show()
     $('body').trigger 'getScores', (scores)->
       html = 
@@ -293,8 +307,7 @@ class Screens
       $('#scores table.table8 tbody').html(html['score8'])
       $('#scores table.table12 tbody').html(html['score12'])
   highScores: ->
-    $('#container, #start, #score, .timer, #enterName, #scores').hide()
-    $('#highScores').show()
+    $('#highScores, #highScores .spinner').show()
     $('body').trigger 'getHighScores', (data)->
       html = 
         'score10': ''
@@ -303,6 +316,7 @@ class Screens
       for level,scores of data
         for score in scores
           html["score#{score.level}"] += "<tr><td>#{score.name}</td><td>#{score.score}</td></tr>"
+      $('#highScores .spinner').hide()
       $('#highScores table.table8 tbody').html(html['score8'])
       $('#highScores table.table10 tbody').html(html['score10'])
       $('#highScores table.table12 tbody').html(html['score12'])
@@ -313,6 +327,7 @@ class App
     @scores = new Scores(@)
     @storage = new Storage(@)
     @ui = new UI(@)
+    @intro = new Intro(@)
     @screens = new Screens(@)
     @game = new Game(@)
     $('body').trigger 'getName', (name)->
