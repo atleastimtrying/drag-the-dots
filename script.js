@@ -566,7 +566,7 @@
 
   document.addEventListener("deviceready", function() {
     return document.addEventListener("menubutton", function() {
-      return alert('MENU');
+      return $('body').trigger('show', 'start');
     }, false);
   }, false);
 

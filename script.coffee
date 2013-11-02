@@ -337,7 +337,7 @@ class App
         $('body').trigger('show', 'name')
 document.addEventListener "deviceready", ->
   document.addEventListener "menubutton", ->
-    alert 'MENU'
+    $('body').trigger('show', 'start')
   , false
 , false
     
