@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
     <widget xmlns = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.andersfisher.phonegap"
-        versionCode = "103" 
-        version   = "1.0.3">
+        id        = "com.dragthedots.v1"
+        versionCode = "104" 
+        version   = "1.0.4">
 
     <!-- versionCode is optional and Android only -->
 
