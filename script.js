@@ -161,8 +161,9 @@
   Timer = (function() {
     function Timer(app) {
       this.app = app;
-      this.start = __bind(this.start, this);
       this.stop = __bind(this.stop, this);
+      this.start = __bind(this.start, this);
+      this.end = __bind(this.end, this);
       this.tick = __bind(this.tick, this);
       this.going = false;
       this.count = 0;
@@ -176,8 +177,8 @@
       }
     };
 
-    Timer.prototype.stop = function() {
-      this.going = false;
+    Timer.prototype.end = function() {
+      this.stop();
       this.app.score = this.count / 10;
       return $('body').trigger('show', 'score');
     };
@@ -186,6 +187,11 @@
       this.count = 0;
       this.going = true;
       return this.tick();
+    };
+
+    Timer.prototype.stop = function() {
+      this.going = false;
+      return this.count = 0;
     };
 
     return Timer;
@@ -336,7 +342,7 @@
           'background-color': "hsl(" + (newValue * 30) + ",50%, 35%)"
         });
         if (dot_value === ("" + this.count)) {
-          return this.timer.stop();
+          return this.timer.end();
         }
       }
     };
@@ -566,6 +572,7 @@
 
   document.addEventListener("deviceready", function() {
     return document.addEventListener("menubutton", function() {
+      window.app.game.timer.stop();
       return $('body').trigger('show', 'start');
     }, false);
   }, false);

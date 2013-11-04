@@ -96,8 +96,8 @@ class Timer
     @count += 1
     window.setTimeout(@tick, 100) if @going
   
-  stop: =>
-    @going = false
+  end: =>
+    @stop()
     @app.score = @count/10
     $('body').trigger 'show', 'score'
   
@@ -105,6 +105,11 @@ class Timer
     @count = 0
     @going = true
     @tick()
+
+  stop: =>
+    @going = false
+    @count = 0
+
 
 Layouts =
   random: ()->
@@ -191,7 +196,7 @@ class Game
         background: "hsl(#{newValue * 30},60%, 60%)"
       dot.remove()
       $('body').css 'background-color' : "hsl(#{newValue * 30},50%, 35%)"
-      @timer.stop() if dot_value is "#{@count}"
+      @timer.end() if dot_value is "#{@count}"
 
   addDots: ->
     oldvalue = 1
@@ -337,7 +342,8 @@ class App
     $('body').trigger 'show', 'start'
 document.addEventListener "deviceready", ->
   document.addEventListener "menubutton", ->
-    $('body').trigger('show', 'start')
+    window.app.game.timer.stop()
+    $('body').trigger('show', 'start') 
   , false
 , false
     
