@@ -178,7 +178,7 @@
     };
 
     Timer.prototype.end = function() {
-      this.stop();
+      this.going = false;
       this.app.score = this.count / 10;
       return $('body').trigger('show', 'score');
     };

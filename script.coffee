@@ -97,7 +97,7 @@ class Timer
     window.setTimeout(@tick, 100) if @going
   
   end: =>
-    @stop()
+    @going = false
     @app.score = @count/10
     $('body').trigger 'show', 'score'
   
