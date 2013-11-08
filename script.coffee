@@ -1,6 +1,10 @@
 # things to do
 # - find slow bits speed them up
-
+class Vibrate
+  constructor: (@app)->
+    $('body').on 'collide', @vibrate
+  vibrate: ->
+    navigator.notification.vibrate(200)
 class Intro
   constructor: (@app)->
     $('body').on 'startIntro', @start
@@ -212,7 +216,6 @@ class Game
     dot_value = dot.attr('data-value')
     target = $("[data-value=#{dot_value}]").not("[data-id=#{dotid}]")
     if target[0] and @collide(dot.offset(), target.offset())
-
       $('body').trigger 'collide'
       newValue = parseInt(dot_value) + 1
       target.attr('data-value', newValue).html(newValue)
