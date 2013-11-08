@@ -110,7 +110,6 @@ class Timer
     @going = false
     @count = 0
 
-
 Layouts =
   random: ()->
     range = $('#container .dot').width()/2
@@ -135,7 +134,8 @@ Layouts =
         x = 0
         y += 1
     layouts = layouts.sort -> 0.5 - Math.random()
-    center = { x: ($('#container').width() /2) + 85, y: ($('#container').height() /2) + 85 }
+    difference = (edge + 1) /2 * 60
+    center = { x: ($('#container').width() /2) + difference, y: ($('#container').height() /2) + difference }
     $('#container .dot').each (index, dot)=>
       coords = layouts[index]
       $(dot).css
@@ -159,6 +159,29 @@ Layouts =
       'show': unbindbody
     $('#container .dot').addClass('moving')
     Layouts.random()
+  circle: ->
+    count = $('#container .dot').size()
+    angle = 360 / count
+    radians = (degrees)-> degrees * (Math.PI/180)
+    centerx = $('#container').width() / 2
+    centery = $('#container').height() / 2
+    radius = Math.min(centerx, centery) * 0.8
+    layouts = []
+    $('#container .dot').each (i, dot)=>
+      x = centerx + Math.sin(radians(i*angle)) * radius
+      y = centery + Math.cos(radians(i*angle)) * radius
+      layouts.push
+        top: "#{y}px"
+        left: "#{x}px"
+        background: 'white'
+        color: '#333'
+    $('body').css
+      'background-color':'#333'
+    layouts = layouts.sort -> 0.5 - Math.random()
+    $('#container .dot').each (i, dot)=>
+      $(dot).css layouts[i]
+      $(dot).addClass 'spinny'
+
 
 class Game 
   constructor: (@app)->
@@ -192,8 +215,8 @@ class Game
 
       $('body').trigger 'collide'
       newValue = parseInt(dot_value) + 1
-      target.attr('data-value', newValue).html(newValue).css
-        background: "hsl(#{newValue * 30},60%, 60%)"
+      target.attr('data-value', newValue).html(newValue)
+      target.css background: "hsl(#{newValue * 30},60%, 60%)" unless @layout is 'circle'
       dot.remove()
       $('body').css 'background-color' : "hsl(#{newValue * 30},50%, 35%)"
       @timer.end() if dot_value is "#{@count}"
@@ -208,7 +231,12 @@ class Game
     $('#container').prepend '<div class="dot" data-value="1" data-id="1000" >1</div>'
 
   makeDotsDraggable: ->
-    $('.dot').on 'touchstart': @startDrag
+    $('.dot').draggable
+      stop: @hitDetection
+      containment: "#container" 
+      scroll: false
+
+    #$('.dot').on 'touchstart': @startDrag
   
   startDrag: (event)=>
     dot = $ event.currentTarget
@@ -254,6 +282,7 @@ class Game
     Layouts.random() if @layout is 'random'
     Layouts.grid() if @layout is 'grid'
     Layouts.moving() if @layout is 'moving'
+    Layouts.circle() if @layout is 'circle'
 
 $ ->
   window.app = new App()
@@ -317,6 +346,9 @@ class Screens
   game: ->
     $('#container').show()
 
+  credits: ->
+    $('#credits').show()
+
   intro: ->
     $('#intro').show()
     $('body').trigger 'startIntro'
@@ -347,12 +379,16 @@ class Screens
         'score10': ''
         'score8': ''
         'score12': ''
+        'score15': ''
+        'score9': ''
 
       $(scores).each (index, score)->
         html["score#{score.level}"] += "<tr><td>#{score.name}</td><td>#{score.score}</td></tr>"
       $('#scores table.table10 tbody').html(html['score10'])
       $('#scores table.table8 tbody').html(html['score8'])
       $('#scores table.table12 tbody').html(html['score12'])
+      $('#scores table.table15 tbody').html(html['score15'])
+      $('#scores table.table9 tbody').html(html['score9'])
   highScores: ->
     $('#highScores, #highScores .spinner').show()
     $('body').trigger 'getHighScores', (data)->
@@ -360,6 +396,8 @@ class Screens
         'score10': ''
         'score8': ''
         'score12': ''
+        'score15': ''
+        'score9': ''
       for level,scores of data
         for score in scores
           html["score#{score.level}"] += "<tr><td>#{score.name}</td><td>#{score.score}</td></tr>"
@@ -367,6 +405,8 @@ class Screens
       $('#highScores table.table8 tbody').html(html['score8'])
       $('#highScores table.table10 tbody').html(html['score10'])
       $('#highScores table.table12 tbody').html(html['score12'])
+      $('#highScores table.table15 tbody').html(html['score15'])
+      $('#highScores table.table9 tbody').html(html['score9'])
       
 class App
   constructor: ->

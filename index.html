@@ -42,6 +42,13 @@
       <a href="#" class="btn show" data-show="intro">intro</a>
       <a href="#" class="btn action" data-action="clearScores">clear scores</a>
       <a href="#" class="btn show" data-show="start">menu</a>
+      <a href="#" class="btn show" data-show="credits">credits</a>
+    </div>
+    <div id="credits" class="screen">
+      <h2>Credits</h2>
+      <p>Original idea, build and design <a href="http://andersfisher.com">Anders Fisher</a>.</p>
+      <p>Generous logistics and advice <a href="http://iprug.org">The IPRUG gang</a></p>
+      <a href="#" class="btn show" data-show="start">menu</a>
     </div>
     <div id="start" class="screen">
       <h2>Drag the Dots</h2>
@@ -51,6 +58,8 @@
         <a href="#" class="btn startGame" data-count="10" data-layout="random">random</a>
         <a href="#" class="btn startGame" data-count="8" data-layout="grid">grid</a>
         <a href="#" class="btn startGame" data-count="12" data-layout="moving">moving</a>
+        <a href="#" class="btn startGame" data-count="15" data-layout="grid">grid+</a>
+        <a href="#" class="btn startGame" data-count="9" data-layout="circle">circle</a>
       </div>
       <div>
         <a href="#" class="btn show" data-show="options">options</a>
@@ -100,6 +109,26 @@
         </thead>
         <tbody></tbody>
       </table>
+      <h3>Grid+</h3>
+      <table class="table15">
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>score</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <h3>Circle</h3>
+      <table class="table9">
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>score</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
       <a href="#" class="btn show" data-show="start">menu</a>
       <a href="#" class="btn show online" data-show="highScores">global scores</a>
     </div>
@@ -141,6 +170,40 @@
       </table>
       <h3>Moving</h3>
       <table class="table12">
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <div class="spinner">
+            <span class="spin1"></span>
+            <span class="spin2"></span>
+            <span class="spin3"></span>
+            <span class="spin4"></span>
+          </div>
+        </tbody>
+      </table>
+      <h3>Grid+</h3>
+      <table class="table15">
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <div class="spinner">
+            <span class="spin1"></span>
+            <span class="spin2"></span>
+            <span class="spin3"></span>
+            <span class="spin4"></span>
+          </div>
+        </tbody>
+      </table>
+      <h3>Circle</h3>
+      <table class="table9">
         <thead>
           <tr>
             <th>name</th>

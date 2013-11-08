@@ -220,7 +220,7 @@
       });
     },
     grid: function() {
-      var center, count, edge, i, layouts, x, y, _i, _ref,
+      var center, count, difference, edge, i, layouts, x, y, _i, _ref,
         _this = this;
       count = $('#container .dot').length;
       layouts = [];
@@ -242,9 +242,10 @@
       layouts = layouts.sort(function() {
         return 0.5 - Math.random();
       });
+      difference = (edge + 1) / 2 * 60;
       center = {
-        x: ($('#container').width() / 2) + 85,
-        y: ($('#container').height() / 2) + 85
+        x: ($('#container').width() / 2) + difference,
+        y: ($('#container').height() / 2) + difference
       };
       return $('#container .dot').each(function(index, dot) {
         var coords;
@@ -286,6 +287,40 @@
       });
       $('#container .dot').addClass('moving');
       return Layouts.random();
+    },
+    circle: function() {
+      var angle, centerx, centery, count, layouts, radians, radius,
+        _this = this;
+      count = $('#container .dot').size();
+      angle = 360 / count;
+      radians = function(degrees) {
+        return degrees * (Math.PI / 180);
+      };
+      centerx = $('#container').width() / 2;
+      centery = $('#container').height() / 2;
+      radius = Math.min(centerx, centery) * 0.8;
+      layouts = [];
+      $('#container .dot').each(function(i, dot) {
+        var x, y;
+        x = centerx + Math.sin(radians(i * angle)) * radius;
+        y = centery + Math.cos(radians(i * angle)) * radius;
+        return layouts.push({
+          top: "" + y + "px",
+          left: "" + x + "px",
+          background: 'white',
+          color: '#333'
+        });
+      });
+      $('body').css({
+        'background-color': '#333'
+      });
+      layouts = layouts.sort(function() {
+        return 0.5 - Math.random();
+      });
+      return $('#container .dot').each(function(i, dot) {
+        $(dot).css(layouts[i]);
+        return $(dot).addClass('spinny');
+      });
     }
   };
 
@@ -337,9 +372,12 @@
       if (target[0] && this.collide(dot.offset(), target.offset())) {
         $('body').trigger('collide');
         newValue = parseInt(dot_value) + 1;
-        target.attr('data-value', newValue).html(newValue).css({
-          background: "hsl(" + (newValue * 30) + ",60%, 60%)"
-        });
+        target.attr('data-value', newValue).html(newValue);
+        if (this.layout !== 'circle') {
+          target.css({
+            background: "hsl(" + (newValue * 30) + ",60%, 60%)"
+          });
+        }
         dot.remove();
         $('body').css({
           'background-color': "hsl(" + (newValue * 30) + ",50%, 35%)"
@@ -363,8 +401,10 @@
     };
 
     Game.prototype.makeDotsDraggable = function() {
-      return $('.dot').on({
-        'touchstart': this.startDrag
+      return $('.dot').draggable({
+        stop: this.hitDetection,
+        containment: "#container",
+        scroll: false
       });
     };
 
@@ -429,7 +469,10 @@
         Layouts.grid();
       }
       if (this.layout === 'moving') {
-        return Layouts.moving();
+        Layouts.moving();
+      }
+      if (this.layout === 'circle') {
+        return Layouts.circle();
       }
     };
 
@@ -532,6 +575,10 @@
       return $('#container').show();
     };
 
+    Screens.prototype.credits = function() {
+      return $('#credits').show();
+    };
+
     Screens.prototype.intro = function() {
       $('#intro').show();
       return $('body').trigger('startIntro');
@@ -570,14 +617,18 @@
         html = {
           'score10': '',
           'score8': '',
-          'score12': ''
+          'score12': '',
+          'score15': '',
+          'score9': ''
         };
         $(scores).each(function(index, score) {
           return html["score" + score.level] += "<tr><td>" + score.name + "</td><td>" + score.score + "</td></tr>";
         });
         $('#scores table.table10 tbody').html(html['score10']);
         $('#scores table.table8 tbody').html(html['score8']);
-        return $('#scores table.table12 tbody').html(html['score12']);
+        $('#scores table.table12 tbody').html(html['score12']);
+        $('#scores table.table15 tbody').html(html['score15']);
+        return $('#scores table.table9 tbody').html(html['score9']);
       });
     };
 
@@ -588,7 +639,9 @@
         html = {
           'score10': '',
           'score8': '',
-          'score12': ''
+          'score12': '',
+          'score15': '',
+          'score9': ''
         };
         for (level in data) {
           scores = data[level];
@@ -600,7 +653,9 @@
         $('#highScores .spinner').hide();
         $('#highScores table.table8 tbody').html(html['score8']);
         $('#highScores table.table10 tbody').html(html['score10']);
-        return $('#highScores table.table12 tbody').html(html['score12']);
+        $('#highScores table.table12 tbody').html(html['score12']);
+        $('#highScores table.table15 tbody').html(html['score15']);
+        return $('#highScores table.table9 tbody').html(html['score9']);
       });
     };
 

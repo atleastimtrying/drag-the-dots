@@ -71,7 +71,11 @@ p{
   font-size:16px;
   margin-bottom:16px;
 }
-
+p a{
+  color:inherit;
+  font-weight:bold;
+  text-decoration:none;
+}
 .not-name{
   text-decoration: none;
   color:white;
@@ -189,9 +193,15 @@ input[type="text"] {
   -webkit-transition: top 0.3s ease-out, left 0.3s ease-out;
   transition: top 0.3s ease-out, left 0.3s ease-out;
 }
+.dot.spinny{
+  animation: rotate 0.2s linear infinite;
+  -webkit-animation: rotate 0.2s linear infinite;
+}
 .dot.moving.ui-draggable-dragging{
   -webkit-transition: none;
+  -webkit-animation: none;
   transition: none;
+  animation: none;
 }
 .spinner{
   display:block;
