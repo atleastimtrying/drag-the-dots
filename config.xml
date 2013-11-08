@@ -16,7 +16,8 @@
     <author href="https://andersfisher.com" email="anders@js-dev.co.uk">
         Anders Fisher 
     </author>
-    <preference name="permissions" value="vibrate"/>
+    <preference name="permissions" value="none"/>
+    <feature name="http://api.phonegap.com/1.0/vibrate"/>
     <preference name="orientation" value="portrait" />
     <preference name="fullscreen" value="true" />
     <preference name="target-device" value="handset" />
