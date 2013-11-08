@@ -292,6 +292,9 @@
   Game = (function() {
     function Game(app) {
       this.app = app;
+      this.endDrag = __bind(this.endDrag, this);
+      this.moveDrag = __bind(this.moveDrag, this);
+      this.startDrag = __bind(this.startDrag, this);
       this.hitDetection = __bind(this.hitDetection, this);
       this.startGame = __bind(this.startGame, this);
       $('body').on('startGame', this.startGame);
@@ -360,11 +363,61 @@
     };
 
     Game.prototype.makeDotsDraggable = function() {
-      return $('.dot').draggable({
-        stop: this.hitDetection,
-        containment: "#container",
-        scroll: false
+      return $('.dot').on({
+        'touchstart': this.startDrag
       });
+    };
+
+    Game.prototype.startDrag = function(event) {
+      var dot, offset;
+      dot = $(event.currentTarget);
+      if (event.type !== 'mousedown') {
+        dot.on({
+          'touchmove': this.moveDrag,
+          'touchend': this.endDrag
+        });
+      }
+      offset = dot.offset();
+      this.pos = [offset.left, offset.top];
+      return this.origin = this.getCoors(event);
+    };
+
+    Game.prototype.moveDrag = function(event) {
+      var currentPos, deltaX, deltaY, dot;
+      dot = $(event.currentTarget);
+      currentPos = this.getCoors(event);
+      deltaX = currentPos[0] - this.origin[0];
+      deltaY = currentPos[1] - this.origin[1];
+      dot.css({
+        left: (this.pos[0] + deltaX) + 'px',
+        top: (this.pos[1] + deltaY) + 'px'
+      });
+      return false;
+    };
+
+    Game.prototype.endDrag = function(event) {
+      var dot;
+      dot = $(event.currentTarget);
+      return dot.off({
+        'touchmove': this.moveDrag,
+        'touchend': this.endDrag
+      });
+    };
+
+    Game.prototype.getCoors = function(e) {
+      var coors, event, thisTouch;
+      event = e.originalEvent;
+      coors = [];
+      if (event.targetTouches && event.targetTouches.length) {
+        thisTouch = event.targetTouches[0];
+        coors[0] = thisTouch.clientX;
+        coors[1] = thisTouch.clientY;
+      } else {
+        console.log(event);
+        coors[0] = event.clientX;
+        coors[1] = event.clientY;
+      }
+      return coors;
     };
 
     Game.prototype.layoutDots = function() {
@@ -571,6 +624,9 @@
   })();
 
   document.addEventListener("deviceready", function() {
+    document.ongesturechange = function() {
+      return false;
+    };
     return document.addEventListener("menubutton", function() {
       window.app.game.timer.stop();
       return $('body').trigger('show', 'start');

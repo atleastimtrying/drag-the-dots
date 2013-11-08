@@ -157,7 +157,7 @@ Layouts =
     $('body').on 
       'collide': change
       'show': unbindbody
-    $('#container .dot').addClass('moving');
+    $('#container .dot').addClass('moving')
     Layouts.random()
 
 class Game 
@@ -208,10 +208,47 @@ class Game
     $('#container').prepend '<div class="dot" data-value="1" data-id="1000" >1</div>'
 
   makeDotsDraggable: ->
-    $('.dot').draggable
-      stop: @hitDetection
-      containment: "#container" 
-      scroll: false
+    $('.dot').on 'touchstart': @startDrag
+  
+  startDrag: (event)=>
+    dot = $ event.currentTarget
+    if event.type isnt 'mousedown'
+      dot.on
+        'touchmove': @moveDrag
+        'touchend': @endDrag
+    offset = dot.offset()
+    @pos = [offset.left, offset.top]
+    @origin = @getCoors event
+  
+  moveDrag:(event)=>
+    dot = $ event.currentTarget
+    currentPos = @getCoors event
+    deltaX = currentPos[0] - @origin[0]
+    deltaY = currentPos[1] - @origin[1]
+    dot.css
+      left: (@pos[0] + deltaX) + 'px'
+      top: (@pos[1] + deltaY) + 'px'
+    false
+  
+  endDrag: (event)=>
+    dot = $ event.currentTarget
+    dot.off
+      'touchmove': @moveDrag
+      'touchend': @endDrag
+  
+  getCoors: (e)->
+    event = e.originalEvent
+    coors = []
+    if event.targetTouches and event.targetTouches.length
+      thisTouch = event.targetTouches[0]
+      coors[0] = thisTouch.clientX
+      coors[1] = thisTouch.clientY
+    else
+      console.log event
+      coors[0] = event.clientX
+      coors[1] = event.clientY
+    coors
+  
   layoutDots : ->
     Layouts.random() if @layout is 'random'
     Layouts.grid() if @layout is 'grid'
@@ -341,6 +378,7 @@ class App
     @game = new Game(@)
     $('body').trigger 'show', 'start'
 document.addEventListener "deviceready", ->
+  document.ongesturechange = -> false
   document.addEventListener "menubutton", ->
     window.app.game.timer.stop()
     $('body').trigger('show', 'start') 
