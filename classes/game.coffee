@@ -52,7 +52,7 @@ class window.Game
       containment: "#container" 
       scroll: false
 
-    #$('.dot').on 'touchstart': @startDrag
+    # $('.dot').on 'touchstart': @startDrag
   
   startDrag: (event)=>
     dot = $ event.currentTarget

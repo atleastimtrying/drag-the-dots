@@ -4,13 +4,13 @@ class window.Scores
       'getHighScores': @getHighScores
       'postHighScore': @postHighScore
   getHighScores: (event, fn)->
-    path = 'http://localhost:3000/scores.js'
+    path = 'http://dragthedots.com/scores.js'
     $.ajax path,
       dataType: 'jsonp',
       success: (data)->
         fn(data)
   postHighScore: (event, scoreObject)=>
-    path = 'http://localhost:3000/scores/new'
+    path = 'http://dragthedots.com/scores/new'
     $.extend scoreObject.score, { 'dfgget5th767': @generateCode() }
     $.ajax path,
       dataType: 'jsonp'
