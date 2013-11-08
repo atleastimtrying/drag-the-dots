@@ -389,8 +389,8 @@
       deltaX = currentPos[0] - this.origin[0];
       deltaY = currentPos[1] - this.origin[1];
       dot.css({
-        left: (this.pos[0] + deltaX) + 'px',
-        top: (this.pos[1] + deltaY) + 'px'
+        left: ((this.pos[0] + deltaX) + 30) + 'px',
+        top: ((this.pos[1] + deltaY) + 30) + 'px'
       });
       return false;
     };
@@ -398,10 +398,11 @@
     Game.prototype.endDrag = function(event) {
       var dot;
       dot = $(event.currentTarget);
-      return dot.off({
+      dot.off({
         'touchmove': this.moveDrag,
         'touchend': this.endDrag
       });
+      return this.hitDetection(event);
     };
 
     Game.prototype.getCoors = function(e) {

@@ -226,8 +226,8 @@ class Game
     deltaX = currentPos[0] - @origin[0]
     deltaY = currentPos[1] - @origin[1]
     dot.css
-      left: (@pos[0] + deltaX) + 'px'
-      top: (@pos[1] + deltaY) + 'px'
+      left: ((@pos[0] + deltaX) + 30) + 'px'
+      top: ((@pos[1] + deltaY) + 30) + 'px'
     false
   
   endDrag: (event)=>
@@ -235,6 +235,7 @@ class Game
     dot.off
       'touchmove': @moveDrag
       'touchend': @endDrag
+    @hitDetection event
   
   getCoors: (e)->
     event = e.originalEvent
