@@ -420,6 +420,7 @@ class App
     @intro = new Intro(@)
     @screens = new Screens(@)
     @game = new Game(@)
+    @vibrate = new Vibrate(@)
     $('body').trigger 'show', 'start'
 document.addEventListener "deviceready", ->
   document.ongesturechange = -> false

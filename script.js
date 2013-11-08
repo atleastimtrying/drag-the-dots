@@ -686,6 +686,7 @@
       this.intro = new Intro(this);
       this.screens = new Screens(this);
       this.game = new Game(this);
+      this.vibrate = new Vibrate(this);
       $('body').trigger('show', 'start');
     }
 
