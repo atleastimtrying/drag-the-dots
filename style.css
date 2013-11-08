@@ -144,6 +144,18 @@ a.btn:hover{
 a.btn:active{
   background:rgba(255,255,255,0.6);
 }
+nav{
+  font-size:0;
+}
+nav a.btn{
+  font-size:16px;
+  margin-right:8px;
+  margin-bottom:8px;
+}
+nav a:last-child{
+  margin-right:0;
+}
+
 input[type="text"] {
   padding: 8px;
   border: 0;
@@ -151,6 +163,7 @@ input[type="text"] {
   background:rgba(255,255,255,0.8);
   color:rgba(0,0,0,0.6);
   font-size: 16px;
+  -webkit-appearance:none;
 }
 .timer{
   position:absolute;
@@ -194,8 +207,16 @@ input[type="text"] {
   transition: top 0.3s ease-out, left 0.3s ease-out;
 }
 .dot.spinny{
+  color:#333;
+  background:white;
   animation: rotate 0.2s linear infinite;
   -webkit-animation: rotate 0.2s linear infinite;
+}
+.dot.tiny{
+  padding:15px 0;
+  width:30px;
+  font-weight:400;
+  font-size:12px;
 }
 .dot.moving.ui-draggable-dragging{
   -webkit-transition: none;

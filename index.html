@@ -39,10 +39,12 @@
     </div>
     <div id="options" class="screen">
       <h2>Options</h2>
-      <a href="#" class="btn show" data-show="intro">intro</a>
-      <a href="#" class="btn action" data-action="clearScores">clear scores</a>
-      <a href="#" class="btn show" data-show="start">menu</a>
-      <a href="#" class="btn show" data-show="credits">credits</a>
+      <nav>
+        <a href="#" class="btn show" data-show="intro">intro</a>
+        <a href="#" class="btn action" data-action="clearScores">clear scores</a>
+        <a href="#" class="btn show" data-show="start">menu</a>
+        <a href="#" class="btn show" data-show="credits">credits</a>
+      </nav>
     </div>
     <div id="credits" class="screen">
       <h2>Credits</h2>
@@ -54,17 +56,20 @@
       <h2>Drag the Dots</h2>
       <h3 class="name"></h3>
       <a href="#" class="not-name">Change name?</a>
-      <div>
+      <nav>
         <a href="#" class="btn startGame" data-count="10" data-layout="random">random</a>
         <a href="#" class="btn startGame" data-count="8" data-layout="grid">grid</a>
         <a href="#" class="btn startGame" data-count="12" data-layout="moving">moving</a>
+      </nav>
+      <nav>
         <a href="#" class="btn startGame" data-count="15" data-layout="grid">grid+</a>
         <a href="#" class="btn startGame" data-count="9" data-layout="circle">circle</a>
-      </div>
-      <div>
+        <a href="#" class="btn startGame" data-count="19" data-layout="tiny">tiny</a>
+      </nav>
+      <nav>
         <a href="#" class="btn show" data-show="options">options</a>
         <a href="#" class="btn show" data-show="scores">scores</a>
-      </div>
+      </nav>
     </div>
     <div id="container" class="screen">
       <div class="timer"></div>
@@ -72,10 +77,12 @@
     <div id="score" class="screen">
       <h2 id="scoreMessage"></h2>
       <h3 class="name"></h3>
-      <a href="#" class="not-name">Change name?</a>
-      <a href="#" class="btn action" data-action="startGame">again?</a>
-      <a href="#" class="btn show" data-show="start">menu</a>
-      <a href="#" class="btn postHighScore online">post score</a>
+      <nav>
+        <a href="#" class="not-name">Change name?</a>
+        <a href="#" class="btn action" data-action="startGame">again?</a>
+        <a href="#" class="btn show" data-show="start">menu</a>
+        <a href="#" class="btn postHighScore online">post score</a>
+      </nav>
     </div>
     <div id="scores" class="screen">
       <h2>Your scores!</h2>
@@ -128,6 +135,17 @@
           </tr>
         </thead>
         <tbody></tbody>
+      </table>
+      <h3>Tiny</h3>
+      <table class="table11">
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>score</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
       </table>
       <a href="#" class="btn show" data-show="start">menu</a>
       <a href="#" class="btn show online" data-show="highScores">global scores</a>
@@ -219,6 +237,23 @@
           </div>
         </tbody>
       </table>
+      <h3>Tiny</h3>
+      <table class="table19">
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <div class="spinner">
+            <span class="spin1"></span>
+            <span class="spin2"></span>
+            <span class="spin3"></span>
+            <span class="spin4"></span>
+          </div>
+        </tbody>
+      </table>
       <a href="#" class="btn show" data-show="start">menu</a>
     </div>
     <div id="enterName" class="screen">
@@ -226,7 +261,10 @@
       <p>To get started please enter your name.</p>
       <input type="text" placeholder="your name">
       <button>Submit</button>
-      <a href="#" class="btn show" data-show="intro">how to play</a>
+      <nav>
+        <a href="#" class="btn show" data-show="start">menu</a>
+        <a href="#" class="btn show" data-show="intro">how to play</a>
+      </nav>
     </div>
   </article>
   <script src="phonegap.js"></script>
