@@ -113,10 +113,8 @@
     };
 
     Game.prototype.makeDotsDraggable = function() {
-      return $('.dot').draggable({
-        stop: this.hitDetection,
-        containment: "#container",
-        scroll: false
+      return $('.dot').on({
+        'touchstart': this.startDrag
       });
     };
 
