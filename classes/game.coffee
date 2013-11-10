@@ -47,12 +47,14 @@ class window.Game
     $('#container').prepend '<div class="dot" data-value="1" data-id="1000" >1</div>'
 
   makeDotsDraggable: ->
-    # $('.dot').draggable
-    #   stop: @hitDetection
-    #   containment: "#container" 
-    #   scroll: false
+    if(false)
+      $('.dot').on 'touchstart': @startDrag
+    else
+      $('.dot').draggable
+        stop: @hitDetection
+        containment: "#container" 
+        scroll: false
 
-    $('.dot').on 'touchstart': @startDrag
   
   startDrag: (event)=>
     dot = $ event.currentTarget

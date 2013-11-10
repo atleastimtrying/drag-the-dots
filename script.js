@@ -113,9 +113,17 @@
     };
 
     Game.prototype.makeDotsDraggable = function() {
-      return $('.dot').on({
-        'touchstart': this.startDrag
-      });
+      if (false) {
+        return $('.dot').on({
+          'touchstart': this.startDrag
+        });
+      } else {
+        return $('.dot').draggable({
+          stop: this.hitDetection,
+          containment: "#container",
+          scroll: false
+        });
+      }
     };
 
     Game.prototype.startDrag = function(event) {
@@ -492,7 +500,7 @@
           'score12': '',
           'score15': '',
           'score9': '',
-          'score11': ''
+          'score19': ''
         };
         $(scores).each(function(index, score) {
           return html["score" + score.level] += "<tr><td>" + score.name + "</td><td>" + score.score + "</td></tr>";
@@ -502,7 +510,7 @@
         $('#scores table.table12 tbody').html(html['score12']);
         $('#scores table.table15 tbody').html(html['score15']);
         $('#scores table.table9 tbody').html(html['score9']);
-        return $('#scores table.table11 tbody').html(html['score11']);
+        return $('#scores table.table19 tbody').html(html['score19']);
       });
     };
 

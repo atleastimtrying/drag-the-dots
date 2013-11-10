@@ -50,7 +50,7 @@ class window.Screens
         'score12': ''
         'score15': ''
         'score9': ''
-        'score11': ''
+        'score19': ''
 
       $(scores).each (index, score)->
         html["score#{score.level}"] += "<tr><td>#{score.name}</td><td>#{score.score}</td></tr>"
@@ -59,7 +59,7 @@ class window.Screens
       $('#scores table.table12 tbody').html(html['score12'])
       $('#scores table.table15 tbody').html(html['score15'])
       $('#scores table.table9 tbody').html(html['score9'])
-      $('#scores table.table11 tbody').html(html['score11'])
+      $('#scores table.table19 tbody').html(html['score19'])
   highScores: ->
     $('#highScores, #highScores .spinner').show()
     $('body').trigger 'getHighScores', (data)->
