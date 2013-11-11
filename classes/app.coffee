@@ -7,5 +7,5 @@ class window.App
     @intro = new Intro(@)
     @screens = new Screens(@)
     @game = new Game(@)
-    @vibrate = new Vibrate(@) if navigator.notification
+    @vibrate = new Vibrate(@) #if navigator.notification
     $('body').trigger 'show', 'start'

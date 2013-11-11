@@ -11,9 +11,7 @@
       this.intro = new Intro(this);
       this.screens = new Screens(this);
       this.game = new Game(this);
-      if (navigator.notification) {
-        this.vibrate = new Vibrate(this);
-      }
+      this.vibrate = new Vibrate(this);
       $('body').trigger('show', 'start');
     }
 
