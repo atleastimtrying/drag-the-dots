@@ -7,8 +7,7 @@ document.addEventListener "deviceready", ->
     $('body').trigger('show', 'start') 
   , false
   document.addEventListener "backbutton", ->
-    unless $('#start').is(':visible')
-      window.app.game.timer.stop()
-      $('body').trigger('show', 'start') 
+    window.app.game.timer.stop()
+    $('body').trigger('show', 'start') 
   , false
 , false
