@@ -40,6 +40,9 @@ article{
   width:100%;
   height:100%;
   box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -ms-box-sizing:border-box;
   padding:16px;
   top:0;
   left:0;
@@ -217,6 +220,7 @@ input[type="text"] {
   width:30px;
   font-weight:400;
   font-size:12px;
+  margin:-15px;
 }
 .dot.moving.ui-draggable-dragging{
   -webkit-transition: none;

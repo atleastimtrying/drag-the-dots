@@ -22,7 +22,7 @@ window.Layouts =
         x = 0
         y += 1
     layouts = layouts.sort -> 0.5 - Math.random()
-    difference = (edge + 1) /2 * 60
+    difference = ((edge + 1) /2 * 60)
     center = { x: ($('#container').width() /2) + difference, y: ($('#container').height() /2) + difference }
     $('#container .dot').each (index, dot)=>
       coords = layouts[index]
@@ -51,8 +51,8 @@ window.Layouts =
     count = $('#container .dot').size()
     angle = 360 / count
     radians = (degrees)-> degrees * (Math.PI/180)
-    centerx = $('#container').width() / 2
-    centery = $('#container').height() / 2
+    centerx = ($(window).width() / 2)
+    centery = ($(window).height() / 2)
     radius = Math.min(centerx, centery) * 0.8
     layouts = []
     $('#container .dot').each (i, dot)=>
@@ -68,5 +68,5 @@ window.Layouts =
       $(dot).css layouts[i]
       $(dot).addClass 'spinny'
   tiny: ->
-    $('.dot').addClass('tiny')
+    $('#container .dot').addClass('tiny')
     Layouts.grid()

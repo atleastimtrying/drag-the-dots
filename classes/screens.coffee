@@ -11,7 +11,14 @@ class window.Screens
 
   name: ->
     $('#enterName').show()
-  
+
+  randomIntro: -> $('#randomIntro').show()
+  gridIntro: -> $('#gridIntro').show()
+  movingIntro: -> $('#movingIntro').show()
+  gridPlusIntro: -> $('#gridPlusIntro').show()
+  circleIntro: -> $('#circleIntro').show()
+  tinyIntro: -> $('#tinyIntro').show()
+
   game: ->
     $('#container').show()
 

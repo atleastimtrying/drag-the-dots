@@ -57,14 +57,14 @@
       <h3 class="name"></h3>
       <a href="#" class="not-name">Change name?</a>
       <nav>
-        <a href="#" class="btn startGame" data-count="10" data-layout="random">random</a>
-        <a href="#" class="btn startGame" data-count="8" data-layout="grid">grid</a>
-        <a href="#" class="btn startGame" data-count="12" data-layout="moving">moving</a>
+        <a href="#" class="btn show" data-show="randomIntro">random</a>
+        <a href="#" class="btn show" data-show="gridIntro">grid</a>
+        <a href="#" class="btn show" data-show="movingIntro">moving</a>
       </nav>
       <nav>
-        <a href="#" class="btn startGame" data-count="15" data-layout="grid">grid+</a>
-        <a href="#" class="btn startGame" data-count="9" data-layout="circle">circle</a>
-        <a href="#" class="btn startGame" data-count="19" data-layout="tiny">tiny</a>
+        <a href="#" class="btn show" data-show="gridPlusIntro">grid+</a>
+        <a href="#" class="btn show" data-show="circleIntro">circle</a>
+        <a href="#" class="btn show" data-show="tinyIntro">tiny</a>
       </nav>
       <nav>
         <a href="#" class="btn show" data-show="options">options</a>
@@ -266,6 +266,48 @@
         <a href="#" class="btn show" data-show="intro">how to play</a>
       </nav>
     </div>
+    <div id="circleIntro" class="screen">
+      <h2>Circle</h2>
+      <p>The dots are in a circle around the screen and are spinning. Watch out for 6 and 9!</p>
+      <div class="dot spinny" style="top:75%; left:25%;">6</div>
+      <div class="dot spinny" style="top:75%; left:75%;">9</div>
+      <a href="#" class="btn startGame" data-count="9" data-layout="circle">Go!</a>
+      <a href="#" class="btn show" data-show="start">menu</a>
+    </div>
+    <div id="randomIntro" class="screen">
+      <h2>Random</h2>
+      <p>Ten dots are placed randomly around the screen, grab them quick!</p>
+      <a href="#" class="btn startGame" data-count="10" data-layout="random">Go!</a>
+      <a href="#" class="btn show" data-show="start">menu</a>
+    </div>
+    <div id="gridIntro" class="screen">
+      <h2>Grid</h2>
+      <p>9 dots laid out in a grid, our most popular game!</p>
+      <a href="#" class="btn startGame" data-count="8" data-layout="grid">Go!</a>
+      <a href="#" class="btn show" data-show="start">menu</a>
+    </div>
+    <div id="movingIntro" class="screen">
+      <h2>Moving</h2>
+      <p>12 dots they move after each match, keep a keen eye out!</p>
+      <a href="#" class="btn startGame" data-count="12" data-layout="moving">Go!</a>
+      <a href="#" class="btn show" data-show="start">menu</a>
+    </div>
+    <div id="gridPlusIntro" class="screen">
+      <h2>Grid+</h2>
+      <p>16 dots laid neatly,<p> 
+      <p>can you get the top score?</p>
+      <a href="#" class="btn startGame" data-count="15" data-layout="grid">Go!</a>
+      <a href="#" class="btn show" data-show="start">menu</a>
+    </div>
+    <div id="tinyIntro" class="screen">
+      <h2>Tiny</h2>
+      <p>Can you grab these pint sized dots?</p>
+      <p>Might need to use your pinky finger!</p>
+      <div class="dot" style="top:75%; left:25%; background-color:rgb(153, 92, 215);">1</div>
+      <div class="dot tiny" style="top:75%; left:75%; background:rgb(215, 215, 92);">2</div>
+      <a href="#" class="btn startGame" data-count="19" data-layout="tiny">Go!</a>
+      <a href="#" class="btn show" data-show="start">menu</a>
+    </div> 
   </article>
   <script src="phonegap.js"></script>
   <script src="libs.js"></script>

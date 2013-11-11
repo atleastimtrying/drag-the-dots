@@ -2,8 +2,8 @@
     <widget xmlns = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.andersfisher.phonegap"
-        versionCode = "111" 
-        version   = "1.1.1">
+        versionCode = "108" 
+        version   = "1.0.8">
 
     <!-- versionCode is optional and Android only -->
 
@@ -16,7 +16,8 @@
     <author href="https://andersfisher.com" email="anders@js-dev.co.uk">
         Anders Fisher 
     </author>
-    <preference name="permissions" value="notification"/>
+    <preference name="permissions" value="none"/>
+    <preference name="permissions" value="vibrate"/>
     <preference name="orientation" value="portrait" />
     <preference name="fullscreen" value="true" />
     <preference name="target-device" value="handset" />

@@ -208,7 +208,11 @@
     document.ongesturechange = function() {
       return false;
     };
-    return document.addEventListener("menubutton", function() {
+    document.addEventListener("menubutton", function() {
+      window.app.game.timer.stop();
+      return $('body').trigger('show', 'start');
+    }, false);
+    return document.addEventListener("backbutton", function() {
       window.app.game.timer.stop();
       return $('body').trigger('show', 'start');
     }, false);
@@ -354,8 +358,8 @@
       radians = function(degrees) {
         return degrees * (Math.PI / 180);
       };
-      centerx = $('#container').width() / 2;
-      centery = $('#container').height() / 2;
+      centerx = $(window).width() / 2;
+      centery = $(window).height() / 2;
       radius = Math.min(centerx, centery) * 0.8;
       layouts = [];
       $('#container .dot').each(function(i, dot) {
@@ -379,7 +383,7 @@
       });
     },
     tiny: function() {
-      $('.dot').addClass('tiny');
+      $('#container .dot').addClass('tiny');
       return Layouts.grid();
     }
   };
@@ -449,6 +453,30 @@
 
     Screens.prototype.name = function() {
       return $('#enterName').show();
+    };
+
+    Screens.prototype.randomIntro = function() {
+      return $('#randomIntro').show();
+    };
+
+    Screens.prototype.gridIntro = function() {
+      return $('#gridIntro').show();
+    };
+
+    Screens.prototype.movingIntro = function() {
+      return $('#movingIntro').show();
+    };
+
+    Screens.prototype.gridPlusIntro = function() {
+      return $('#gridPlusIntro').show();
+    };
+
+    Screens.prototype.circleIntro = function() {
+      return $('#circleIntro').show();
+    };
+
+    Screens.prototype.tinyIntro = function() {
+      return $('#tinyIntro').show();
     };
 
     Screens.prototype.game = function() {
