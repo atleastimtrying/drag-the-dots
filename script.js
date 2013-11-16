@@ -785,6 +785,27 @@
 
   })();
 
+  window.Twitter = (function() {
+    function Twitter(app) {
+      this.app = app;
+      this.tweet = __bind(this.tweet, this);
+      $('.btn.tweet').click(this.tweet);
+    }
+
+    Twitter.prototype.url = function(game, score) {
+      game = game.replace("+", " plus");
+      return "https://twitter.com/intent/tweet?text=I+got+" + score + "+on+" + game + "+in+Drag+the+Dots%21+http%3A%2F%2Fmorein.fo%2Fdtd&via=dragthedots";
+    };
+
+    Twitter.prototype.tweet = function(event) {
+      event.preventDefault();
+      return window.plugins.childBrowser.showWebPage(this.url(this.app.game.name(), this.app.score));
+    };
+
+    return Twitter;
+
+  })();
+
   window.UI = (function() {
     function UI() {
       $('body').trigger('getName', function(name) {
