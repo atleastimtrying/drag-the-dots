@@ -25,4 +25,5 @@
     <icon src="android_icons/mdpi.png" gap:platform="android" gap:density="mdpi" />
     <icon src="android_icons/hdpi.png" gap:platform="android" gap:density="hdpi" />
     <icon src="android_icons/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
+    <gap:plugin name="com.phonegap.plugins.childbrowser" />
 </widget>

@@ -11,7 +11,7 @@
       this.intro = new Intro(this);
       this.screens = new Screens(this);
       this.game = new Game(this);
-      if (navigator.notification) this.vibrate = new Vibrate(this);
+      this.vibrate = new Vibrate(this);
       this.twitter = new Twitter(this);
       $('body').trigger('show', 'start');
     }
@@ -682,7 +682,7 @@
 
     Twitter.prototype.tweet = function(event) {
       event.preventDefault();
-      return window.open(this.url(this.app.game.name(), this.app.score), '_blank', 'location=yes');
+      return window.plugins.childBrowser.showWebPage(this.url(this.app.game.name(), this.app.score));
     };
 
     return Twitter;
