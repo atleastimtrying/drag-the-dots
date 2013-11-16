@@ -4,6 +4,10 @@ class window.Game
     @count = 10
     @timer = new Timer(@app)
 
+  name: =>
+    count = @count
+    $(".table#{count}").prev('h3').text()
+
   startGame: (event, options = {count: @count, layout: @layout})=>
     @count = options.count if options.count
     @layout = options.layout if options.layout
