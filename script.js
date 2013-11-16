@@ -13,6 +13,7 @@
       this.game = new Game(this);
       this.vibrate = new Vibrate(this);
       this.options = new Options(this);
+      this.twitter = new Twitter(this);
       $('body').trigger('show', 'start');
     }
 
@@ -53,10 +54,17 @@
       this.startDrag = __bind(this.startDrag, this);
       this.hitDetection = __bind(this.hitDetection, this);
       this.startGame = __bind(this.startGame, this);
+      this.name = __bind(this.name, this);
       $('body').on('startGame', this.startGame);
       this.count = 10;
       this.timer = new Timer(this.app);
     }
+
+    Game.prototype.name = function() {
+      var count;
+      count = this.count;
+      return $(".table" + count).prev('h3').text();
+    };
 
     Game.prototype.startGame = function(event, options) {
       var _this = this;
