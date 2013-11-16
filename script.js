@@ -25,13 +25,23 @@
       var options;
       options = window.app.options.getOptions();
       if (options.background) {
-        return "hsl(" + (index * 30) + ",60%, 60%)";
+        if (options.greyscale) {
+          return "hsl(0,0%," + (index * 5) + "%)";
+        } else {
+          return "hsl(" + (index * 30) + ",60%, 60%)";
+        }
       } else {
         return "transparent";
       }
     },
     background: function(index) {
-      return "hsl(" + (index * 30) + ",50%, 35%)";
+      var options;
+      options = window.app.options.getOptions();
+      if (options.greyscale) {
+        return "hsl(0,0%," + (index * 2) + "%)";
+      } else {
+        return "hsl(" + (index * 30) + ",50%, 35%)";
+      }
     }
   };
 
@@ -432,7 +442,8 @@
         options = {
           vibrate: true,
           background: true,
-          numbers: true
+          numbers: true,
+          greyscale: false
         };
       }
       return localStorage.setItem('options', JSON.stringify(options));
@@ -461,7 +472,8 @@
       options = this.getOptions();
       $('#optionVibrate').attr('checked', options.vibrate);
       $('#optionBackground').attr('checked', options.background);
-      return $('#optionNumbers').attr('checked', options.numbers);
+      $('#optionNumbers').attr('checked', options.numbers);
+      return $('#optionGreyscale').attr('checked', options.greyscale);
     };
 
     return Options;
@@ -838,6 +850,12 @@
       $('#optionBackground').change(function(event) {
         return $('body').trigger('updateOption', {
           name: 'background',
+          val: $(event.currentTarget).is(":checked")
+        });
+      });
+      $('#optionGreyscale').change(function(event) {
+        return $('body').trigger('updateOption', {
+          name: 'greyscale',
           val: $(event.currentTarget).is(":checked")
         });
       });

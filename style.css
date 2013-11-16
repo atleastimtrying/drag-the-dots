@@ -213,6 +213,7 @@ input[type="text"] {
   animation: rotate 0.4s ease-out infinite;
   -webkit-animation: rotate 0.4s ease-out infinite;
   color:#333;
+  background:white;
 }
 .dot.tiny{
   padding:15px 0;

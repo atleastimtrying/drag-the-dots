@@ -12,6 +12,7 @@ class window.Options
         vibrate: true
         background: true
         numbers: true
+        greyscale: false
       }
     localStorage.setItem 'options', JSON.stringify options
 
@@ -33,3 +34,4 @@ class window.Options
     $('#optionVibrate').attr('checked', options.vibrate )
     $('#optionBackground').attr('checked', options.background )
     $('#optionNumbers').attr('checked', options.numbers )
+    $('#optionGreyscale').attr('checked', options.greyscale )

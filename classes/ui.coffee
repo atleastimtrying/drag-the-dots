@@ -50,6 +50,10 @@ class window.UI
       $('body').trigger 'updateOption',
         name: 'background'
         val: $(event.currentTarget).is(":checked")
+    $('#optionGreyscale').change (event)->
+      $('body').trigger 'updateOption',
+        name: 'greyscale'
+        val: $(event.currentTarget).is(":checked")
     $('#optionNumbers').change (event)->
       $('body').trigger 'updateOption',
         name: 'numbers'
