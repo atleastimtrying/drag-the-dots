@@ -8,4 +8,5 @@ class window.App
     @screens = new Screens(@)
     @game = new Game(@)
     @vibrate = new Vibrate(@) #if navigator.notification
+    @options = new Options(@)
     $('body').trigger 'show', 'start'

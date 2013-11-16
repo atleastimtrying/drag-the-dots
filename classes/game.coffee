@@ -12,7 +12,12 @@ class window.Game
     @addDots()
     @makeDotsDraggable()
     @layoutDots()
-    @timer.start()
+
+    $('body').trigger 'getOption', 
+      name: 'numbers'
+      fn: (numbers)=>
+        $('#container .dot').addClass('no-numbers') unless numbers
+        @timer.start()
   
   collide: (item1, item2)->
     xs = item1.left - item2.left

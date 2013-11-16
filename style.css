@@ -210,10 +210,9 @@ input[type="text"] {
   transition: top 0.3s ease-out, left 0.3s ease-out;
 }
 .dot.spinny{
+  animation: rotate 0.4s ease-out infinite;
+  -webkit-animation: rotate 0.4s ease-out infinite;
   color:#333;
-  background:white;
-  animation: rotate 0.2s linear infinite;
-  -webkit-animation: rotate 0.2s linear infinite;
 }
 .dot.tiny{
   padding:15px 0;
@@ -221,6 +220,9 @@ input[type="text"] {
   font-weight:400;
   font-size:12px;
   margin:-15px;
+}
+.dot.no-numbers{
+  color:transparent;
 }
 .dot.moving.ui-draggable-dragging{
   -webkit-transition: none;
@@ -234,8 +236,8 @@ input[type="text"] {
   height:32px;
   margin: 0 auto;
   position:relative;
-  animation: rotate 2s linear infinite;
-  -webkit-animation: rotate 2s linear infinite; /* Safari and Chrome */
+  animation: rotate 5s linear infinite;
+  -webkit-animation: rotate 5s linear infinite; /* Safari and Chrome */
 }
 .spinner span{
   width:4px;

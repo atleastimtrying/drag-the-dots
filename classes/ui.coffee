@@ -7,6 +7,7 @@ class window.UI
       else
         $('body').trigger('show', 'name')
     @bindClicks()
+    @bindChanges()
   bindClicks: ->
     $('.not-name').click ->
       $('body').trigger 'setName', ''
@@ -40,3 +41,16 @@ class window.UI
             else
               $('body').trigger('show', 'highScores')
       false
+  bindChanges: ->
+    $('#optionVibrate').change (event)->
+      $('body').trigger 'updateOption',
+        name: 'vibrate'
+        val: $(event.currentTarget).is(":checked")
+    $('#optionBackground').change (event)->
+      $('body').trigger 'updateOption',
+        name: 'background'
+        val: $(event.currentTarget).is(":checked")
+    $('#optionNumbers').change (event)->
+      $('body').trigger 'updateOption',
+        name: 'numbers'
+        val: $(event.currentTarget).is(":checked")

@@ -61,12 +61,17 @@ window.Layouts =
       layouts.push
         top: "#{y}px"
         left: "#{x}px"
-    $('body').css
-      'background-color':'#333'
     layouts = layouts.sort -> 0.5 - Math.random()
+    options = window.app.options.getOptions()
+    bg = "white"
+    bg = "transparent"  unless options.background
     $('#container .dot').each (i, dot)=>
-      $(dot).css layouts[i]
-      $(dot).addClass 'spinny'
+      $(dot).css 
+        top: layouts[i].top
+        left: layouts[i].left
+        background: bg
+      $(dot).addClass('spinny')
+    $('body').css 'background-color' : Colours.background(1)
   tiny: ->
     $('#container .dot').addClass('tiny')
     Layouts.grid()

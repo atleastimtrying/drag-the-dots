@@ -12,6 +12,7 @@
       this.screens = new Screens(this);
       this.game = new Game(this);
       this.vibrate = new Vibrate(this);
+      this.options = new Options(this);
       $('body').trigger('show', 'start');
     }
 
@@ -21,7 +22,13 @@
 
   window.Colours = {
     dot: function(index) {
-      return "hsl(" + (index * 30) + ",60%, 60%)";
+      var options;
+      options = window.app.options.getOptions();
+      if (options.background) {
+        return "hsl(" + (index * 30) + ",60%, 60%)";
+      } else {
+        return "transparent";
+      }
     },
     background: function(index) {
       return "hsl(" + (index * 30) + ",50%, 35%)";
@@ -42,6 +49,7 @@
     }
 
     Game.prototype.startGame = function(event, options) {
+      var _this = this;
       if (options == null) {
         options = {
           count: this.count,
@@ -59,7 +67,15 @@
       this.addDots();
       this.makeDotsDraggable();
       this.layoutDots();
-      return this.timer.start();
+      return $('body').trigger('getOption', {
+        name: 'numbers',
+        fn: function(numbers) {
+          if (!numbers) {
+            $('#container .dot').addClass('no-numbers');
+          }
+          return _this.timer.start();
+        }
+      });
     };
 
     Game.prototype.collide = function(item1, item2) {
@@ -349,7 +365,7 @@
       return Layouts.random();
     },
     circle: function() {
-      var angle, centerx, centery, count, layouts, radians, radius,
+      var angle, bg, centerx, centery, count, layouts, options, radians, radius,
         _this = this;
       count = $('#container .dot').size();
       angle = 360 / count;
@@ -369,15 +385,24 @@
           left: "" + x + "px"
         });
       });
-      $('body').css({
-        'background-color': '#333'
-      });
       layouts = layouts.sort(function() {
         return 0.5 - Math.random();
       });
-      return $('#container .dot').each(function(i, dot) {
-        $(dot).css(layouts[i]);
+      options = window.app.options.getOptions();
+      bg = "white";
+      if (!options.background) {
+        bg = "transparent";
+      }
+      $('#container .dot').each(function(i, dot) {
+        $(dot).css({
+          top: layouts[i].top,
+          left: layouts[i].left,
+          background: bg
+        });
         return $(dot).addClass('spinny');
+      });
+      return $('body').css({
+        'background-color': Colours.background(1)
       });
     },
     tiny: function() {
@@ -385,6 +410,63 @@
       return Layouts.grid();
     }
   };
+
+  window.Options = (function() {
+    function Options(app) {
+      this.app = app;
+      this.syncUI = __bind(this.syncUI, this);
+      this.getOption = __bind(this.getOption, this);
+      this.getOptions = __bind(this.getOptions, this);
+      this.updateOption = __bind(this.updateOption, this);
+      this.setupOptions = __bind(this.setupOptions, this);
+      this.syncUI();
+      $('body').on('updateOption', this.updateOption);
+      $('body').on('getOption', this.getOption);
+      this.setupOptions();
+    }
+
+    Options.prototype.setupOptions = function() {
+      var options;
+      options = this.getOptions();
+      if (!options) {
+        options = {
+          vibrate: true,
+          background: true,
+          numbers: true
+        };
+      }
+      return localStorage.setItem('options', JSON.stringify(options));
+    };
+
+    Options.prototype.updateOption = function(event, obj) {
+      var options;
+      console.log(obj);
+      options = JSON.parse(localStorage.getItem('options'));
+      options[obj.name] = obj.val;
+      return localStorage.setItem('options', JSON.stringify(options));
+    };
+
+    Options.prototype.getOptions = function() {
+      return JSON.parse(localStorage.getItem('options'));
+    };
+
+    Options.prototype.getOption = function(event, obj) {
+      var options;
+      options = this.getOptions();
+      return obj.fn(options[obj.name]);
+    };
+
+    Options.prototype.syncUI = function() {
+      var options;
+      options = this.getOptions();
+      $('#optionVibrate').attr('checked', options.vibrate);
+      $('#optionBackground').attr('checked', options.background);
+      return $('#optionNumbers').attr('checked', options.numbers);
+    };
+
+    return Options;
+
+  })();
 
   window.Scores = (function() {
     function Scores(app) {
@@ -694,6 +776,7 @@
         }
       });
       this.bindClicks();
+      this.bindChanges();
     }
 
     UI.prototype.bindClicks = function() {
@@ -745,6 +828,27 @@
       });
     };
 
+    UI.prototype.bindChanges = function() {
+      $('#optionVibrate').change(function(event) {
+        return $('body').trigger('updateOption', {
+          name: 'vibrate',
+          val: $(event.currentTarget).is(":checked")
+        });
+      });
+      $('#optionBackground').change(function(event) {
+        return $('body').trigger('updateOption', {
+          name: 'background',
+          val: $(event.currentTarget).is(":checked")
+        });
+      });
+      return $('#optionNumbers').change(function(event) {
+        return $('body').trigger('updateOption', {
+          name: 'numbers',
+          val: $(event.currentTarget).is(":checked")
+        });
+      });
+    };
+
     return UI;
 
   })();
@@ -756,7 +860,14 @@
     }
 
     Vibrate.prototype.vibrate = function() {
-      return navigator.notification.vibrate(200);
+      return $('body').trigger('getOption', {
+        name: 'vibrate',
+        fn: function(vibrate) {
+          if (vibrate) {
+            return navigator.notification.vibrate(200);
+          }
+        }
+      });
     };
 
     return Vibrate;
