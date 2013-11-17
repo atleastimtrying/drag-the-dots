@@ -798,8 +798,7 @@
     };
 
     Twitter.prototype.tweet = function(event) {
-      event.preventDefault();
-      return window.plugins.childBrowser.showWebPage(this.url(this.app.game.name(), this.app.score));
+      return $(event.currentTarget).attr('href', this.url(this.app.game.name(), this.app.score));
     };
 
     return Twitter;
