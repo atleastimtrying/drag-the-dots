@@ -437,10 +437,10 @@
       this.getOptions = __bind(this.getOptions, this);
       this.updateOption = __bind(this.updateOption, this);
       this.setupOptions = __bind(this.setupOptions, this);
-      this.syncUI();
       $('body').on('updateOption', this.updateOption);
       $('body').on('getOption', this.getOption);
       this.setupOptions();
+      this.syncUI();
     }
 
     Options.prototype.setupOptions = function() {

@@ -1,9 +1,9 @@
 class window.Options
   constructor:(@app)->
-    @syncUI()
     $('body').on 'updateOption', @updateOption
     $('body').on 'getOption', @getOption
     @setupOptions()
+    @syncUI()
 
   setupOptions: =>
     options = @getOptions()
