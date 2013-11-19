@@ -43,18 +43,38 @@ class window.UI
       false
   bindChanges: ->
     $('#optionVibrate').change (event)->
+      current = $(event.currentTarget)
       $('body').trigger 'updateOption',
         name: 'vibrate'
-        val: $(event.currentTarget).is(":checked")
+        val: current.is(":checked")
+      if current.is(":checked")
+       $("label[for=#{current.attr('id')}]").addClass('checked') 
+      else
+       $("label[for=#{current.attr('id')}]").removeClass('checked')
     $('#optionBackground').change (event)->
+      current = $(event.currentTarget)
       $('body').trigger 'updateOption',
         name: 'background'
-        val: $(event.currentTarget).is(":checked")
+        val: current.is(":checked")
+      if current.is(":checked")
+       $("label[for=#{current.attr('id')}]").addClass('checked') 
+      else
+       $("label[for=#{current.attr('id')}]").removeClass('checked')
     $('#optionGreyscale').change (event)->
+      current = $(event.currentTarget)
       $('body').trigger 'updateOption',
         name: 'greyscale'
-        val: $(event.currentTarget).is(":checked")
+        val: current.is(":checked")
+      if current.is(":checked")
+       $("label[for=#{current.attr('id')}]").addClass('checked') 
+      else
+       $("label[for=#{current.attr('id')}]").removeClass('checked')
     $('#optionNumbers').change (event)->
+      current = $(event.currentTarget)
       $('body').trigger 'updateOption',
         name: 'numbers'
-        val: $(event.currentTarget).is(":checked")
+        val: current.is(":checked")
+      if current.is(":checked")
+       $("label[for=#{current.attr('id')}]").addClass('checked') 
+      else
+       $("label[for=#{current.attr('id')}]").removeClass('checked')

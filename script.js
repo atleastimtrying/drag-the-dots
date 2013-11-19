@@ -871,28 +871,56 @@
 
     UI.prototype.bindChanges = function() {
       $('#optionVibrate').change(function(event) {
-        return $('body').trigger('updateOption', {
+        var current;
+        current = $(event.currentTarget);
+        $('body').trigger('updateOption', {
           name: 'vibrate',
-          val: $(event.currentTarget).is(":checked")
+          val: current.is(":checked")
         });
+        if (current.is(":checked")) {
+          return $("label[for=" + (current.attr('id')) + "]").addClass('checked');
+        } else {
+          return $("label[for=" + (current.attr('id')) + "]").removeClass('checked');
+        }
       });
       $('#optionBackground').change(function(event) {
-        return $('body').trigger('updateOption', {
+        var current;
+        current = $(event.currentTarget);
+        $('body').trigger('updateOption', {
           name: 'background',
-          val: $(event.currentTarget).is(":checked")
+          val: current.is(":checked")
         });
+        if (current.is(":checked")) {
+          return $("label[for=" + (current.attr('id')) + "]").addClass('checked');
+        } else {
+          return $("label[for=" + (current.attr('id')) + "]").removeClass('checked');
+        }
       });
       $('#optionGreyscale').change(function(event) {
-        return $('body').trigger('updateOption', {
+        var current;
+        current = $(event.currentTarget);
+        $('body').trigger('updateOption', {
           name: 'greyscale',
-          val: $(event.currentTarget).is(":checked")
+          val: current.is(":checked")
         });
+        if (current.is(":checked")) {
+          return $("label[for=" + (current.attr('id')) + "]").addClass('checked');
+        } else {
+          return $("label[for=" + (current.attr('id')) + "]").removeClass('checked');
+        }
       });
       return $('#optionNumbers').change(function(event) {
-        return $('body').trigger('updateOption', {
+        var current;
+        current = $(event.currentTarget);
+        $('body').trigger('updateOption', {
           name: 'numbers',
-          val: $(event.currentTarget).is(":checked")
+          val: current.is(":checked")
         });
+        if (current.is(":checked")) {
+          return $("label[for=" + (current.attr('id')) + "]").addClass('checked');
+        } else {
+          return $("label[for=" + (current.attr('id')) + "]").removeClass('checked');
+        }
       });
     };
 
