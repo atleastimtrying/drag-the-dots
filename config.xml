@@ -35,6 +35,8 @@
     <gap:splash src="splash/android/xhdpi.9.png" gap:platform="android" gap:density="xhdpi" />
     <gap:splash src="splash/winphone/splash.jpg" gap:platform="winphone" /> -->
     <icon src="icon.png" />
+    <icon src="icon-57.png" gap:platform="ios" width="57" height="57" />
+    <icon src="icon-120.png" gap:platform="ios" width="120" height="120" />
     <icon src="android_icons/mdpi.png" gap:platform="android" gap:density="mdpi" />
     <icon src="android_icons/hdpi.png" gap:platform="android" gap:density="hdpi" />
     <icon src="android_icons/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
