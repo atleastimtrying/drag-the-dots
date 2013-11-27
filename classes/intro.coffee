@@ -1,6 +1,6 @@
 class window.Intro
   constructor: (@app)->
-    $('body').on 'startIntro', @start
+    $(@app).on 'startIntro', @start
     $('#intro .next').click @nextSlide
   start: =>
     $('#intro section').hide()

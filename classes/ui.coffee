@@ -1,77 +1,82 @@
 class window.UI
-  constructor: ->
-    $('body').trigger 'getName', (name)->
+  constructor: (@app)->
+    $(@app).trigger 'getName', (name)=>
       if name
         $('.name').html(name)
-        $('body').trigger('show', 'start')
+        $(@app).trigger('show', 'start')
       else
-        $('body').trigger('show', 'name')
+        $(@app).trigger('show', 'name')
     @bindClicks()
     @bindChanges()
-  bindClicks: ->
-    $('.not-name').click ->
-      $('body').trigger 'setName', ''
-      $('body').trigger 'show', 'name'
-      false
-    $('.startGame').click -> 
-      $('body').trigger('startGame', {count: $(@).data('count'), layout: $(@).data('layout')})
-      false
-    $('.show').click -> 
-      $('body').trigger('show', $(@).data('show'))
-      false
-    $('.action').click ->
-      $('body').trigger($(@).data 'action')
-      false
-    $('#enterName button').on 'click', ->
-      $('body').trigger 'setName', $('#enterName input').val()
+  bindClicks: =>
+    $('.not-name').click (event)=>
+      event.preventDefault()
+      $(@app).trigger 'setName', ''
+      $(@app).trigger 'show', 'name'
+    $('.startGame').click (event)=>
+      event.preventDefault() 
+      $(@app).trigger 'startGame',
+        count: $(event.currentTarget).data('count')
+        layout: $(event.currentTarget).data('layout')
+    $('.startWall').click (event)=>
+      event.preventDefault()
+      $(@app).trigger('startWall')
+    $('.show').click (event)=>
+      event.preventDefault() 
+      $(@app).trigger('show', $(event.currentTarget).data('show'))
+    $('.action').click (event)=>
+      event.preventDefault()
+      $(@app).trigger($(event.currentTarget).data 'action')
+    $('#enterName button').on 'click', (event)=>
+      event.preventDefault()
+      $(@app).trigger 'setName', $('#enterName input').val()
       $('.name').html $('#enterName input').val()
-      $('body').trigger('show', 'start')
-      false
-    $('.postHighScore').on 'click', ->
-      $('body').trigger('show', 'highScores') 
-      $('body').trigger 'getName', (name)->
-        $('body').trigger 'postHighScore',
+      $(@app).trigger('show', 'start')
+    $('.postHighScore').on 'click', (event)=>
+      event.preventDefault()
+      $(@app).trigger('show', 'highScores') 
+      $(@app).trigger 'getName', (name)=>
+        $(@app).trigger 'postHighScore',
           score:
             level: @app.game.count 
             score: @app.score
             name: name
-          fn: (data)->
+          fn: (data)=>
             if data is 'FAILURE'
               alert('Oops! something went wrong!')
             else
-              $('body').trigger('show', 'highScores')
-      false
-  bindChanges: ->
-    $('#optionVibrate').change (event)->
+              $(@app).trigger('show', 'highScores')
+  bindChanges: =>
+    $('#optionVibrate').change (event)=>
       current = $(event.currentTarget)
-      $('body').trigger 'updateOption',
+      $(@app).trigger 'updateOption',
         name: 'vibrate'
         val: current.is(":checked")
       if current.is(":checked")
        $("label[for=#{current.attr('id')}]").addClass('checked') 
       else
        $("label[for=#{current.attr('id')}]").removeClass('checked')
-    $('#optionBackground').change (event)->
+    $('#optionBackground').change (event)=>
       current = $(event.currentTarget)
-      $('body').trigger 'updateOption',
+      $(@app).trigger 'updateOption',
         name: 'background'
         val: current.is(":checked")
       if current.is(":checked")
        $("label[for=#{current.attr('id')}]").addClass('checked') 
       else
        $("label[for=#{current.attr('id')}]").removeClass('checked')
-    $('#optionGreyscale').change (event)->
+    $('#optionGreyscale').change (event)=>
       current = $(event.currentTarget)
-      $('body').trigger 'updateOption',
+      $(@app).trigger 'updateOption',
         name: 'greyscale'
         val: current.is(":checked")
       if current.is(":checked")
        $("label[for=#{current.attr('id')}]").addClass('checked') 
       else
        $("label[for=#{current.attr('id')}]").removeClass('checked')
-    $('#optionNumbers').change (event)->
+    $('#optionNumbers').change (event)=>
       current = $(event.currentTarget)
-      $('body').trigger 'updateOption',
+      $(@app).trigger 'updateOption',
         name: 'numbers'
         val: current.is(":checked")
       if current.is(":checked")

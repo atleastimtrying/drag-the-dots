@@ -1,7 +1,7 @@
 class window.Options
   constructor:(@app)->
-    $('body').on 'updateOption', @updateOption
-    $('body').on 'getOption', @getOption
+    $(@app).on 'updateOption', @updateOption
+    $(@app).on 'getOption', @getOption
     @setupOptions()
     @syncUI()
 
@@ -17,7 +17,6 @@ class window.Options
     localStorage.setItem 'options', JSON.stringify options
 
   updateOption: (event, obj)=>
-    console.log obj
     options = JSON.parse localStorage.getItem 'options'
     options[obj.name] = obj.val
     localStorage.setItem 'options', JSON.stringify options

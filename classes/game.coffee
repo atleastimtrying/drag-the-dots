@@ -1,6 +1,6 @@
 class window.Game 
   constructor: (@app)->
-    $('body').on('startGame', @startGame)
+    $(@app).on('startGame', @startGame)
     @count = 10
     @timer = new Timer(@app)
 
@@ -11,13 +11,13 @@ class window.Game
   startGame: (event, options = {count: @count, layout: @layout})=>
     @count = options.count if options.count
     @layout = options.layout if options.layout
-    $('body').trigger 'show', 'game'
+    $(@app).trigger 'show', 'game'
     $('#container .dot').remove()
     @addDots()
     @makeDotsDraggable()
     @layoutDots()
 
-    $('body').trigger 'getOption', 
+    $(@app).trigger 'getOption', 
       name: 'numbers'
       fn: (numbers)=>
         $('#container .dot').addClass('no-numbers') unless numbers
@@ -38,12 +38,12 @@ class window.Game
     dot_value = dot.attr('data-value')
     target = $("[data-value=#{dot_value}]").not("[data-id=#{dotid}]")
     if target[0] and @collide(dot.offset(), target.offset())
-      $('body').trigger 'collide'
+      $(@app).trigger 'collide'
       newValue = parseInt(dot_value) + 1
       target.attr('data-value', newValue).html(newValue)
       target.css background: Colours.dot(newValue) unless @layout is 'circle'
       dot.remove()
-      $('body').css 'background-color' : Colours.background(newValue)
+      $(@app).css 'background-color' : Colours.background(newValue)
       @timer.end() if dot_value is "#{@count}"
 
   addDots: ->

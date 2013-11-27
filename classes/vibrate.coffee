@@ -1,8 +1,8 @@
 class window.Vibrate
   constructor: (@app)->
-    $('body').on 'collide', @vibrate
+    $(@app).on 'collide', @vibrate
   vibrate: ->
-    $('body').trigger 'getOption', 
+    $(@app).trigger 'getOption', 
       name: 'vibrate'
       fn: (vibrate)-> 
         navigator.notification.vibrate(200) if vibrate

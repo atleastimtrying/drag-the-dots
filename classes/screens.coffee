@@ -1,9 +1,9 @@
 class window.Screens
   constructor: (@app)->
-    $('body').on 'show', (event, label)=>
+    $(@app).on 'show', (event, label)=>
       $('.screen').hide()
       @[label]()
-    $('body').on 'show', ()=>
+    $(@app).on 'show', ()=>
       if navigator.onLine
         $('.btn.online').show()
       else
@@ -25,32 +25,32 @@ class window.Screens
   credits: ->
     $('#credits').show()
 
-  intro: ->
+  intro: =>
     $('#intro').show()
-    $('body').trigger 'startIntro'
+    $(@app).trigger 'startIntro'
 
   options: ->
     $('#options').show()
       
-  start: ->
-    $('body').trigger 'getName', (name)->
+  start: =>
+    $(@app).trigger 'getName', (name)->
       if name
         $('#start').show()
       else
-        $('body').trigger('show', 'name')
+        $(@app).trigger('show', 'name')
 
-  score: ->
+  score: =>
     $('#score').show()
     $('#scoreMessage').html("#{@app.score} seconds!")
-    $('body').trigger 'getName', (name)->
-      $('body').trigger 'addScore', 
+    $(@app).trigger 'getName', (name)->
+      $(@app).trigger 'addScore', 
         level: @app.game.count 
         score: @app.score
         name: name 
 
-  scores: ->
+  scores: =>
     $('#scores').show()
-    $('body').trigger 'getScores', (scores)->
+    $(@app).trigger 'getScores', (scores)->
       html = 
         'score10': ''
         'score8': ''
@@ -67,9 +67,9 @@ class window.Screens
       $('#scores table.table15 tbody').html(html['score15'])
       $('#scores table.table9 tbody').html(html['score9'])
       $('#scores table.table19 tbody').html(html['score19'])
-  highScores: ->
+  highScores: =>
     $('#highScores, #highScores .spinner').show()
-    $('body').trigger 'getHighScores', (data)->
+    $(@app).trigger 'getHighScores', (data)->
       html = 
         'score10': ''
         'score8': ''

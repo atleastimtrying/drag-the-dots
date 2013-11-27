@@ -10,4 +10,5 @@ class window.App
     @vibrate = new Vibrate(@) #if navigator.notification
     @options = new Options(@)
     @twitter = new Twitter(@)
-    $('body').trigger 'show', 'start'
+    @wall = new Wall(@)
+    $(@).trigger 'show', 'start'

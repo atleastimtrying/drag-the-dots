@@ -12,7 +12,7 @@ class window.Timer
   end: =>
     @going = false
     @app.score = @count/10
-    $('body').trigger 'show', 'score'
+    $(@app).trigger 'show', 'score'
   
   start: =>
     @count = 0

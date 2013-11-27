@@ -1,6 +1,6 @@
 class window.Scores 
   constructor: (@app)->
-    $('body').on 
+    $(@app).on 
       'getHighScores': @getHighScores
       'postHighScore': @postHighScore
   getHighScores: (event, fn)->

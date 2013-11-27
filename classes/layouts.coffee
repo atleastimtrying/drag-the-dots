@@ -40,9 +40,9 @@ window.Layouts =
           top: Math.ceil(Math.random()* ($('#container').height() - (range * 2)))
           left: Math.ceil(Math.random()* ($('#container').width() - (range * 2)))
     unbindbody = (event, label)->
-      $('body').off('collide', change) 
-      $('body').off('show', unbindbody) 
-    $('body').on 
+      $(window.app).off('collide', change) 
+      $(window.app).off('show', unbindbody) 
+    $(window.app).on 
       'collide': change
       'show': unbindbody
     $('#container .dot').addClass('moving')
@@ -74,4 +74,7 @@ window.Layouts =
     $('body').css 'background-color' : Colours.background(1)
   tiny: ->
     $('#container .dot').addClass('tiny')
+    Layouts.grid()
+  walls: ->
+    $('#container .dot').addClass('outline')
     Layouts.grid()

@@ -1,6 +1,6 @@
 class window.Storage
   constructor: (@app)->
-    $('body').on 
+    $(@app).on 
       'addScore': @addScore 
       'getScores': @getScores
       'clearScores': @clearScores
@@ -29,7 +29,7 @@ class window.Storage
   
   clearScores: (event)->
     localStorage.setItem 'scores', JSON.stringify []
-    $('body').trigger('show', 'scores')
+    $(@app).trigger('show', 'scores')
 
   getName: (event, fn)->
     fn localStorage.getItem 'name'

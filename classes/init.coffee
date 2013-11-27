@@ -4,10 +4,10 @@ document.addEventListener "deviceready", ->
   document.ongesturechange = -> false
   document.addEventListener "menubutton", ->
     window.app.game.timer.stop()
-    $('body').trigger('show', 'start') 
+    $(window.app).trigger('show', 'start') 
   , false
   document.addEventListener "backbutton", ->
     window.app.game.timer.stop()
-    $('body').trigger('show', 'start') 
+    $(window.app).trigger('show', 'start') 
   , false
 , false
