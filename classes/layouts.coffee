@@ -3,7 +3,7 @@ window.Layouts =
     range = $('#container .dot').width()/2
     $('#container .dot').each (index, dot)=>
       $(dot).css
-        top: Math.ceil(Math.random()* ($('#container').height() - (range * 2)))
+        top: Math.ceil(Math.random()* ($('#container').height() - (range * 2) - 90)) + 90
         left: Math.ceil(Math.random()* ($('#container').width() - (range * 2)))
         background: Colours.dot(index)
       $(dot).css({background: Colours.dot(1)}) if index is 0
@@ -37,7 +37,7 @@ window.Layouts =
       range = $('.dot').width()/2
       $('.dot').each (index, dot) ->
         $(dot).css
-          top: Math.ceil(Math.random()* ($('#container').height() - (range * 2)))
+          top: Math.ceil(Math.random()* ($('#container').height() - (range * 2) - 90)) + 90
           left: Math.ceil(Math.random()* ($('#container').width() - (range * 2)))
     unbindbody = (event, label)->
       $('body').off('collide', change) 

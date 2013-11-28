@@ -64,6 +64,27 @@ h2{
   margin: -16px;
   margin-bottom:16px;
 }
+#container h2{
+  position:absolute;
+  z-index:2000;
+  top:0;
+  left:0;
+  padding:8px 0;
+  background:rgba(0,0,0,0.3);
+  text-align: center;
+  font-size:36px;
+  color:white;
+  width:100%;
+  pointer-events:none;
+  margin:0;
+}
+#container h2 .back-menu{
+  position:absolute;
+  left:12px;
+  top:12px;
+  z-index:2001;
+  pointer-events:auto;
+}
 h3{
   color:white;
   font-size:32px;
@@ -167,19 +188,6 @@ input[type="text"] {
   color:rgba(0,0,0,0.6);
   font-size: 16px;
   -webkit-appearance:none;
-}
-.timer{
-  position:absolute;
-  z-index:2000;
-  top:0;
-  left:0;
-  padding:8px 0;
-  background:rgba(0,0,0,0.3);
-  text-align: center;
-  font-size:36px;
-  color:white;
-  width:100%;
-  pointer-events: none;
 }
 .dot{
   position:absolute;

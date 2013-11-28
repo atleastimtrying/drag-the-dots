@@ -54,6 +54,7 @@
       this.startDrag = __bind(this.startDrag, this);
       this.hitDetection = __bind(this.hitDetection, this);
       this.startGame = __bind(this.startGame, this);
+      this.menu = __bind(this.menu, this);
       this.name = __bind(this.name, this);
       $('body').on('startGame', this.startGame);
       this.count = 10;
@@ -67,6 +68,11 @@
       var count;
       count = this.count;
       return $(".table" + count).prev('h3').text();
+    };
+
+    Game.prototype.menu = function() {
+      this.timer.stop();
+      return $('body').trigger('show', 'start');
     };
 
     Game.prototype.startGame = function(event, options) {
@@ -243,14 +249,8 @@
     document.ongesturechange = function() {
       return false;
     };
-    document.addEventListener("menubutton", function() {
-      window.app.game.timer.stop();
-      return $('body').trigger('show', 'start');
-    }, false);
-    return document.addEventListener("backbutton", function() {
-      window.app.game.timer.stop();
-      return $('body').trigger('show', 'start');
-    }, false);
+    document.addEventListener("menubutton", window.app.game.menu, false);
+    return document.addEventListener("backbutton", window.app.game.menu, false);
   }, false);
 
   window.Intro = (function() {
@@ -302,7 +302,7 @@
       range = $('#container .dot').width() / 2;
       return $('#container .dot').each(function(index, dot) {
         $(dot).css({
-          top: Math.ceil(Math.random() * ($('#container').height() - (range * 2))),
+          top: Math.ceil(Math.random() * ($('#container').height() - (range * 2) - 90)) + 90,
           left: Math.ceil(Math.random() * ($('#container').width() - (range * 2))),
           background: Colours.dot(index)
         });
@@ -369,7 +369,7 @@
         range = $('.dot').width() / 2;
         return $('.dot').each(function(index, dot) {
           return $(dot).css({
-            top: Math.ceil(Math.random() * ($('#container').height() - (range * 2))),
+            top: Math.ceil(Math.random() * ($('#container').height() - (range * 2) - 90)) + 90,
             left: Math.ceil(Math.random() * ($('#container').width() - (range * 2)))
           });
         });
@@ -810,7 +810,9 @@
   })();
 
   window.UI = (function() {
-    function UI() {
+    function UI(app) {
+      this.app = app;
+      this.bindClicks = __bind(this.bindClicks, this);
       $('body').trigger('getName', function(name) {
         if (name) {
           $('.name').html(name);
@@ -824,6 +826,10 @@
     }
 
     UI.prototype.bindClicks = function() {
+      var _this = this;
+      $('.back-menu').click(function() {
+        return _this.app.game.menu();
+      });
       $('.not-name').click(function() {
         $('body').trigger('setName', '');
         $('body').trigger('show', 'name');

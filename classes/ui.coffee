@@ -1,5 +1,5 @@
 class window.UI
-  constructor: ->
+  constructor: (@app)->
     $('body').trigger 'getName', (name)->
       if name
         $('.name').html(name)
@@ -8,7 +8,9 @@ class window.UI
         $('body').trigger('show', 'name')
     @bindClicks()
     @bindChanges()
-  bindClicks: ->
+  bindClicks: =>
+    $('.back-menu').click =>
+      @app.game.menu()
     $('.not-name').click ->
       $('body').trigger 'setName', ''
       $('body').trigger 'show', 'name'
