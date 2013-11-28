@@ -3,6 +3,7 @@ class window.Game
     $('body').on('startGame', @startGame)
     @count = 10
     @timer = new Timer(@app)
+    $('#container').on 'touchmove', (e)-> e.preventDefault()
 
   name: =>
     count = @count
@@ -13,6 +14,7 @@ class window.Game
     @layout = options.layout if options.layout
     $('body').trigger 'show', 'game'
     $('#container .dot').remove()
+
     @addDots()
     @makeDotsDraggable()
     @layoutDots()
