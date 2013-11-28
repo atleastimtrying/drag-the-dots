@@ -7,7 +7,6 @@ class window.UI
       else
         $('body').trigger('show', 'name')
     @bindClicks()
-    @bindChanges()
   bindClicks: =>
     $('.back-menu').click =>
       @app.game.menu()
@@ -43,40 +42,3 @@ class window.UI
             else
               $('body').trigger('show', 'highScores')
       false
-  bindChanges: ->
-    $('#optionVibrate').change (event)->
-      current = $(event.currentTarget)
-      $('body').trigger 'updateOption',
-        name: 'vibrate'
-        val: current.is(":checked")
-      if current.is(":checked")
-       $("label[for=#{current.attr('id')}]").addClass('checked') 
-      else
-       $("label[for=#{current.attr('id')}]").removeClass('checked')
-    $('#optionBackground').change (event)->
-      current = $(event.currentTarget)
-      $('body').trigger 'updateOption',
-        name: 'background'
-        val: current.is(":checked")
-      if current.is(":checked")
-       $("label[for=#{current.attr('id')}]").addClass('checked') 
-      else
-       $("label[for=#{current.attr('id')}]").removeClass('checked')
-    $('#optionGreyscale').change (event)->
-      current = $(event.currentTarget)
-      $('body').trigger 'updateOption',
-        name: 'greyscale'
-        val: current.is(":checked")
-      if current.is(":checked")
-       $("label[for=#{current.attr('id')}]").addClass('checked') 
-      else
-       $("label[for=#{current.attr('id')}]").removeClass('checked')
-    $('#optionNumbers').change (event)->
-      current = $(event.currentTarget)
-      $('body').trigger 'updateOption',
-        name: 'numbers'
-        val: current.is(":checked")
-      if current.is(":checked")
-       $("label[for=#{current.attr('id')}]").addClass('checked') 
-      else
-       $("label[for=#{current.attr('id')}]").removeClass('checked')

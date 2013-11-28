@@ -14,6 +14,7 @@
       this.vibrate = new Vibrate(this);
       this.options = new Options(this);
       this.twitter = new Twitter(this);
+      this.facebook = new Facebook(this);
       $('body').trigger('show', 'start');
     }
 
@@ -45,6 +46,28 @@
       }
     }
   };
+
+  window.Facebook = (function() {
+    function Facebook(app) {
+      this.app = app;
+      this.share = __bind(this.share, this);
+      $('.btn.facebook').click(this.share);
+    }
+
+    Facebook.prototype.url = function(game, score) {
+      game = game.replace("+", " plus");
+      return "http://www.facebook.com/sharer/sharer.php?s=100&p[url]=http://morein.fo/dtd&p[images][0]=&p[title]=Drag%20the%20Dots&p[summary]=I%20got%20" + score + "%20on%20" + game + "%20in%20Drag%20the%20Dots";
+    };
+
+    Facebook.prototype.share = function(event) {
+      event.preventDefault();
+      debugger;
+      return window.open(this.url(this.app.game.name(), this.app.score), '_blank', 'location=no');
+    };
+
+    return Facebook;
+
+  })();
 
   window.Game = (function() {
     function Game(app) {
@@ -444,6 +467,7 @@
       $('body').on('getOption', this.getOption);
       this.setupOptions();
       this.syncUI();
+      this.bindChanges();
     }
 
     Options.prototype.setupOptions = function() {
@@ -451,7 +475,7 @@
       options = this.getOptions();
       if (!options) {
         options = {
-          vibrate: true,
+          vibrate: false,
           background: true,
           numbers: true,
           greyscale: false
@@ -462,7 +486,6 @@
 
     Options.prototype.updateOption = function(event, obj) {
       var options;
-      console.log(obj);
       options = JSON.parse(localStorage.getItem('options'));
       options[obj.name] = obj.val;
       return localStorage.setItem('options', JSON.stringify(options));
@@ -481,10 +504,54 @@
     Options.prototype.syncUI = function() {
       var options;
       options = this.getOptions();
-      $('#optionVibrate').attr('checked', options.vibrate);
-      $('#optionBackground').attr('checked', options.background);
-      $('#optionNumbers').attr('checked', options.numbers);
-      return $('#optionGreyscale').attr('checked', options.greyscale);
+      this.checkIfOption('#optionVibrate', options.vibrate);
+      this.checkIfOption('#optionBackground', options.background);
+      this.checkIfOption('#optionNumbers', options.numbers);
+      return this.checkIfOption('#optionGreyscale', options.greyscale);
+    };
+
+    Options.prototype.checkIfOption = function(selector, option) {
+      var current, label;
+      current = $(selector);
+      label = $("label[for=" + (current.attr('id')) + "]");
+      if (option) {
+        current.attr('checked', 'checked');
+        return label.addClass('checked');
+      } else {
+        current.attr('checked', false);
+        return label.removeClass('checked');
+      }
+    };
+
+    Options.prototype.updateView = function(event, name) {
+      var current, label;
+      current = $(event.currentTarget);
+      label = $("label[for=" + (current.attr('id')) + "]");
+      $('body').trigger('updateOption', {
+        name: name,
+        val: current.is(":checked")
+      });
+      if (current.is(":checked")) {
+        return label.addClass('checked');
+      } else {
+        return label.removeClass('checked');
+      }
+    };
+
+    Options.prototype.bindChanges = function() {
+      var _this = this;
+      $('#optionVibrate').change(function(event) {
+        return _this.updateView(event, 'vibrate');
+      });
+      $('#optionBackground').change(function(event) {
+        return _this.updateView(event, 'background');
+      });
+      $('#optionGreyscale').change(function(event) {
+        return _this.updateView(event, 'greyscale');
+      });
+      return $('#optionNumbers').change(function(event) {
+        return _this.updateView(event, 'numbers');
+      });
     };
 
     return Options;
@@ -822,7 +889,6 @@
         }
       });
       this.bindClicks();
-      this.bindChanges();
     }
 
     UI.prototype.bindClicks = function() {
@@ -875,61 +941,6 @@
           });
         });
         return false;
-      });
-    };
-
-    UI.prototype.bindChanges = function() {
-      $('#optionVibrate').change(function(event) {
-        var current;
-        current = $(event.currentTarget);
-        $('body').trigger('updateOption', {
-          name: 'vibrate',
-          val: current.is(":checked")
-        });
-        if (current.is(":checked")) {
-          return $("label[for=" + (current.attr('id')) + "]").addClass('checked');
-        } else {
-          return $("label[for=" + (current.attr('id')) + "]").removeClass('checked');
-        }
-      });
-      $('#optionBackground').change(function(event) {
-        var current;
-        current = $(event.currentTarget);
-        $('body').trigger('updateOption', {
-          name: 'background',
-          val: current.is(":checked")
-        });
-        if (current.is(":checked")) {
-          return $("label[for=" + (current.attr('id')) + "]").addClass('checked');
-        } else {
-          return $("label[for=" + (current.attr('id')) + "]").removeClass('checked');
-        }
-      });
-      $('#optionGreyscale').change(function(event) {
-        var current;
-        current = $(event.currentTarget);
-        $('body').trigger('updateOption', {
-          name: 'greyscale',
-          val: current.is(":checked")
-        });
-        if (current.is(":checked")) {
-          return $("label[for=" + (current.attr('id')) + "]").addClass('checked');
-        } else {
-          return $("label[for=" + (current.attr('id')) + "]").removeClass('checked');
-        }
-      });
-      return $('#optionNumbers').change(function(event) {
-        var current;
-        current = $(event.currentTarget);
-        $('body').trigger('updateOption', {
-          name: 'numbers',
-          val: current.is(":checked")
-        });
-        if (current.is(":checked")) {
-          return $("label[for=" + (current.attr('id')) + "]").addClass('checked');
-        } else {
-          return $("label[for=" + (current.attr('id')) + "]").removeClass('checked');
-        }
       });
     };
 
