@@ -59,6 +59,9 @@
       $(this.app).on('startGame', this.startGame);
       this.count = 10;
       this.timer = new Timer(this.app);
+      $('#container').on('touchmove', function(e) {
+        return e.preventDefault();
+      });
     }
 
     Game.prototype.name = function() {
