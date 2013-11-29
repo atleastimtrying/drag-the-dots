@@ -15,6 +15,7 @@
       this.options = new Options(this);
       this.twitter = new Twitter(this);
       this.facebook = new Facebook(this);
+      this.stats = new Stats(this);
       $(this).trigger('show', 'start');
     }
 
@@ -157,9 +158,12 @@
         $(this.app).css({
           'background-color': Colours.background(newValue)
         });
+        $(this.app).trigger('stat_hit');
         if (dot_value === ("" + this.count)) {
           return this.timer.end();
         }
+      } else {
+        return $(this.app).trigger('stat_miss');
       }
     };
 
@@ -615,6 +619,7 @@
       this.scores = __bind(this.scores, this);
       this.score = __bind(this.score, this);
       this.start = __bind(this.start, this);
+      this.stats = __bind(this.stats, this);
       this.intro = __bind(this.intro, this);
       $(this.app).on('show', function(event, label) {
         $('.screen').hide();
@@ -668,6 +673,16 @@
     Screens.prototype.intro = function() {
       $('#intro').show();
       return $(this.app).trigger('startIntro');
+    };
+
+    Screens.prototype.stats = function() {
+      var _this = this;
+      $('#stats').show();
+      return $(this.app).trigger('fetch_stats', function(stats) {
+        $('#stat_hits').html(stats['hits']);
+        $('#stat_misses').html(stats['misses']);
+        return $('#stat_seconds').html(Math.ceil(stats['seconds']));
+      });
     };
 
     Screens.prototype.options = function() {
@@ -756,7 +771,66 @@
   window.Stats = (function() {
     function Stats(app) {
       this.app = app;
+      this.time = __bind(this.time, this);
+      this.miss = __bind(this.miss, this);
+      this.hit = __bind(this.hit, this);
+      this.fetch_stats = __bind(this.fetch_stats, this);
+      this.getStat = __bind(this.getStat, this);
+      this.getStats = __bind(this.getStats, this);
+      this.updateStat = __bind(this.updateStat, this);
+      this.setupStats = __bind(this.setupStats, this);
+      $(this.app).on('stat_hit', this.hit);
+      $(this.app).on('stat_miss', this.miss);
+      $(this.app).on('stat_time', this.time);
+      $(this.app).on('fetch_stats', this.fetch_stats);
+      this.setupStats();
     }
+
+    Stats.prototype.setupStats = function() {
+      var stats;
+      stats = this.getStats();
+      if (!stats) {
+        stats = {
+          hits: 0,
+          misses: 0,
+          seconds: 0
+        };
+      }
+      return localStorage.setItem('stats', JSON.stringify(stats));
+    };
+
+    Stats.prototype.updateStat = function(name, increment) {
+      var stats;
+      stats = JSON.parse(localStorage.getItem('stats'));
+      stats[name] += increment;
+      return localStorage.setItem('stats', JSON.stringify(stats));
+    };
+
+    Stats.prototype.getStats = function() {
+      return JSON.parse(localStorage.getItem('stats'));
+    };
+
+    Stats.prototype.getStat = function(event, name) {
+      var stats;
+      stats = this.getStats();
+      return stats[name];
+    };
+
+    Stats.prototype.fetch_stats = function(event, fn) {
+      return fn(this.getStats());
+    };
+
+    Stats.prototype.hit = function() {
+      return this.updateStat('hits', 1);
+    };
+
+    Stats.prototype.miss = function() {
+      return this.updateStat('misses', 1);
+    };
+
+    Stats.prototype.time = function(event, seconds) {
+      return this.updateStat('seconds', seconds);
+    };
 
     return Stats;
 
@@ -854,6 +928,7 @@
     Timer.prototype.end = function() {
       this.going = false;
       this.app.score = this.count / 10;
+      $(this.app).trigger('stat_time', this.count / 10);
       return $(this.app).trigger('show', 'score');
     };
 

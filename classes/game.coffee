@@ -50,7 +50,10 @@ class window.Game
       target.css background: Colours.dot(newValue) unless @layout is 'circle'
       dot.remove()
       $(@app).css 'background-color' : Colours.background(newValue)
+      $(@app).trigger 'stat_hit'
       @timer.end() if dot_value is "#{@count}"
+    else
+      $(@app).trigger 'stat_miss'
 
   addDots: ->
     oldvalue = 1

@@ -12,6 +12,7 @@ class window.Timer
   end: =>
     @going = false
     @app.score = @count/10
+    $(@app).trigger 'stat_time', @count/10 
     $(@app).trigger 'show', 'score'
   
   start: =>

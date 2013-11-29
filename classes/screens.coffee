@@ -29,6 +29,13 @@ class window.Screens
     $('#intro').show()
     $(@app).trigger 'startIntro'
 
+  stats: =>
+    $('#stats').show()
+    $(@app).trigger 'fetch_stats', (stats)=>
+      $('#stat_hits').html stats['hits']
+      $('#stat_misses').html stats['misses']
+      $('#stat_seconds').html Math.ceil stats['seconds']
+
   options: ->
     $('#options').show()
       

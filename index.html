@@ -44,6 +44,7 @@
         <a href="#" class="btn action" data-action="clearScores">clear scores</a>
         <a href="#" class="btn show" data-show="start">menu</a>
         <a href="#" class="btn show" data-show="credits">credits</a>
+        <a href="#" class="btn show" data-show="stats">stats</a>
         <p>
           <input type="checkbox" id="optionVibrate">
           <label for="optionVibrate">haptics</label>
@@ -172,7 +173,7 @@
       <a href="#" class="btn show online" data-show="highScores">global scores</a>
     </div>
     <div id="highScores" class="screen">
-      <h2>Global high scores</h2>
+      <h2>Weekly high scores</h2>
       <h3>Random</h3>
       <table class="table10">
         <thead>
@@ -327,6 +328,13 @@
       <div class="dot" style="top:75%; left:25%; background-color:rgb(153, 92, 215);">1</div>
       <div class="dot tiny" style="top:75%; left:75%; background:rgb(215, 215, 92);">2</div>
       <a href="#" class="btn startGame" data-count="19" data-layout="tiny">Go!</a>
+      <a href="#" class="btn show" data-show="start">menu</a>
+    </div> 
+    <div id="stats" class="screen">
+      <h2>Stats</h2>
+      <p>hits: <span id="stat_hits"></span></p>
+      <p>misses: <span id="stat_misses"></span></p>
+      <p>seconds: <span id="stat_seconds"></span></p>
       <a href="#" class="btn show" data-show="start">menu</a>
     </div> 
   </article>

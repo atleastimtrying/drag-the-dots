@@ -11,4 +11,5 @@ class window.App
     @options = new Options(@)
     @twitter = new Twitter(@)
     @facebook = new Facebook(@)
+    @stats = new Stats(@)
     $(@).trigger 'show', 'start'
