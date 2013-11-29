@@ -9,6 +9,10 @@ class window.Game
     count = @count
     $(".table#{count}").prev('h3').text()
 
+  menu: =>
+    @timer.stop()
+    $('body').trigger('show', 'start') 
+
   startGame: (event, options = {count: @count, layout: @layout})=>
     @count = options.count if options.count
     @layout = options.layout if options.layout

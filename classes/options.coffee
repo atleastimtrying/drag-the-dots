@@ -4,12 +4,13 @@ class window.Options
     $(@app).on 'getOption', @getOption
     @setupOptions()
     @syncUI()
+    @bindChanges()
 
   setupOptions: =>
     options = @getOptions()
     unless options
       options = { 
-        vibrate: true
+        vibrate: false
         background: true
         numbers: true
         greyscale: false
@@ -30,7 +31,38 @@ class window.Options
 
   syncUI: =>
     options = @getOptions()
-    $('#optionVibrate').attr('checked', options.vibrate )
-    $('#optionBackground').attr('checked', options.background )
-    $('#optionNumbers').attr('checked', options.numbers )
-    $('#optionGreyscale').attr('checked', options.greyscale )
+    @checkIfOption '#optionVibrate', options.vibrate
+    @checkIfOption '#optionBackground', options.background
+    @checkIfOption '#optionNumbers', options.numbers
+    @checkIfOption '#optionGreyscale', options.greyscale
+
+  checkIfOption: (selector, option)->
+    current = $ selector
+    label = $("label[for=#{current.attr('id')}]")
+    if option
+      current.attr('checked', 'checked')
+      label.addClass('checked')
+    else
+      current.attr('checked', false)
+      label.removeClass('checked')
+  
+  updateView: (event, name)->
+    current = $ event.currentTarget
+    label = $("label[for=#{current.attr('id')}]")
+    $('body').trigger 'updateOption',
+      name: name
+      val: current.is(":checked")
+    if current.is(":checked")
+     label.addClass('checked') 
+    else
+     label.removeClass('checked')
+  
+  bindChanges: ->
+    $('#optionVibrate').change (event)=>
+      @updateView(event, 'vibrate')
+    $('#optionBackground').change (event)=>
+      @updateView(event, 'background')
+    $('#optionGreyscale').change (event)=>
+      @updateView(event, 'greyscale')
+    $('#optionNumbers').change (event)=>
+      @updateView(event, 'numbers')

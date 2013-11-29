@@ -7,7 +7,6 @@ class window.UI
       else
         $(@app).trigger('show', 'name')
     @bindClicks()
-    @bindChanges()
   bindClicks: =>
     $('.not-name').click (event)=>
       event.preventDefault()
@@ -46,40 +45,4 @@ class window.UI
               alert('Oops! something went wrong!')
             else
               $(@app).trigger('show', 'highScores')
-  bindChanges: =>
-    $('#optionVibrate').change (event)=>
-      current = $(event.currentTarget)
-      $(@app).trigger 'updateOption',
-        name: 'vibrate'
-        val: current.is(":checked")
-      if current.is(":checked")
-       $("label[for=#{current.attr('id')}]").addClass('checked') 
-      else
-       $("label[for=#{current.attr('id')}]").removeClass('checked')
-    $('#optionBackground').change (event)=>
-      current = $(event.currentTarget)
-      $(@app).trigger 'updateOption',
-        name: 'background'
-        val: current.is(":checked")
-      if current.is(":checked")
-       $("label[for=#{current.attr('id')}]").addClass('checked') 
-      else
-       $("label[for=#{current.attr('id')}]").removeClass('checked')
-    $('#optionGreyscale').change (event)=>
-      current = $(event.currentTarget)
-      $(@app).trigger 'updateOption',
-        name: 'greyscale'
-        val: current.is(":checked")
-      if current.is(":checked")
-       $("label[for=#{current.attr('id')}]").addClass('checked') 
-      else
-       $("label[for=#{current.attr('id')}]").removeClass('checked')
-    $('#optionNumbers').change (event)=>
-      current = $(event.currentTarget)
-      $(@app).trigger 'updateOption',
-        name: 'numbers'
-        val: current.is(":checked")
-      if current.is(":checked")
-       $("label[for=#{current.attr('id')}]").addClass('checked') 
-      else
-       $("label[for=#{current.attr('id')}]").removeClass('checked')
+      false

@@ -10,5 +10,5 @@ class window.App
     @vibrate = new Vibrate(@) #if navigator.notification
     @options = new Options(@)
     @twitter = new Twitter(@)
-    @wall = new Wall(@)
+    @facebook = new Facebook(@)
     $(@).trigger 'show', 'start'
