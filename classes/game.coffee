@@ -11,7 +11,7 @@ class window.Game
 
   menu: =>
     @timer.stop()
-    $('body').trigger('show', 'start') 
+    $(@app).trigger('show', 'start') 
 
   startGame: (event, options = {count: @count, layout: @layout})=>
     @count = options.count if options.count

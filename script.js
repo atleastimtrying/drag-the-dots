@@ -94,7 +94,7 @@
 
     Game.prototype.menu = function() {
       this.timer.stop();
-      return $('body').trigger('show', 'start');
+      return $(this.app).trigger('show', 'start');
     };
 
     Game.prototype.startGame = function(event, options) {
@@ -530,7 +530,7 @@
       var current, label;
       current = $(event.currentTarget);
       label = $("label[for=" + (current.attr('id')) + "]");
-      $('body').trigger('updateOption', {
+      $(this.app).trigger('updateOption', {
         name: name,
         val: current.is(":checked")
       });
@@ -911,6 +911,9 @@
 
     UI.prototype.bindClicks = function() {
       var _this = this;
+      $('.back-menu').click(function() {
+        return _this.app.game.menu();
+      });
       $('.not-name').click(function(event) {
         event.preventDefault();
         $(_this.app).trigger('setName', '');

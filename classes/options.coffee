@@ -49,7 +49,7 @@ class window.Options
   updateView: (event, name)->
     current = $ event.currentTarget
     label = $("label[for=#{current.attr('id')}]")
-    $('body').trigger 'updateOption',
+    $(@app).trigger 'updateOption',
       name: name
       val: current.is(":checked")
     if current.is(":checked")

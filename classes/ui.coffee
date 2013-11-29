@@ -8,6 +8,8 @@ class window.UI
         $(@app).trigger('show', 'name')
     @bindClicks()
   bindClicks: =>
+    $('.back-menu').click =>
+      @app.game.menu()
     $('.not-name').click (event)=>
       event.preventDefault()
       $(@app).trigger 'setName', ''
