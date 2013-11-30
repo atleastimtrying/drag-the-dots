@@ -47,4 +47,3 @@ class window.UI
               alert('Oops! something went wrong!')
             else
               $(@app).trigger('show', 'highScores')
-      false
