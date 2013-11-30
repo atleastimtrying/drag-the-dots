@@ -49,7 +49,7 @@ class window.Game
       target.attr('data-value', newValue).html(newValue)
       target.css background: Colours.dot(newValue) unless @layout is 'circle'
       dot.remove()
-      $(@app).css 'background-color' : Colours.background(newValue)
+      $('body').css 'background-color' : Colours.background(newValue)
       $(@app).trigger 'stat_hit'
       @timer.end() if dot_value is "#{@count}"
     else
