@@ -40,7 +40,7 @@ class window.Screens
     $('#options').show()
       
   start: =>
-    $(@app).trigger 'getName', (name)->
+    $(@app).trigger 'getName', (name)=>
       if name
         $('#start').show()
       else
@@ -49,7 +49,7 @@ class window.Screens
   score: =>
     $('#score').show()
     $('#scoreMessage').html("#{@app.score} seconds!")
-    $(@app).trigger 'getName', (name)->
+    $(@app).trigger 'getName', (name)=>
       $(@app).trigger 'addScore', 
         level: @app.game.count 
         score: @app.score
@@ -57,7 +57,7 @@ class window.Screens
 
   scores: =>
     $('#scores').show()
-    $(@app).trigger 'getScores', (scores)->
+    $(@app).trigger 'getScores', (scores)=>
       html = 
         'score10': ''
         'score8': ''

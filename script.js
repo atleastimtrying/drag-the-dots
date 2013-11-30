@@ -744,28 +744,31 @@
     };
 
     Screens.prototype.start = function() {
+      var _this = this;
       return $(this.app).trigger('getName', function(name) {
         if (name) {
           return $('#start').show();
         } else {
-          return $(this.app).trigger('show', 'name');
+          return $(_this.app).trigger('show', 'name');
         }
       });
     };
 
     Screens.prototype.score = function() {
+      var _this = this;
       $('#score').show();
       $('#scoreMessage').html("" + this.app.score + " seconds!");
       return $(this.app).trigger('getName', function(name) {
-        return $(this.app).trigger('addScore', {
-          level: this.app.game.count,
-          score: this.app.score,
+        return $(_this.app).trigger('addScore', {
+          level: _this.app.game.count,
+          score: _this.app.score,
           name: name
         });
       });
     };
 
     Screens.prototype.scores = function() {
+      var _this = this;
       $('#scores').show();
       return $(this.app).trigger('getScores', function(scores) {
         var html;
