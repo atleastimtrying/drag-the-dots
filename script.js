@@ -283,12 +283,15 @@
     function Intro(app) {
       this.app = app;
       this.nextSlide = __bind(this.nextSlide, this);
+      this.hitDetection2 = __bind(this.hitDetection2, this);
+      this.hitDetection1 = __bind(this.hitDetection1, this);
       this.start = __bind(this.start, this);
       $(this.app).on('startIntro', this.start);
       $('#intro .next').click(this.nextSlide);
     }
 
     Intro.prototype.start = function() {
+      $('body').css('background', '#ccc');
       $('#intro section').hide();
       $('#intro .dot').show();
       $('#intro section#slide1').show();
@@ -301,14 +304,65 @@
       $('#intro .dot3, #intro .dot5').css({
         'left': '70%'
       });
-      return $('#intro .dot').css({
-        'top': '65%',
-        'background-color': Colours.background(Math.random() * 12)
-      }).draggable({
-        stop: function() {
-          return $(this).fadeOut();
-        }
+      $('#intro .dot').each(function() {
+        return $(this).css({
+          'top': '65%',
+          'background-color': Colours.background(Math.ceil(Math.random() * 12))
+        });
       });
+      $('#intro .dot1').draggable({
+        containment: "#intro",
+        scroll: false
+      });
+      $('#intro .dot2, #intro .dot3').draggable({
+        stop: this.hitDetection1,
+        containment: "#intro",
+        scroll: false
+      });
+      return $('#intro .dot4, #intro .dot5').draggable({
+        stop: this.hitDetection2,
+        containment: "#intro",
+        scroll: false
+      });
+    };
+
+    Intro.prototype.collide = function(item1, item2) {
+      var dist, range, xs, ys;
+      xs = item1.left - item2.left;
+      xs = xs * xs;
+      ys = item1.top - item2.top;
+      ys = ys * ys;
+      range = $('#intro .dot').width();
+      dist = Math.sqrt(xs + ys);
+      return dist < range;
+    };
+
+    Intro.prototype.hitDetection1 = function(event) {
+      var dot, target;
+      dot = $('#intro .dot2');
+      target = $('#intro .dot3');
+      if (dot[0] && target[0]) {
+        if (this.collide(dot.offset(), target.offset())) {
+          dot.fadeOut(function() {
+            return $(this).remove();
+          });
+          return target.html('2').css('background', Colours.background(3));
+        }
+      }
+    };
+
+    Intro.prototype.hitDetection2 = function(event) {
+      var dot, target;
+      dot = $('#intro .dot4');
+      target = $('#intro .dot5');
+      if (dot[0] && target[0]) {
+        if (this.collide(dot.offset(), target.offset())) {
+          dot.fadeOut(function() {
+            return $(this).remove();
+          });
+          return target.html('2').css('background', Colours.background(3));
+        }
+      }
     };
 
     Intro.prototype.nextSlide = function(event) {

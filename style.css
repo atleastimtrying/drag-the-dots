@@ -189,7 +189,8 @@ input[type="text"] {
   font-size: 16px;
   -webkit-appearance:none;
 }
-.dot{
+.dot,
+.pseudo_dot{
   position:absolute;
   border-radius:30px;
   width:60px;
@@ -213,17 +214,20 @@ input[type="text"] {
 .dot.ui-draggable-dragging{
   z-index:10;
 }
-.dot.moving{
+.dot.moving,
+.pseudo_dot.moving{
   -webkit-transition: top 0.3s ease-out, left 0.3s ease-out;
   transition: top 0.3s ease-out, left 0.3s ease-out;
 }
-.dot.spinny{
+.dot.spinny,
+.pseudo_dot.spinny{
   animation: rotate 0.4s ease-out infinite;
   -webkit-animation: rotate 0.4s ease-out infinite;
   color:#333;
   background:white;
 }
-.dot.tiny{
+.dot.tiny,
+.pseudo_dot.tiny{
   padding:15px 0;
   width:30px;
   font-weight:400;
