@@ -155,7 +155,7 @@
           });
         }
         dot.remove();
-        $(this.app).css({
+        $('body').css({
           'background-color': Colours.background(newValue)
         });
         $(this.app).trigger('stat_hit');
@@ -1022,7 +1022,7 @@
       return $('.postHighScore').on('click', function(event) {
         event.preventDefault();
         $(_this.app).trigger('show', 'highScores');
-        $(_this.app).trigger('getName', function(name) {
+        return $(_this.app).trigger('getName', function(name) {
           return $(_this.app).trigger('postHighScore', {
             score: {
               level: _this.app.game.count,
@@ -1038,7 +1038,6 @@
             }
           });
         });
-        return false;
       });
     };
 
