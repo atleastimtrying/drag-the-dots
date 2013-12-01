@@ -675,6 +675,7 @@
       this.start = __bind(this.start, this);
       this.stats = __bind(this.stats, this);
       this.intro = __bind(this.intro, this);
+      this.name = __bind(this.name, this);
       $(this.app).on('show', function(event, label) {
         $('.screen').hide();
         return _this[label]();
@@ -689,7 +690,13 @@
     }
 
     Screens.prototype.name = function() {
-      return $('#enterName').show();
+      var _this = this;
+      return $(this.app).trigger('getName', function(name) {
+        if (name) {
+          $('#enterName input[type=text]').val(name);
+        }
+        return $('#enterName').show();
+      });
     };
 
     Screens.prototype.randomIntro = function() {

@@ -9,8 +9,11 @@ class window.Screens
       else
         $('.btn.online').hide()
 
-  name: ->
-    $('#enterName').show()
+  name: =>
+    $(@app).trigger 'getName', (name)=>
+      if name
+        $('#enterName input[type=text]').val name
+      $('#enterName').show()
 
   randomIntro: -> $('#randomIntro').show()
   gridIntro: -> $('#gridIntro').show()
