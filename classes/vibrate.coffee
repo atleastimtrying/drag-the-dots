@@ -5,4 +5,4 @@ class window.Vibrate
     $(@app).trigger 'getOption', 
       name: 'vibrate'
       fn: (vibrate)-> 
-        navigator.notification.vibrate(200) if vibrate
+        navigator.notification.vibrate(50) if vibrate
