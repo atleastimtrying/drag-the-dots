@@ -1120,7 +1120,7 @@
         name: 'vibrate',
         fn: function(vibrate) {
           if (vibrate) {
-            return navigator.notification.vibrate(200);
+            return navigator.notification.vibrate(50);
           }
         }
       });
