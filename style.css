@@ -27,6 +27,126 @@
     from {-webkit-transform:rotate(0deg);}
     to {-webkit-transform:rotate(360deg);}
 }
+
+@keyframes random
+{
+  0 { 
+    box-shadow: 
+      2px 3px 0 white,
+      3px 4px 0 white,
+      8px 2px 0 white,
+      11px 3px 0 white,
+      4px 5px 0 white,
+      5px 6px 0 white,
+      6px 6px 0 white,
+      1px 8px 0 white,
+      8px 9px 0 white,
+      6px 15px 0 white
+    ;
+  }
+  30% {
+    box-shadow: 
+      6px 7px 0 white,
+      6px 6px 0 white,
+      8px 9px 0 white,
+      11px 3px 0 white,
+      8px 2px 0 white,
+      4px 5px 0 white,
+      5px 6px 0 white,
+      3px 4px 0 white,
+      1px 8px 0 white,
+      15px 7px 0 white
+    ;
+  }
+  60% {
+    box-shadow: 
+      15px 15px 0 white
+      8px 2px 0 white,
+      3px 4px 0 white,
+      8px 9px 0 white,
+      4px 5px 0 white,
+      2px 3px 0 white,
+      5px 6px 0 white,
+      6px 6px 0 white,
+      1px 8px 0 white,
+      4px 3px 0 white,
+    ;
+  }
+  100% { 
+    box-shadow: 
+      2px 3px 0 white,
+      3px 4px 0 white,
+      8px 2px 0 white,
+      11px 3px 0 white,
+      4px 5px 0 white,
+      5px 6px 0 white,
+      6px 6px 0 white,
+      1px 8px 0 white,
+      8px 9px 0 white,
+      6px 15px 0 white
+    ;
+  }
+}
+@-webkit-keyframes random
+{
+  0 { 
+    -webkit-box-shadow: 
+      2px 3px 0 white,
+      3px 4px 0 white,
+      8px 2px 0 white,
+      11px 3px 0 white,
+      4px 5px 0 white,
+      5px 6px 0 white,
+      6px 6px 0 white,
+      1px 8px 0 white,
+      8px 9px 0 white,
+      15px 15px 0 white
+    ;
+  }
+  30% {
+    -webkit-box-shadow: 
+      2px 3px 0 white,
+      6px 6px 0 white,
+      8px 9px 0 white,
+      11px 3px 0 white,
+      8px 2px 0 white,
+      4px 5px 0 white,
+      5px 6px 0 white,
+      3px 4px 0 white,
+      1px 8px 0 white,
+      15px 15px 0 white
+    ;
+  }
+  60% {
+    -webkit-box-shadow: 
+      15px 15px 0 white
+      8px 2px 0 white,
+      3px 4px 0 white,
+      8px 9px 0 white,
+      4px 5px 0 white,
+      2px 3px 0 white,
+      5px 6px 0 white,
+      6px 6px 0 white,
+      1px 8px 0 white,
+      11px 3px 0 white,
+    ;
+  }
+  100% { 
+    -webkit-box-shadow: 
+      2px 3px 0 white,
+      3px 4px 0 white,
+      8px 2px 0 white,
+      11px 3px 0 white,
+      4px 5px 0 white,
+      5px 6px 0 white,
+      6px 6px 0 white,
+      1px 8px 0 white,
+      8px 9px 0 white,
+      15px 15px 0 white
+    ;
+  }
+}
+
 *{
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   margin:0;
@@ -79,17 +199,15 @@ h2{
   margin:0;
 }
 h2 a.btn.back-menu{
-  position:absolute;
-  left:0;
-  top:0;
   z-index:2001;
   pointer-events:auto;
   margin-bottom: 0;
   border-radius: 0;
   height: 0px;
   line-height:0;
-  padding: 38px 12px;
+  padding: 46px 12px;
   width: 56px;
+  margin: -16px 0 -16px -23px;
 }
 h3{
   color:white;
@@ -341,4 +459,114 @@ input[type="text"] {
 }
 #options label.checked:after{
   background:white;
+}
+
+/* icons */
+.icon{
+    width:28px;
+    height:28px;
+    position:relative;
+    border-radius:2px;
+    display:block;
+    margin:0 auto;
+}
+.icon:after{
+    width:4px;
+    height:4px;
+    border-radius:2px;
+    background:white;
+    position:absolute;
+    top: 4px;
+    left: 4px;
+    content:"";
+    display:block;
+    box-shadow: 
+        8px 0 0 white,
+        16px 0 0 white,
+        0 8px 0 white,
+        8px 8px 0 white,
+        16px 8px 0 white,
+        0 16px 0 white,
+        8px 16px 0 white,
+        16px 16px 0 white
+    ;
+}
+.icon.tiny:after{
+    width:2px;
+    height:2px;
+    left:5px;
+    top:5px;
+}
+.icon.gridplus:after{
+    top: 3px;
+    left: 3px;
+    box-shadow: 
+        6px 0 0 white,
+        12px 0 0 white,
+        18px 0 0 white,
+        0 6px 0 white,
+        6px 6px 0 white,
+        12px 6px 0 white,
+        18px 6px 0 white,
+        0 12px 0 white,
+        6px 12px 0 white,
+        12px 12px 0 white,
+        18px 12px 0 white,
+        0 18px 0 white,
+        6px 18px 0 white,
+        12px 18px 0 white,
+        18px 18px 0 white
+    ;
+}
+.icon.circle{
+  animation: rotate 4s linear infinite;
+  -webkit-animation: rotate 4s linear infinite;
+}
+.icon.circle:after{
+  top: 3px;
+  left: 12px;
+  color:white;
+  box-shadow:
+    6px 2px 0 white,
+    -6px 2px 0 white,
+    8px 8px 0 white,
+    -8px 8px 0 white,
+    0 16px 0 white,
+    6px 14px 0 white,
+    -6px 14px 0 white
+  ;
+}
+.icon.random:after{
+    top: 3px;
+    left: 3px;
+    box-shadow: 
+      2px 3px 0 white,
+      3px 4px 0 white,
+      8px 2px 0 white,
+      11px 3px 0 white,
+      4px 5px 0 white,
+      5px 6px 0 white,
+      6px 6px 0 white,
+      1px 8px 0 white,
+      8px 9px 0 white,
+      15px 15px 0 white
+    ;
+}
+.icon.moving:after{
+  top: 3px;
+  left: 3px;
+  box-shadow: 
+    9px 8px 0 white,
+    6px 3px 0 white,
+    8px 2px 0 white,
+    11px 3px 0 white,
+    4px 5px 0 white,
+    7px 6px 0 white,
+    6px 8px 0 white,
+    1px 8px 0 white,
+    8px 9px 0 white,
+    15px 5px 0 white
+  ;
+  animation:random 2s linear infinite;
+  -webkit-animation:random 2s linear infinite;
 }

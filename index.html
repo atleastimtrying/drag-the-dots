@@ -12,8 +12,8 @@
   <article>
     <div id="intro" class="screen">
       <h2>
-        How to Play
         <a href="#" class="btn back-menu">menu</a>
+        How to Play
       </h2>
       <section id="slide1">
         <p>Welcome to drag the dots, this introduction will explain the game.</p>
@@ -38,8 +38,8 @@
     </div>
     <div id="options" class="screen">
       <h2>
-        Options
         <a href="#" class="btn back-menu">menu</a>
+        Options
       </h2>
       <p>
         <input type="checkbox" id="optionVibrate">
@@ -64,8 +64,8 @@
     </div>
     <div id="credits" class="screen">
       <h2>
-        Credits
         <a href="#" class="btn back-menu">menu</a>
+        Credits
       </h2>
       <p>Original idea, build and design <a href="http://andersfisher.com" target="_blank">Anders Fisher</a>.</p>
       <p>Generous logistics and advice <a href="http://iprug.org" target="_blank">The IPRUG gang</a></p>
@@ -74,32 +74,53 @@
       <h2>Drag the Dots</h2>
       <h3 class="name not-name"></h3>
       <nav>
-        <a href="#" class="btn big show game" data-show="gridIntro">grid</a>
-        <a href="#" class="btn big show game" data-show="gridPlusIntro">grid+</a>
+        <a href="#" class="btn big show game" data-show="gridIntro">
+          <span class="icon grid"></span>
+          grid</a>
+        <a href="#" class="btn big show game" data-show="gridPlusIntro">
+          <span class="icon gridplus"></span>
+          grid+
+        </a>
       </nav>
       <nav>
-        <a href="#" class="btn big show game" data-show="tinyIntro">tiny</a>
-        <a href="#" class="btn big show game" data-show="randomIntro">random</a>
+        <a href="#" class="btn big show game" data-show="tinyIntro">
+          <span class="icon tiny"></span>
+          tiny
+        </a>
+        <a href="#" class="btn big show game" data-show="randomIntro">
+          <span class="icon random"></span>
+          random
+        </a>
       </nav>
       <nav>
-        <a href="#" class="btn big show game" data-show="movingIntro">moving</a>
-        <a href="#" class="btn big show game" data-show="circleIntro">circle</a>
+        <a href="#" class="btn big show game" data-show="movingIntro">
+          <span class="icon moving"></span>
+          moving
+        </a>
+        <a href="#" class="btn big show game" data-show="circleIntro">
+          <span class="icon circle"></span>
+          circle
+        </a>
       </nav>
       <nav>
-        <a href="#" class="btn big show" data-show="options">options</a>
-        <a href="#" class="btn big show" data-show="scores">scores</a>
+        <a href="#" class="btn big show" data-show="options">
+          options
+        </a>
+        <a href="#" class="btn big show" data-show="scores">
+          scores
+        </a>
       </nav>
     </div>
     <div id="container" class="screen">
       <h2>
-        <span class="timer"></span>
         <a href="#" class="btn back-menu">quit</a>
+        <span class="timer"></span>
       </h2>
     </div>
     <div id="score" class="screen">
       <h2>
-        <span id="scoreMessage"></span>
         <a href="#" class="btn back-menu">menu</a>
+        <span id="scoreMessage"></span>
       </h2>
       <h3 class="name"></h3>
       <nav>
@@ -110,8 +131,8 @@
     </div>
     <div id="scores" class="screen">
       <h2>
-        Your scores!
         <a href="#" class="btn back-menu">menu</a>
+        Your scores!
       </h2>
       <h3>Random</h3>
       <table class="table10">
@@ -178,8 +199,8 @@
     </div>
     <div id="highScores" class="screen">
       <h2>
-        Weekly high scores
         <a href="#" class="btn back-menu">menu</a>
+        Weekly high scores
       </h2>
       <h3>Random</h3>
       <table class="table10">
@@ -292,8 +313,8 @@
     </div>
     <div id="circleIntro" class="screen">
       <h2>
-        Circle
         <a href="#" class="btn back-menu">menu</a>
+        Circle
       </h2>
       <p>The dots are in a circle around the screen and are spinning. Watch out for 6 and 9!</p>
       <div class="pseudo_dot spinny" style="top:75%; left:25%;">6</div>
@@ -302,32 +323,32 @@
     </div>
     <div id="randomIntro" class="screen">
       <h2>
-        Random
         <a href="#" class="btn back-menu">menu</a>
+        Random
       </h2>
       <p>Ten dots are placed randomly around the screen, grab them quick!</p>
       <a href="#" class="btn block startGame" data-count="10" data-layout="random">Go!</a>
     </div>
     <div id="gridIntro" class="screen">
       <h2>
-        Grid
         <a href="#" class="btn back-menu">menu</a>
+        Grid
       </h2>
       <p>9 dots laid out in a grid, our most popular game!</p>
       <a href="#" class="btn block startGame" data-count="8" data-layout="grid">Go!</a>
     </div>
     <div id="movingIntro" class="screen">
       <h2>
-        Moving
         <a href="#" class="btn back-menu">menu</a>
+        Moving
       </h2>
       <p>12 dots they move after each match, keep a keen eye out!</p>
       <a href="#" class="btn block startGame" data-count="12" data-layout="moving">Go!</a>
     </div>
     <div id="gridPlusIntro" class="screen">
       <h2>
-        Grid+
         <a href="#" class="btn back-menu">menu</a>
+        Grid+
       </h2>
       <p>16 dots laid neatly,<p> 
       <p>can you get the top score?</p>
@@ -335,8 +356,8 @@
     </div>
     <div id="tinyIntro" class="screen">
       <h2>
-        Tiny
         <a href="#" class="btn back-menu">menu</a>
+        Tiny
       </h2>
       <p>Can you grab these pint sized dots?</p>
       <p>Might need to use your pinky finger!</p>
@@ -346,8 +367,8 @@
     </div> 
     <div id="stats" class="screen">
       <h2>
-        Stats
         <a href="#" class="btn back-menu">menu</a>
+        Stats
       </h2>
       <p>hits: <span id="stat_hits"></span></p>
       <p>misses: <span id="stat_misses"></span></p>
