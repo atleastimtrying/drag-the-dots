@@ -297,7 +297,8 @@ a.btn.block{
   display:block;
   width:auto;
   margin-right:0;
-  margin-bottom:8px;
+  max-width: 240px;
+  margin: 0 auto 8px auto;
 }
 nav{
   font-size:0;
@@ -442,6 +443,8 @@ input[type="text"] {
   position:relative;
   display:block;
   text-align: left;
+  max-width: 240px;
+  margin: 0 auto;
 }
 #options label:after{
   border-radius: 50%;
