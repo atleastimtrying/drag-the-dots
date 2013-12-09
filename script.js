@@ -766,10 +766,22 @@
       $('#score').show();
       $('#scoreMessage').html("" + this.app.score + " seconds!");
       return $(this.app).trigger('getName', function(name) {
-        return $(_this.app).trigger('addScore', {
+        $(_this.app).trigger('addScore', {
           level: _this.app.game.count,
           score: _this.app.score,
           name: name
+        });
+        return $(_this.app).trigger('postHighScore', {
+          score: {
+            level: _this.app.game.count,
+            score: _this.app.score,
+            name: name
+          },
+          fn: function(data) {
+            if (data === 'FAILURE') {
+              return alert('Oops! something went wrong!');
+            }
+          }
         });
       });
     };
@@ -1077,31 +1089,11 @@
         event.preventDefault();
         return $(_this.app).trigger($(event.currentTarget).data('action'));
       });
-      $('#enterName button').on('click', function(event) {
+      return $('#enterName button').on('click', function(event) {
         event.preventDefault();
         $(_this.app).trigger('setName', $('#enterName input').val());
         $('.name').html($('#enterName input').val());
         return $(_this.app).trigger('show', 'start');
-      });
-      return $('.postHighScore').on('click', function(event) {
-        event.preventDefault();
-        $(_this.app).trigger('show', 'highScores');
-        return $(_this.app).trigger('getName', function(name) {
-          return $(_this.app).trigger('postHighScore', {
-            score: {
-              level: _this.app.game.count,
-              score: _this.app.score,
-              name: name
-            },
-            fn: function(data) {
-              if (data === 'FAILURE') {
-                return alert('Oops! something went wrong!');
-              } else {
-                return $(_this.app).trigger('show', 'highScores');
-              }
-            }
-          });
-        });
       });
     };
 

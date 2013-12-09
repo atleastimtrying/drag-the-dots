@@ -57,6 +57,14 @@ class window.Screens
         level: @app.game.count 
         score: @app.score
         name: name 
+      $(@app).trigger 'postHighScore',
+        score:
+          level: @app.game.count 
+          score: @app.score
+          name: name
+        fn: (data)=>
+          if data is 'FAILURE'
+            alert('Oops! something went wrong!')
 
   scores: =>
     $('#scores').show()

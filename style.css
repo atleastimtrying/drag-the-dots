@@ -90,7 +90,7 @@
 @-webkit-keyframes random
 {
   0 { 
-    -webkit-box-shadow: 
+    box-shadow: 
       2px 3px 0 white,
       3px 4px 0 white,
       8px 2px 0 white,
@@ -100,12 +100,12 @@
       6px 6px 0 white,
       1px 8px 0 white,
       8px 9px 0 white,
-      15px 15px 0 white
+      6px 15px 0 white
     ;
   }
   30% {
-    -webkit-box-shadow: 
-      2px 3px 0 white,
+    box-shadow: 
+      6px 7px 0 white,
       6px 6px 0 white,
       8px 9px 0 white,
       11px 3px 0 white,
@@ -114,11 +114,11 @@
       5px 6px 0 white,
       3px 4px 0 white,
       1px 8px 0 white,
-      15px 15px 0 white
+      15px 7px 0 white
     ;
   }
   60% {
-    -webkit-box-shadow: 
+    box-shadow: 
       15px 15px 0 white
       8px 2px 0 white,
       3px 4px 0 white,
@@ -128,11 +128,11 @@
       5px 6px 0 white,
       6px 6px 0 white,
       1px 8px 0 white,
-      11px 3px 0 white,
+      4px 3px 0 white,
     ;
   }
   100% { 
-    -webkit-box-shadow: 
+    box-shadow: 
       2px 3px 0 white,
       3px 4px 0 white,
       8px 2px 0 white,
@@ -142,7 +142,7 @@
       6px 6px 0 white,
       1px 8px 0 white,
       8px 9px 0 white,
-      15px 15px 0 white
+      6px 15px 0 white
     ;
   }
 }
@@ -169,10 +169,12 @@ article{
 }
 #intro{
   overflow:hidden;
+  height:100%;
 }
 #container{
   transform: translate3d(0,0,0);
   -webkit-transform: translate3d(0,0,0);
+  height:100%;
 }
 h2{
   font-size:36px;
@@ -189,8 +191,6 @@ h2{
   z-index:2000;
   top:0;
   left:0;
-  padding:8px 0;
-  background:rgba(0,0,0,0.3);
   text-align: center;
   font-size:36px;
   color:white;
@@ -205,9 +205,10 @@ h2 a.btn.back-menu{
   border-radius: 0;
   height: 0px;
   line-height:0;
-  padding: 46px 12px;
+  padding: 38px 12px;
   width: 56px;
-  margin: -16px 0 -16px -23px;
+  margin: -16px 0 -16px 0;
+  float:left;
 }
 h3{
   color:white;
@@ -228,8 +229,6 @@ p a{
   text-decoration: none;
   color:white;
   display:block;
-  font-size:12px;
-  margin: -12px auto 24px auto;
 }
 body{
   background-color:hsl(140, 50%,35%);
@@ -300,6 +299,10 @@ a.btn.block{
   max-width: 240px;
   margin: 0 auto 8px auto;
 }
+a.btn.block.primary{
+  padding:32px 10px;
+  font-size:32px;
+}
 nav{
   font-size:0;
 }
@@ -312,17 +315,15 @@ nav a.btn.big{
   height:60px;
   font-size:24px;
   font-weight:lighter;
-  background:rgba(0,0,0,0.5);
-  color:rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.7);
 }
 nav a.btn.big.game{
   background:rgba(255,255,255,0.5);
   color:rgba(0,0,0,0.6);
 }
-nav a.btn:last-child{
+nav a.btn.big:last-child{
   margin-right:0;
 }
-
 input[type="text"] {
   padding: 8px;
   border: 0;
@@ -471,7 +472,7 @@ input[type="text"] {
     position:relative;
     border-radius:2px;
     display:block;
-    margin:0 auto;
+    margin:0 auto 8px auto;
 }
 .icon:after{
     width:4px;
@@ -493,6 +494,24 @@ input[type="text"] {
         8px 16px 0 white,
         16px 16px 0 white
     ;
+}
+.icon.options:after{
+  content:'⚙';
+  background: none;
+  color: white;
+  box-shadow: none;
+  font-size: 32px;
+  text-align: center;
+} 
+.icon.scores:after{
+  display:block;
+  width:32px;
+  height:2px;
+  left: -2px;
+  box-shadow: 
+    0 6px 0 rgba(255,255,255,0.5),
+    0 12px 0 white,
+    0 18px 0 rgba(255,255,255,0.5)
 }
 .icon.tiny:after{
     width:2px;
@@ -543,14 +562,14 @@ input[type="text"] {
     top: 3px;
     left: 3px;
     box-shadow: 
-      2px 3px 0 white,
+      15px 3px 0 white,
       3px 4px 0 white,
       8px 2px 0 white,
       11px 3px 0 white,
       4px 5px 0 white,
-      5px 6px 0 white,
+      14px 6px 0 white,
       6px 6px 0 white,
-      1px 8px 0 white,
+      1px 14px 0 white,
       8px 9px 0 white,
       15px 15px 0 white
     ;
@@ -572,4 +591,17 @@ input[type="text"] {
   ;
   animation:random 2s linear infinite;
   -webkit-animation:random 2s linear infinite;
+}
+
+@media all and (max-width:320px){
+  nav a.btn.big {
+    width:96px;
+  }
+  h2{
+    font-size:24px;
+    line-height:32px;
+  }
+  h2 a.btn.back-menu{
+    padding:32px 8px;
+  }
 }

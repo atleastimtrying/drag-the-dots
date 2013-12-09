@@ -33,17 +33,3 @@ class window.UI
       $(@app).trigger 'setName', $('#enterName input').val()
       $('.name').html $('#enterName input').val()
       $(@app).trigger('show', 'start')
-    $('.postHighScore').on 'click', (event)=>
-      event.preventDefault()
-      $(@app).trigger('show', 'highScores') 
-      $(@app).trigger 'getName', (name)=>
-        $(@app).trigger 'postHighScore',
-          score:
-            level: @app.game.count 
-            score: @app.score
-            name: name
-          fn: (data)=>
-            if data is 'FAILURE'
-              alert('Oops! something went wrong!')
-            else
-              $(@app).trigger('show', 'highScores')
