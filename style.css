@@ -32,122 +32,58 @@
     to {-webkit-transform:rotate(360deg);}
 }
 
-@keyframes random
+@keyframes moving
 {
   0 { 
-    box-shadow: 
-      2px 3px 0 white,
-      3px 4px 0 white,
-      8px 2px 0 white,
-      11px 3px 0 white,
-      4px 5px 0 white,
-      5px 6px 0 white,
-      6px 6px 0 white,
-      1px 8px 0 white,
-      8px 9px 0 white,
-      6px 15px 0 white
-    ;
+    top:0;
+    left:0;  
   }
-  30% {
-    box-shadow: 
-      6px 7px 0 white,
-      6px 6px 0 white,
-      8px 9px 0 white,
-      11px 3px 0 white,
-      8px 2px 0 white,
-      4px 5px 0 white,
-      5px 6px 0 white,
-      3px 4px 0 white,
-      1px 8px 0 white,
-      15px 7px 0 white
-    ;
+  20% {
+    top:0;
+    left:15px;
+  }
+  40% {
+    top:15px;
+    left:15px;
   }
   60% {
-    box-shadow: 
-      15px 15px 0 white
-      8px 2px 0 white,
-      3px 4px 0 white,
-      8px 9px 0 white,
-      4px 5px 0 white,
-      2px 3px 0 white,
-      5px 6px 0 white,
-      6px 6px 0 white,
-      1px 8px 0 white,
-      4px 3px 0 white,
-    ;
+    top:15px;
+    left:0px;
+  }
+  80% {
+    top:5px;
+    left:10px;
   }
   100% { 
-    box-shadow: 
-      2px 3px 0 white,
-      3px 4px 0 white,
-      8px 2px 0 white,
-      11px 3px 0 white,
-      4px 5px 0 white,
-      5px 6px 0 white,
-      6px 6px 0 white,
-      1px 8px 0 white,
-      8px 9px 0 white,
-      6px 15px 0 white
-    ;
+    top:0;
+    left:0; 
   }
 }
-@-webkit-keyframes random
+@-webkit-keyframes moving
 {
   0 { 
-    box-shadow: 
-      2px 3px 0 white,
-      3px 4px 0 white,
-      8px 2px 0 white,
-      11px 3px 0 white,
-      4px 5px 0 white,
-      5px 6px 0 white,
-      6px 6px 0 white,
-      1px 8px 0 white,
-      8px 9px 0 white,
-      6px 15px 0 white
-    ;
+    top:0;
+    left:0;  
   }
-  30% {
-    box-shadow: 
-      6px 7px 0 white,
-      6px 6px 0 white,
-      8px 9px 0 white,
-      11px 3px 0 white,
-      8px 2px 0 white,
-      4px 5px 0 white,
-      5px 6px 0 white,
-      3px 4px 0 white,
-      1px 8px 0 white,
-      15px 7px 0 white
-    ;
+  20% {
+    top:0;
+    left:15px;
+  }
+  40% {
+    top:15px;
+    left:15px;
   }
   60% {
-    box-shadow: 
-      15px 15px 0 white
-      8px 2px 0 white,
-      3px 4px 0 white,
-      8px 9px 0 white,
-      4px 5px 0 white,
-      2px 3px 0 white,
-      5px 6px 0 white,
-      6px 6px 0 white,
-      1px 8px 0 white,
-      4px 3px 0 white,
-    ;
+    top:15px;
+    left:0px;
+  }
+  80% {
+    top:5px;
+    left:10px;
   }
   100% { 
-    box-shadow: 
-      2px 3px 0 white,
-      3px 4px 0 white,
-      8px 2px 0 white,
-      11px 3px 0 white,
-      4px 5px 0 white,
-      5px 6px 0 white,
-      6px 6px 0 white,
-      1px 8px 0 white,
-      8px 9px 0 white,
-      6px 15px 0 white
-    ;
+    top:0;
+    left:0; 
   }
 }
 
@@ -155,6 +91,12 @@
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   margin:0;
   padding:0;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 article{
   text-align: center;
@@ -243,9 +185,9 @@ body{
   transition: background-color 0.25s ease-out;
 }
 table{
-  margin: 0 auto 20px;
+  margin: 0 auto 24px;
   width:100%;
-  max-width:400px;
+  max-width:320px;
   border-collapse: collapse;
   border-radius: 2px;
 }
@@ -281,7 +223,7 @@ a.btn{
   text-decoration:none;
   font-weight:bold;
   color:rgba(0,0,0,0.6);
-  padding: 10px;
+  padding: 12px;
   border-radius:2px;
   line-height:16px;
   margin-bottom: 16px;
@@ -303,7 +245,8 @@ a.btn.block{
   display:block;
   width:auto;
   margin-right:0;
-  max-width: 240px;
+  max-width: 296px;
+  padding: 12px 12px;
   margin: 0 auto 8px auto;
 }
 a.btn.block.primary{
@@ -312,7 +255,7 @@ a.btn.block.primary{
 }
 a.btn.block.tweet,
 a.btn.block.facebook{
-  width:64px;
+  width:92px;
   padding:32px;
   font-size:32px;
   color:white;
@@ -367,12 +310,6 @@ input[type="text"] {
   color: white;
   font-size:24px;
   font-weight:700;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
   z-index:0;
 }
 .dot.ui-draggable-dragging{
@@ -597,20 +534,15 @@ input[type="text"] {
 .icon.moving:after{
   top: 3px;
   left: 3px;
-  box-shadow: 
-    9px 8px 0 white,
-    6px 3px 0 white,
-    8px 2px 0 white,
-    11px 3px 0 white,
-    4px 5px 0 white,
-    7px 6px 0 white,
-    6px 8px 0 white,
-    1px 8px 0 white,
-    8px 9px 0 white,
-    15px 5px 0 white
-  ;
-  animation:random 2s linear infinite;
-  -webkit-animation:random 2s linear infinite;
+  animation:moving 2s linear infinite;
+  -webkit-animation:moving 2s linear infinite;
+  box-shadow:none;
+}
+
+nav a.btn.big i{
+  display:block;
+  margin-bottom:12px;
+  color:white;
 }
 
 @media all and (max-width:320px){
