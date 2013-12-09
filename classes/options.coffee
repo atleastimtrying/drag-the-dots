@@ -14,6 +14,7 @@ class window.Options
         background: true
         numbers: true
         greyscale: false
+        scores: true
       }
     localStorage.setItem 'options', JSON.stringify options
 
@@ -35,6 +36,7 @@ class window.Options
     @checkIfOption '#optionBackground', options.background
     @checkIfOption '#optionNumbers', options.numbers
     @checkIfOption '#optionGreyscale', options.greyscale
+    @checkIfOption '#optionScores', options.scores
 
   checkIfOption: (selector, option)->
     current = $ selector
@@ -66,3 +68,5 @@ class window.Options
       @updateView(event, 'greyscale')
     $('#optionNumbers').change (event)=>
       @updateView(event, 'numbers')
+    $('#optionScores').change (event)=>
+      @updateView(event, 'scores')

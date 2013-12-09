@@ -539,7 +539,8 @@
           vibrate: false,
           background: true,
           numbers: true,
-          greyscale: false
+          greyscale: false,
+          scores: true
         };
       }
       return localStorage.setItem('options', JSON.stringify(options));
@@ -568,7 +569,8 @@
       this.checkIfOption('#optionVibrate', options.vibrate);
       this.checkIfOption('#optionBackground', options.background);
       this.checkIfOption('#optionNumbers', options.numbers);
-      return this.checkIfOption('#optionGreyscale', options.greyscale);
+      this.checkIfOption('#optionGreyscale', options.greyscale);
+      return this.checkIfOption('#optionScores', options.scores);
     };
 
     Options.prototype.checkIfOption = function(selector, option) {
@@ -610,8 +612,11 @@
       $('#optionGreyscale').change(function(event) {
         return _this.updateView(event, 'greyscale');
       });
-      return $('#optionNumbers').change(function(event) {
+      $('#optionNumbers').change(function(event) {
         return _this.updateView(event, 'numbers');
+      });
+      return $('#optionScores').change(function(event) {
+        return _this.updateView(event, 'scores');
       });
     };
 
@@ -762,27 +767,31 @@
     };
 
     Screens.prototype.score = function() {
-      var _this = this;
+      var options,
+        _this = this;
       $('#score').show();
       $('#scoreMessage').html("" + this.app.score + " seconds!");
+      options = this.app.options.getOptions();
       return $(this.app).trigger('getName', function(name) {
         $(_this.app).trigger('addScore', {
           level: _this.app.game.count,
           score: _this.app.score,
           name: name
         });
-        return $(_this.app).trigger('postHighScore', {
-          score: {
-            level: _this.app.game.count,
-            score: _this.app.score,
-            name: name
-          },
-          fn: function(data) {
-            if (data === 'FAILURE') {
-              return alert('Oops! something went wrong!');
+        if (options.scores) {
+          return $(_this.app).trigger('postHighScore', {
+            score: {
+              level: _this.app.game.count,
+              score: _this.app.score,
+              name: name
+            },
+            fn: function(data) {
+              if (data === 'FAILURE') {
+                return alert('Oops! something went wrong!');
+              }
             }
-          }
-        });
+          });
+        }
       });
     };
 

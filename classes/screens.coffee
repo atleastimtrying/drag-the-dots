@@ -52,19 +52,21 @@ class window.Screens
   score: =>
     $('#score').show()
     $('#scoreMessage').html("#{@app.score} seconds!")
+    options = @app.options.getOptions()
     $(@app).trigger 'getName', (name)=>
       $(@app).trigger 'addScore', 
         level: @app.game.count 
         score: @app.score
         name: name 
-      $(@app).trigger 'postHighScore',
-        score:
-          level: @app.game.count 
-          score: @app.score
-          name: name
-        fn: (data)=>
-          if data is 'FAILURE'
-            alert('Oops! something went wrong!')
+      if options.scores
+        $(@app).trigger 'postHighScore',
+          score:
+            level: @app.game.count 
+            score: @app.score
+            name: name
+          fn: (data)=>
+            if data is 'FAILURE'
+              alert('Oops! something went wrong!')
 
   scores: =>
     $('#scores').show()

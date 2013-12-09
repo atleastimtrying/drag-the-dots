@@ -7,6 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes"> 
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
 </head>
 <body>
   <article>
@@ -56,6 +57,10 @@
       <p>
         <input type="checkbox" id="optionGreyscale">
         <label for="optionGreyscale">greyscale</label>
+      </p>
+      <p>
+        <input type="checkbox" id="optionScores">
+        <label for="optionScores">auto post scores</label>
       </p>
       <a href="#" class="btn block show" data-show="intro">how to play</a>
       <a href="#" class="btn block show" data-show="credits">credits</a>
@@ -127,8 +132,8 @@
       <h3 class="name"></h3>
       <nav>
         <a href="#" class="btn block action primary" data-action="startGame">again?</a>
-        <a href="#" class="btn block tweet online" target="_blank">Tweet</a>
-        <a href="#" class="btn block facebook online" target="_blank">Post</a>
+        <a href="#" class="btn block tweet online" target="_blank"><i class="fa fa-twitter"></i></a>
+        <a href="#" class="btn block facebook online" target="_blank"><i class="fa fa-facebook"></i></a>
       </nav>
     </div>
     <div id="scores" class="screen">
