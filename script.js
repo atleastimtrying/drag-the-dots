@@ -259,7 +259,13 @@
         Layouts.circle();
       }
       if (this.layout === 'tiny') {
-        return Layouts.tiny();
+        Layouts.tiny();
+      }
+      if (this.layout === 'maze') {
+        Layouts.maze();
+      }
+      if (this.layout === 'movingplus') {
+        return Layouts.movingplus();
       }
     };
 
@@ -464,6 +470,65 @@
       });
       $('#container .dot').addClass('moving');
       return Layouts.random();
+    },
+    movingplus: function() {
+      var end, playing, tick;
+      playing = true;
+      tick = function() {
+        $('#container .dot.movingplus').each(function(index, dot) {
+          var left, speed, top;
+          if (!$(dot).hasClass('ui-draggable-dragging')) {
+            speed = parseInt($(dot).data('value')) / 3;
+            left = parseFloat($(dot).css('left')) + speed;
+            top = parseFloat($(dot).css('top')) + speed;
+            if (left - 60 > $('#container').width()) {
+              left = -60;
+            }
+            if (top - 60 > $('#container').height()) {
+              top = -60;
+            }
+            return $(dot).css({
+              top: top,
+              left: left
+            });
+          }
+        });
+        if (playing) {
+          return requestAnimationFrame(tick);
+        }
+      };
+      end = function(event, label) {
+        return playing = false;
+      };
+      $(window.app).on({
+        'show': end
+      });
+      $('#container .dot').addClass('movingplus');
+      Layouts.random();
+      return tick();
+    },
+    maze: function() {
+      var _this = this;
+      return $('#container .dot').each(function(index, dot) {
+        if (index % 2 === 0) {
+          $(dot).css({
+            top: '112px',
+            left: Math.ceil(Math.random() * ($('#container').width() - 60)),
+            background: Colours.dot(index)
+          });
+        } else {
+          $(dot).css({
+            bottom: '38px',
+            left: Math.ceil(Math.random() * ($('#container').width() - 60)),
+            background: Colours.dot(index)
+          });
+        }
+        if (index === 0) {
+          return $(dot).css({
+            background: Colours.dot(1)
+          });
+        }
+      });
     },
     circle: function() {
       var angle, bg, centerx, centery, count, layouts, options, radians, radius,
@@ -726,6 +791,14 @@
 
     Screens.prototype.tinyIntro = function() {
       return $('#tinyIntro').show();
+    };
+
+    Screens.prototype.mazeIntro = function() {
+      return $('#mazeIntro').show();
+    };
+
+    Screens.prototype.movingPlusIntro = function() {
+      return $('#movingPlusIntro').show();
     };
 
     Screens.prototype.game = function() {

@@ -47,6 +47,42 @@ window.Layouts =
       'show': unbindbody
     $('#container .dot').addClass('moving')
     Layouts.random()
+  movingplus: ->
+    playing = true
+    tick = ->
+      $('#container .dot.movingplus').each (index, dot) ->
+        unless $(dot).hasClass 'ui-draggable-dragging'
+          speed = parseInt($(dot).data('value'))/3
+          left = parseFloat($(dot).css('left')) + speed
+          top = parseFloat($(dot).css('top')) + speed
+          if left - 60 > $('#container').width()
+            left = - 60
+          if top - 60 > $('#container').height()
+            top = - 60
+          $(dot).css
+            top: top
+            left: left
+      requestAnimationFrame(tick) if playing
+    end = (event, label)->
+      playing = false 
+    $(window.app).on
+      'show': end
+    $('#container .dot').addClass('movingplus')
+    Layouts.random()
+    tick()
+  maze: ->
+    $('#container .dot').each (index, dot)=>
+      if index % 2 is 0
+        $(dot).css
+          top: '112px'
+          left: Math.ceil(Math.random()* ($('#container').width() - 60))
+          background: Colours.dot(index)
+      else
+        $(dot).css
+          bottom: '38px'
+          left: Math.ceil(Math.random()* ($('#container').width() - 60))
+          background: Colours.dot(index)
+      $(dot).css background: Colours.dot(1) if index is 0
   circle: ->
     count = $('#container .dot').size()
     angle = 360 / count

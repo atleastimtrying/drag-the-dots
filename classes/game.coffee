@@ -119,3 +119,5 @@ class window.Game
     Layouts.moving() if @layout is 'moving'
     Layouts.circle() if @layout is 'circle'
     Layouts.tiny() if @layout is 'tiny'
+    Layouts.maze() if @layout is 'maze'
+    Layouts.movingplus() if @layout is 'movingplus'

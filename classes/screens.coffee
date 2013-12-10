@@ -21,6 +21,8 @@ class window.Screens
   gridPlusIntro: -> $('#gridPlusIntro').show()
   circleIntro: -> $('#circleIntro').show()
   tinyIntro: -> $('#tinyIntro').show()
+  mazeIntro: -> $('#mazeIntro').show()
+  movingPlusIntro: -> $('#movingPlusIntro').show()
 
   game: ->
     $('#container').show()
