@@ -65,12 +65,15 @@ window.Layouts =
       requestAnimationFrame(tick) if playing
     end = (event, label)->
       playing = false 
+      $(window.app).off
+        'show': end
     $(window.app).on
       'show': end
     $('#container .dot').addClass('movingplus')
     Layouts.random()
     tick()
   maze: ->
+    Maze.layout()
     $('#container .dot').each (index, dot)=>
       if index % 2 is 0
         $(dot).css
@@ -83,6 +86,13 @@ window.Layouts =
           left: Math.ceil(Math.random()* ($('#container').width() - 60))
           background: Colours.dot(index)
       $(dot).css background: Colours.dot(1) if index is 0
+    $('#container .dot').addClass('outline')
+    end = (event, label)->
+      Maze.clear() 
+      $(window.app).off
+        'show': end
+    $(window.app).on
+      'show': end
   circle: ->
     count = $('#container .dot').size()
     angle = 360 / count
@@ -110,7 +120,4 @@ window.Layouts =
     $('body').css 'background-color' : Colours.background(1)
   tiny: ->
     $('#container .dot').addClass('tiny')
-    Layouts.grid()
-  walls: ->
-    $('#container .dot').addClass('outline')
     Layouts.grid()

@@ -120,6 +120,7 @@ article{
 #container{
   transform: translate3d(0,0,0);
   -webkit-transform: translate3d(0,0,0);
+  overflow:hidden;
 }
 #highScores,
 #scores{
@@ -394,6 +395,16 @@ input[type="text"] {
         0.5px -3px 0 rgba(255,255,255,0.2), 
         1px -4px 0 rgba(255,255,255,0.1);
 }
+
+.wall{
+  border-radius:4px;
+  background:rgba(255,255,255,0.7);
+  position:absolute;
+  height:8px;
+  margin-top:-4px;
+}
+
+
 #options input[type=checkbox]{
   display:none;
 }
