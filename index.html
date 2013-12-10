@@ -124,7 +124,7 @@
         </a>
         <a href="#" class="btn big show" data-show="scores">
           <span class="icon scores"></span>
-          my scores
+          scores
         </a>
       </nav>
     </div>
@@ -142,16 +142,21 @@
       <h3 class="name"></h3>
       <nav>
         <a href="#" class="btn block action primary" data-action="startGame">again?</a>
-        <a href="#" class="btn block tweet online" target="_blank"><i class="fa fa-twitter"></i></a>
-        <a href="#" class="btn block facebook online" target="_blank"><i class="fa fa-facebook"></i></a>
-        <a href="#" class="btn block show online primary" data-show="highScores">weekly scores</a>
+        <div class="social">
+          <a href="#" class="btn block tweet online" target="_blank"><i class="fa fa-twitter"></i></a>
+          <a href="#" class="btn block facebook online" target="_blank"><i class="fa fa-facebook"></i></a>
+        </div>
+        <a href="#" class="btn block show online primary" data-show="highScores">scores</a>
       </nav>
     </div>
     <div id="scores" class="screen">
       <h2>
         <a href="#" class="btn back-menu">menu</a>
-        Your scores!
+        scores
       </h2>
+      <a href="#" class="btn block show online" data-show="highScores">
+        weekly
+      </a>
       <h3>Random</h3>
       <table class="table10">
         <thead>
@@ -213,13 +218,14 @@
         <tbody>
         </tbody>
       </table>
-      <a href="#" class="btn block show online" data-show="highScores">weekly scores</a>
     </div>
     <div id="highScores" class="screen">
       <h2>
         <a href="#" class="btn back-menu">menu</a>
-        weekly scores
+        scores
       </h2>
+
+      <a href="#" class="btn block show" data-show="scores">mine</a>
       <h3>Random</h3>
       <table class="table10">
         <thead>
@@ -322,7 +328,6 @@
           </div>
         </tbody>
       </table>
-      <a href="#" class="btn block show" data-show="scores">my scores</a>
     </div>
     <div id="enterName" class="screen">
       <h2>Enter your name!</h2>

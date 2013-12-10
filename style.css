@@ -97,6 +97,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  font-weight: 400;
 }
 article{
   text-align: center;
@@ -123,7 +124,9 @@ article{
   overflow:hidden;
 }
 #highScores,
-#scores{
+#options,
+#scores,
+#score{
   height:auto;
 }
 h2{
@@ -233,6 +236,7 @@ a.btn{
   font-size: 16px;
   cursor:pointer;
   display:inline-block;
+  vertical-align: top;
   transition:background 0.5s ease-out;
 }
 a.btn:hover{
@@ -251,21 +255,33 @@ a.btn.block{
   margin: 0 auto 8px auto;
 }
 a.btn.block.primary{
-  padding:48px 12px;
+  padding:24px 12px;
   font-size:32px;
+}
+.social{
+  width: 100%;
+  margin: 0 auto 8px auto;
+  max-width: 320px;
+  display: table;
 }
 a.btn.block.tweet,
 a.btn.block.facebook{
-  width:92px;
-  padding:32px;
+  padding:16px;
   font-size:32px;
+  width:50%;
   color:white;
-  background:#3B5998;
-  display:inline-block;
+  display:table-cell;
 }
 a.btn.block.tweet{
-  margin-right:8px;
   background:#55acee;
+  border-top-right-radius:0;
+  border-bottom-right-radius:0;
+}
+a.btn.block.facebook{
+  background:#3B5998;
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
+
 }
 nav{
   font-size:0;
@@ -556,7 +572,7 @@ nav a.btn.big i{
   color:white;
 }
 
-@media all and (max-width:320px){
+@media all and (max-width:328px){
   nav a.btn.big {
     width:96px;
   }
