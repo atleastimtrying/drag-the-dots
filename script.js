@@ -931,7 +931,9 @@
           'score12': '',
           'score15': '',
           'score9': '',
-          'score19': ''
+          'score19': '',
+          'score7': '',
+          'score11': ''
         };
         $(scores).each(function(index, score) {
           return html["score" + score.level] += "<tr><td>" + score.name + "</td><td>" + score.score + "</td></tr>";
@@ -941,7 +943,9 @@
         $('#scores table.table12 tbody').html(html['score12']);
         $('#scores table.table15 tbody').html(html['score15']);
         $('#scores table.table9 tbody').html(html['score9']);
-        return $('#scores table.table19 tbody').html(html['score19']);
+        $('#scores table.table19 tbody').html(html['score19']);
+        $('#scores table.table7 tbody').html(html['score7']);
+        return $('#scores table.table11 tbody').html(html['score11']);
       });
     };
 
@@ -955,7 +959,9 @@
           'score12': '',
           'score15': '',
           'score9': '',
-          'score19': ''
+          'score19': '',
+          'score7': '',
+          'score11': ''
         };
         for (level in data) {
           scores = data[level];
@@ -970,7 +976,9 @@
         $('#highScores table.table12 tbody').html(html['score12']);
         $('#highScores table.table15 tbody').html(html['score15']);
         $('#highScores table.table9 tbody').html(html['score9']);
-        return $('#highScores table.table19 tbody').html(html['score19']);
+        $('#highScores table.table19 tbody').html(html['score19']);
+        $('#scores table.table7 tbody').html(html['score7']);
+        return $('#scores table.table11 tbody').html(html['score11']);
       });
     };
 

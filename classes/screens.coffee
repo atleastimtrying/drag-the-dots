@@ -80,6 +80,8 @@ class window.Screens
         'score15': ''
         'score9': ''
         'score19': ''
+        'score7': ''
+        'score11': ''
 
       $(scores).each (index, score)->
         html["score#{score.level}"] += "<tr><td>#{score.name}</td><td>#{score.score}</td></tr>"
@@ -89,6 +91,8 @@ class window.Screens
       $('#scores table.table15 tbody').html(html['score15'])
       $('#scores table.table9 tbody').html(html['score9'])
       $('#scores table.table19 tbody').html(html['score19'])
+      $('#scores table.table7 tbody').html(html['score7'])
+      $('#scores table.table11 tbody').html(html['score11'])
   highScores: =>
     $('#highScores, #highScores .spinner').show()
     $(@app).trigger 'getHighScores', (data)->
@@ -99,6 +103,8 @@ class window.Screens
         'score15': ''
         'score9': ''
         'score19': ''
+        'score7': ''
+        'score11': ''
       for level,scores of data
         for score in scores
           html["score#{score.level}"] += "<tr><td>#{score.name}</td><td>#{score.score}</td></tr>"
@@ -109,4 +115,6 @@ class window.Screens
       $('#highScores table.table15 tbody').html(html['score15'])
       $('#highScores table.table9 tbody').html(html['score9'])
       $('#highScores table.table19 tbody').html(html['score19'])
+      $('#scores table.table7 tbody').html(html['score7'])
+      $('#scores table.table11 tbody').html(html['score11'])
       
