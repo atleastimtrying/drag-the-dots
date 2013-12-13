@@ -48,7 +48,6 @@ window.Layouts =
     $('#container .dot').addClass('moving')
     Layouts.random()
   movingplus: ->
-    playing = true
     tick = ->
       $('#container .dot.movingplus').each (index, dot) ->
         unless $(dot).hasClass 'ui-draggable-dragging'
@@ -62,13 +61,14 @@ window.Layouts =
           $(dot).css
             top: top
             left: left
-      requestAnimationFrame(tick) if playing
     end = (event, label)->
-      playing = false 
       $(window.app).off
         'show': end
+      $('#container .dot').off 'drag', tick
     $(window.app).on
       'show': end
+
+    $('#container .dot').on 'drag', tick
     $('#container .dot').addClass('movingplus')
     Layouts.random()
     tick()
@@ -91,8 +91,10 @@ window.Layouts =
       Maze.clear() 
       $(window.app).off
         'show': end
+        'collide': Maze.moveWalls
     $(window.app).on
       'show': end
+      'collide': Maze.moveWalls
   circle: ->
     count = $('#container .dot').size()
     angle = 360 / count

@@ -473,10 +473,9 @@
       return Layouts.random();
     },
     movingplus: function() {
-      var end, playing, tick;
-      playing = true;
+      var end, tick;
       tick = function() {
-        $('#container .dot.movingplus').each(function(index, dot) {
+        return $('#container .dot.movingplus').each(function(index, dot) {
           var left, speed, top;
           if (!$(dot).hasClass('ui-draggable-dragging')) {
             speed = parseInt($(dot).data('value')) / 3;
@@ -494,19 +493,17 @@
             });
           }
         });
-        if (playing) {
-          return requestAnimationFrame(tick);
-        }
       };
       end = function(event, label) {
-        playing = false;
-        return $(window.app).off({
+        $(window.app).off({
           'show': end
         });
+        return $('#container .dot').off('drag', tick);
       };
       $(window.app).on({
         'show': end
       });
+      $('#container .dot').on('drag', tick);
       $('#container .dot').addClass('movingplus');
       Layouts.random();
       return tick();
@@ -539,11 +536,13 @@
       end = function(event, label) {
         Maze.clear();
         return $(window.app).off({
-          'show': end
+          'show': end,
+          'collide': Maze.moveWalls
         });
       };
       return $(window.app).on({
-        'show': end
+        'show': end,
+        'collide': Maze.moveWalls
       });
     },
     circle: function() {
@@ -594,22 +593,12 @@
   };
 
   window.Maze = {
-    layout: function() {
-      var centery, left, spacing, width;
-      spacing = 92;
-      Maze.radius = $('.dot').width() / 2;
+    layout: function(app) {
+      this.app = app;
       this.clear();
-      centery = $('#container').height() / 2;
-      width = $('#container').width();
-      left = Math.ceil(Math.random() * width);
-      this.addWall(centery - spacing, -left, width);
-      this.addWall(centery - spacing, width - left + spacing, width);
-      left = Math.ceil(Math.random() * width);
-      this.addWall(centery, -left, width);
-      this.addWall(centery, width - left + spacing, width);
-      left = Math.ceil(Math.random() * width);
-      this.addWall(centery + spacing, -left, width);
-      this.addWall(centery + spacing, width - left + spacing, width);
+      this.layoutWalls();
+      Maze.radius = $('.dot').width() / 2;
+      Maze.wall_width = $('.wall').width() - 8;
       $('#container .dot').on('drag', function(event) {
         return Maze.tick(event);
       });
@@ -636,35 +625,108 @@
     clear: function() {
       return $('#container .wall').remove();
     },
-    addWall: function(top, left, width) {
-      return $('#container').append("<div class='wall' style='top:" + top + "px; left:" + left + "px; width:" + width + "px;'>");
+    addWall: function(top, left, width, klass) {
+      return $('#container').append("<div class='wall " + klass + "' style='top:" + top + "px; left:" + left + "px; width:" + width + "px;'>");
+    },
+    randomLeft: function(width) {
+      return Math.ceil(Math.random() * (width - 92)) + 92;
+    },
+    moveWalls: function() {
+      var centery, left, spacing, width;
+      spacing = 92;
+      centery = $('#container').height() / 2;
+      width = $('#container').width();
+      left = Maze.randomLeft(width);
+      return $('.wall').each(function(index, wall) {
+        if (index === 0) {
+          $(wall).css({
+            left: -left
+          });
+        }
+        if (index === 1) {
+          $(wall).css({
+            left: width - left + spacing
+          });
+          left = Maze.randomLeft(width);
+        }
+        if (index === 2) {
+          $(wall).css({
+            left: -left
+          });
+        }
+        if (index === 3) {
+          $(wall).css({
+            left: width - left + spacing
+          });
+          left = Maze.randomLeft(width);
+        }
+        if (index === 4) {
+          $(wall).css({
+            left: -left
+          });
+        }
+        if (index === 5) {
+          return $(wall).css({
+            left: width - left + spacing
+          });
+        }
+      });
+    },
+    verticalRange: function(y, top, range) {
+      return y > top - range + 8 && y < top + range;
+    },
+    horizontalRange: function(x, left, width) {
+      return x > left + 4 && x < left + width + 4;
+    },
+    leftEndHit: function(x, y, top_left, range) {
+      var xs, ys;
+      ys = y - (top_left.top + 4);
+      ys = ys * ys;
+      xs = x - (top_left.left + 4);
+      xs = xs * xs;
+      return Math.sqrt(ys + xs) < range;
+    },
+    rightEndHit: function(x, y, top_left, width, range) {
+      var xs, ys;
+      ys = y - (top_left.top + 4);
+      ys = ys * ys;
+      xs = x - (top_left.left + width + 4);
+      xs = xs * xs;
+      return Math.sqrt(ys + xs) < range;
     },
     hitDetection: function(dot_position) {
-      var hit, radius, x, y;
+      var hit, radius, range, width, x, y;
       x = dot_position.left;
       y = dot_position.top;
       radius = Maze.radius;
+      width = Maze.wall_width;
+      range = radius + 4;
       hit = false;
       $('.wall').each(function(index, wall) {
-        var distance_between_dot_and_left_end, distance_between_dot_and_right_end, range, top_left, width, xs, ys;
+        var top_left;
         top_left = $(wall).position();
-        width = $(wall).width() - 8;
-        range = radius + 4;
-        ys = y - (top_left.top + 4);
-        ys = ys * ys;
-        xs = x - (top_left.left + 4);
-        xs = xs * xs;
-        distance_between_dot_and_left_end = Math.sqrt(ys + xs);
-        ys = y - (top_left.top + 4);
-        ys = ys * ys;
-        xs = x - (top_left.left + width + 4);
-        xs = xs * xs;
-        distance_between_dot_and_right_end = Math.sqrt(ys + xs);
-        if (distance_between_dot_and_right_end < range || distance_between_dot_and_left_end < range || (y > top_left.top - radius && y < top_left.top + range + 4 && x > top_left.left + 4 && x < top_left.left + width + 4)) {
-          return hit = true;
+        if (Maze.verticalRange(y, top_left.top, range + 4)) {
+          if (Maze.horizontalRange(x, top_left.left, width) || Maze.rightEndHit(x, y, top_left, width, range) || Maze.leftEndHit(x, y, top_left, range)) {
+            return hit = true;
+          }
         }
       });
       return hit;
+    },
+    layoutWalls: function() {
+      var centery, left, spacing, width;
+      spacing = 92;
+      centery = $('#container').height() / 2;
+      width = $('#container').width();
+      left = Maze.randomLeft(width);
+      this.addWall(centery - spacing, -left, width, 'left');
+      this.addWall(centery - spacing, width - left + spacing, width, 'right');
+      left = Maze.randomLeft(width);
+      this.addWall(centery, -left, width, 'left');
+      this.addWall(centery, width - left + spacing, width, 'right');
+      left = Maze.randomLeft(width);
+      this.addWall(centery + spacing, -left, width, 'left');
+      return this.addWall(centery + spacing, width - left + spacing, width, 'right');
     }
   };
 

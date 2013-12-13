@@ -413,10 +413,19 @@ input[type="text"] {
 }
 
 .wall{
-  border-radius:4px;
   background:rgba(255,255,255,0.7);
   position:absolute;
   height:8px;
+  webkit-transition:left 0.5s ease-out;
+  transition:left 0.5s ease-out;
+}
+.wall.left{
+  border-top-right-radius:4px;
+  border-bottom-right-radius:4px;
+}
+.wall.right{
+  border-top-left-radius:4px;
+  border-bottom-left-radius:4px;
 }
 
 
