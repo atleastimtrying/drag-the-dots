@@ -605,8 +605,8 @@
         return Maze.tick(event);
       });
       return Maze.lastpos = {
-        top: 0,
-        left: 0
+        top: 68,
+        left: 24
       };
     },
     tick: function(event) {
@@ -634,9 +634,8 @@
       return Math.ceil(Math.random() * (width - 92)) + 92;
     },
     moveWalls: function() {
-      var centery, left, spacing, width;
+      var left, spacing, width;
       spacing = 92;
-      centery = $('#container').height() / 2;
       width = $('#container').width();
       left = Maze.randomLeft(width);
       return $('.wall').each(function(index, wall) {
@@ -729,7 +728,7 @@
     layoutWalls: function() {
       var centery, left, spacing, width;
       spacing = 92;
-      centery = $('#container').height() / 2;
+      centery = (($('#container').height() - 60) / 2) + 60;
       width = $('#container').width();
       left = Maze.randomLeft(width);
       this.addWall(centery - spacing, -left, width, 'left');
@@ -910,6 +909,7 @@
       this.name = __bind(this.name, this);
       $(this.app).on('show', function(event, label) {
         $('.screen').hide();
+        window.scrollTo(0, 0);
         return _this[label]();
       });
       $(this.app).on('show', function() {

@@ -6,7 +6,7 @@ window.Maze =
     Maze.wall_width = $('.wall').width() - 8
     $('#container .dot').on 'drag', (event)->
       Maze.tick(event)
-    Maze.lastpos = {top: 0, left: 0}
+    Maze.lastpos = {top: 68, left: 24}
 
   tick: (event)=>
     if $('#container .dot.ui-draggable-dragging')[0]
@@ -30,7 +30,6 @@ window.Maze =
   
   moveWalls: ->
     spacing = 92
-    centery = $('#container').height()/2
     width = $('#container').width()
     left = Maze.randomLeft(width)
     $('.wall').each (index, wall)->
@@ -102,7 +101,7 @@ window.Maze =
 
   layoutWalls: ->
     spacing = 92
-    centery = $('#container').height()/2
+    centery = (($('#container').height() - 60) / 2) + 60
     width = $('#container').width()
     left = Maze.randomLeft(width)
     @addWall centery - spacing, -left, width, 'left'

@@ -2,6 +2,7 @@ class window.Screens
   constructor: (@app)->
     $(@app).on 'show', (event, label)=>
       $('.screen').hide()
+      window.scrollTo(0, 0)
       @[label]()
     $(@app).on 'show', ()=>
       if navigator.onLine
