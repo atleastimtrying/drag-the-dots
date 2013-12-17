@@ -68,16 +68,18 @@ window.Maze =
     x > left + 4 and x < left + width + 4
   
   leftEndHit: (x,y,top_left, range)->
-    ys = y - (top_left.top + 4)
+    ys = (top_left.top + 4) - y
+    xs = (top_left.left + 4) - x
+    return false if xs > range
     ys = ys * ys
-    xs = x - (top_left.left + 4)
     xs = xs * xs
     Math.sqrt(ys + xs) < range
 
   rightEndHit: (x, y, top_left, width, range)->
     ys = y - (top_left.top + 4)
-    ys = ys * ys
     xs = x - (top_left.left + width + 4)
+    return false if xs > range
+    ys = ys * ys
     xs = xs * xs
     Math.sqrt(ys + xs) < range
 
@@ -91,7 +93,11 @@ window.Maze =
     $('.wall').each (index, wall)->
       top_left = $(wall).position()
       if Maze.verticalRange(y, top_left.top, range + 4)
-        hit = true if Maze.horizontalRange(x, top_left.left, width) or Maze.rightEndHit(x, y, top_left, width, range) or Maze.leftEndHit(x,y,top_left, range)
+        if $(wall).hasClass('left')
+          end_test = Maze.rightEndHit(x, y, top_left, width, range)
+        else
+          end_test = Maze.leftEndHit(x,y,top_left, range)
+        hit = true if Maze.horizontalRange(x, top_left.left, width) or end_test
     hit
 
   layoutWalls: ->

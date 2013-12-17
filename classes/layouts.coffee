@@ -48,15 +48,17 @@ window.Layouts =
     $('#container .dot').addClass('moving')
     Layouts.random()
   movingplus: ->
+    width = $('#container').width()
+    height = $('#container').height()
     tick = ->
       $('#container .dot.movingplus').each (index, dot) ->
         unless $(dot).hasClass 'ui-draggable-dragging'
-          speed = parseInt($(dot).data('value'))/3
+          speed = parseInt($(dot).data('value'))/2
           left = parseFloat($(dot).css('left')) + speed
           top = parseFloat($(dot).css('top')) + speed
-          if left - 60 > $('#container').width()
+          if left - 60 > width
             left = - 60
-          if top - 60 > $('#container').height()
+          if top - 60 > height
             top = - 60
           $(dot).css
             top: top

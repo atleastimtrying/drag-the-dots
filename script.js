@@ -473,18 +473,20 @@
       return Layouts.random();
     },
     movingplus: function() {
-      var end, tick;
+      var end, height, tick, width;
+      width = $('#container').width();
+      height = $('#container').height();
       tick = function() {
         return $('#container .dot.movingplus').each(function(index, dot) {
           var left, speed, top;
           if (!$(dot).hasClass('ui-draggable-dragging')) {
-            speed = parseInt($(dot).data('value')) / 3;
+            speed = parseInt($(dot).data('value')) / 2;
             left = parseFloat($(dot).css('left')) + speed;
             top = parseFloat($(dot).css('top')) + speed;
-            if (left - 60 > $('#container').width()) {
+            if (left - 60 > width) {
               left = -60;
             }
-            if (top - 60 > $('#container').height()) {
+            if (top - 60 > height) {
               top = -60;
             }
             return $(dot).css({
@@ -680,17 +682,23 @@
     },
     leftEndHit: function(x, y, top_left, range) {
       var xs, ys;
-      ys = y - (top_left.top + 4);
+      ys = (top_left.top + 4) - y;
+      xs = (top_left.left + 4) - x;
+      if (xs > range) {
+        return false;
+      }
       ys = ys * ys;
-      xs = x - (top_left.left + 4);
       xs = xs * xs;
       return Math.sqrt(ys + xs) < range;
     },
     rightEndHit: function(x, y, top_left, width, range) {
       var xs, ys;
       ys = y - (top_left.top + 4);
-      ys = ys * ys;
       xs = x - (top_left.left + width + 4);
+      if (xs > range) {
+        return false;
+      }
+      ys = ys * ys;
       xs = xs * xs;
       return Math.sqrt(ys + xs) < range;
     },
@@ -703,10 +711,15 @@
       range = radius + 4;
       hit = false;
       $('.wall').each(function(index, wall) {
-        var top_left;
+        var end_test, top_left;
         top_left = $(wall).position();
         if (Maze.verticalRange(y, top_left.top, range + 4)) {
-          if (Maze.horizontalRange(x, top_left.left, width) || Maze.rightEndHit(x, y, top_left, width, range) || Maze.leftEndHit(x, y, top_left, range)) {
+          if ($(wall).hasClass('left')) {
+            end_test = Maze.rightEndHit(x, y, top_left, width, range);
+          } else {
+            end_test = Maze.leftEndHit(x, y, top_left, range);
+          }
+          if (Maze.horizontalRange(x, top_left.left, width) || end_test) {
             return hit = true;
           }
         }
